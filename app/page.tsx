@@ -47,6 +47,18 @@ const phases = [
   { name:'Advanced bonus levels', days:'31–32', tone:'bonus', concepts:'Funding · Pool controls · Encumbrance' },
 ];
 
+const tourSteps = [
+  { target:'[data-tour="brand"]', eyebrow:'WELCOME', title:'Your securitization learning arcade', text:'This is a 30-day core journey with two advanced bonus levels. Let’s see how the experience turns a dense subject into a visible path.' },
+  { target:'[data-tour="journey"]', eyebrow:'THE ROADMAP', title:'Always know where you are', text:'The Journey panel keeps all 32 levels visible, marks your current position, and lets you preview what comes next.' },
+  { target:'[data-tour="learning-map"]', eyebrow:'THE MENTAL MODEL', title:'See phases and prerequisites together', text:'The Learning Map is both the course index and the conceptual map. It shows which earlier ideas unlock advanced lessons.' },
+  { target:'[data-tour="lesson"]', eyebrow:'DAILY MISSION', title:'Learn in small, connected sections', text:'Every day moves from plain-English intuition into mechanics, examples, and application without losing the bigger picture.' },
+  { target:'[data-tour="context"]', eyebrow:'CONNECTIONS', title:'Previously → Today → Later', text:'This thread explains what today depends on and where you will apply it later, so lessons never feel isolated.' },
+  { target:'[data-tour="practice"]', eyebrow:'ACTIVE RECALL', title:'Practise instead of only reading', text:'The Practice Studio combines concept connections, flashcards, and quizzes with immediate feedback.' },
+  { target:'[data-tour="tool-body"]', eyebrow:'FLASHCARDS', title:'Turn concepts into recall', text:'Flip each card, judge whether you know it, and build a review deck around concepts that need more practice.', tool:'cards' as StudioTool },
+  { target:'[data-tour="tool-body"]', eyebrow:'KNOWLEDGE CHECK', title:'Prove and improve understanding', text:'The quiz explains every answer and uses an 80% target for mastery—not just completion.', tool:'quiz' as StudioTool },
+  { target:'[data-tour="progress"]', eyebrow:'YOUR PROGRESS', title:'Pick up where you left off', text:'Sections, mastered cards, quiz results, XP, and progress are saved on this device. You are ready to start Day 1.' },
+];
+
 type StudioTool = 'map'|'cards'|'quiz';
 
 export default function Home(){
@@ -61,6 +73,7 @@ export default function Home(){
   const [mastered,setMastered]=useState<number[]>([]);
   const [answers,setAnswers]=useState<Record<number,number>>({});
   const [submitted,setSubmitted]=useState(false);
+  const [tourStep,setTourStep]=useState(-1);
   const [presenting,setPresenting]=useState(false);
   const [mapOpen,setMapOpen]=useState(false);
 
@@ -73,6 +86,9 @@ export default function Home(){
   useEffect(()=>{
     localStorage.setItem('sa-day1-progress',JSON.stringify({completed,mastered,answers,submitted}));
   },[completed,mastered,answers,submitted]);
+  useEffect(()=>{
+    if(tourStep>=0){const requested=tourSteps[tourStep]?.tool;if(requested)setTool(requested);}
+  },[tourStep]);
 
   const score=useMemo(()=>quiz.reduce((sum,item,i)=>sum+(answers[i]===item.answer?1:0),0),[answers]);
   const xp=completed.length*20+mastered.length*5+(submitted?score*10:0);
@@ -94,24 +110,24 @@ export default function Home(){
 
   return <main className="app-shell">
     <header className="topbar">
-      <div className="brand-mark">SA</div><div className="brand-copy"><strong>Securitization Arcade</strong><span>From Loans to Bonds in 30 Days</span></div>
-      <div className="header-progress" aria-label={`${progress}% complete`}><span>DAY 1 · {progress}% COMPLETE</span><div><i style={{width:`${Math.max(progress,3)}%`}} /></div></div>
-      <button className="present-button" onClick={()=>setPresenting(true)}>▶ Present</button><button className="icon-button" onClick={resetDay} aria-label="Reset Day 1 progress" title="Reset progress">↺</button><div className="avatar">PM</div>
+      <div className="brand-mark" data-tour="brand">SA</div><div className="brand-copy"><strong>Securitization Arcade</strong><span>From Loans to Bonds in 30 Days</span></div>
+      <div className="header-progress" data-tour="progress" aria-label={`${progress}% complete`}><span>DAY 1 · {progress}% COMPLETE</span><div><i style={{width:`${Math.max(progress,3)}%`}} /></div></div>
+      <button className="tour-button" onClick={()=>setTourStep(0)}>✦ Take a tour</button><button className="present-secondary" onClick={()=>setPresenting(true)}>▶ Present Day 1</button><button className="icon-button" onClick={resetDay} aria-label="Reset Day 1 progress" title="Reset progress">↺</button><div className="avatar">PM</div>
     </header>
 
     {notice&&<button className="toast" onClick={()=>setNotice('')} aria-label="Dismiss message">{notice}<span>×</span></button>}
 
     <section className="workspace">
-      <aside className="panel journey-panel">
+      <aside className="panel journey-panel" data-tour="journey">
         <div className="panel-heading"><div><span className="eyebrow">YOUR JOURNEY</span><h2>32 learning levels</h2></div><span className="journey-score">{progress}%</span></div>
-        <button className="learning-map-entry" onClick={()=>setMapOpen(true)}><span>◇</span><p><b>Learning Map</b>All phases, concepts & prerequisites</p><i>↗</i></button>
+        <button className="learning-map-entry" data-tour="learning-map" onClick={()=>setMapOpen(true)}><span>◇</span><p><b>Learning Map</b>All phases, concepts & prerequisites</p><i>↗</i></button>
         <div className="phase-card"><span>PHASE 1 OF 5 · CURRENT</span><strong>Build the foundation</strong><div className="phase-meter"><i style={{width:`${Math.max(progress/7,2)}%`}} /></div><small>Days 1–7 · Flow, structure, credit and waterfalls</small></div>
         <nav className="level-list" aria-label="Course levels">{levelTitles.slice(0,expanded?32:8).map((title,index)=><button onClick={()=>chooseLevel(index)} className={index===0?'level active':'level'} key={title}><span className="level-number">{index===0?'▶':index+1}</span><span><b>{index<30?`Day ${index+1}`:`Bonus ${index-29}`}</b>{title}</span>{index===0?<em>NOW</em>:<span className="roadmap-dot">○</span>}</button>)}</nav>
         <button className="all-levels" onClick={()=>setExpanded(!expanded)}>{expanded?'Show core levels':'View all 32 levels'} <span>{expanded?'↑':'→'}</span></button>
         <div className="bonus-note"><span>★</span><p><b>2 bonus levels await</b>Advanced funding and controls unlock after graduation.</p></div>
       </aside>
 
-      <article className="panel lesson-panel">
+      <article className="panel lesson-panel" data-tour="lesson">
         <div className="lesson-toolbar"><span className="level-pill">LEVEL 01 · FOUNDATION</span><div className="section-tabs" role="tablist">{lessonSections.map((item,i)=><button key={item.id} className={i===section?'current':completed.includes(item.id)?'done':''} onClick={()=>setSection(i)} aria-label={`Open ${item.label}`}>{completed.includes(item.id)?'✓ ':''}{i+1}</button>)}</div><span>⏱ 45–60 min</span></div>
         <div className="lesson-scroll" key={lessonSections[section].id}>
           {section===0&&<MissionSection/>}
@@ -123,7 +139,7 @@ export default function Home(){
         <footer className="lesson-footer"><div><span>DAY 1 PROGRESS · {completed.length}/5 SECTIONS</span><div className="footer-meter"><i style={{width:`${completed.length*20}%`}} /></div></div><button onClick={finishSection}>{section===4?'Finish lesson':'Complete & continue'} <span>→</span></button></footer>
       </article>
 
-      <aside className="panel studio-panel">
+      <aside className="panel studio-panel" data-tour="practice">
         <div className="panel-heading"><div><span className="eyebrow">PRACTICE STUDIO</span><h2>Learn by doing</h2></div><span className="xp">{xp} XP</span></div>
         <div className="studio-callout"><span>✨</span><p><b>Your Day 1 toolkit</b>Map the idea, practise recall, then prove it.</p></div>
         <div className="studio-tabs" role="tablist">
@@ -131,22 +147,23 @@ export default function Home(){
           <button onClick={()=>setTool('cards')} className={tool==='cards'?'active':''}>▣ Cards</button>
           <button onClick={()=>setTool('quiz')} className={tool==='quiz'?'active':''}>? Quiz</button>
         </div>
-        {tool==='map'&&<MapTool selected={mapNode} setSelected={setMapNode} openFullMap={()=>setMapOpen(true)}/>} 
+        <div data-tour="tool-body">{tool==='map'&&<MapTool selected={mapNode} setSelected={setMapNode} openFullMap={()=>setMapOpen(true)}/>} 
         {tool==='cards'&&<CardTool index={cardIndex} setIndex={setCardIndex} flipped={flipped} setFlipped={setFlipped} mastered={mastered} setMastered={setMastered}/>} 
-        {tool==='quiz'&&<QuizTool answers={answers} setAnswers={setAnswers} submitted={submitted} setSubmitted={setSubmitted} score={score}/>} 
+        {tool==='quiz'&&<QuizTool answers={answers} setAnswers={setAnswers} submitted={submitted} setSubmitted={setSubmitted} score={score}/>}</div>
         <div className="streak"><span>{progress===100?'🏆':'🔥'}</span><p><b>{progress===100?'Day 1 mastered':'Start your streak'}</b>{progress===100?'You cleared the first level.':'Complete the lesson and quiz to light it up.'}</p><strong>{progress===100?'100 XP':'Day 1'}</strong></div>
       </aside>
     </section>
 
     <div className="mobile-tools" aria-label="Practice tools"><button onClick={()=>{setTool('map');setNotice('Open on desktop to use the full Practice Studio.')}}>◇ Map</button><button onClick={()=>{setTool('cards');setNotice('Open on desktop to use flashcards.')}}>▣ Cards</button><button onClick={()=>{setTool('quiz');setNotice('Open on desktop to take the quiz.')}}>? Quiz</button></div>
 
-    {presenting&&<Presentation section={section} setSection={setSection} close={()=>setPresenting(false)}/>} 
     {mapOpen&&<LearningMap close={()=>setMapOpen(false)} chooseDay={(day)=>{setMapOpen(false);chooseLevel(day-1)}}/>}
+    {tourStep>=0&&<GuidedTour step={tourStep} setStep={setTourStep}/>} 
+    {presenting&&<Presentation section={section} setSection={setSection} close={()=>setPresenting(false)}/>} 
   </main>;
 }
 
 function MissionSection(){return <><div className="lesson-hero"><div className="pixel-art"><span>●</span><span>→</span><span>▰</span><span>→</span><span>▱</span></div><p className="comic-kicker">INSERT COIN: one auto loan, many investors.</p><h1>What is Securitization?</h1><p>Follow a pool of auto loans as it becomes a stack of tradable bonds—and meet every player along the way.</p></div><LearningThread/><section className="content-section"><span className="section-label">MISSION BRIEFING</span><h2>Turn thousands of loans into investable bonds</h2><p>Securitization gathers many small contractual cash flows—like monthly auto-loan payments—and finances them by issuing securities to investors.</p><div className="flow-card"><div><span>🚗</span><b>Borrowers</b><small>make payments</small></div><i>→</i><div><span>🏦</span><b>Originator</b><small>pools loans</small></div><i>→</i><div className="highlight"><span>📦</span><b>SPV / Trust</b><small>issues notes</small></div><i>→</i><div><span>📊</span><b>Investors</b><small>fund the deal</small></div></div><div className="plain-english"><b>💬 In plain English</b><p>The lender turns future borrower payments into funding today. Investors receive those payments according to a strict queue called the waterfall.</p></div></section></>}
-function LearningThread(){return <div className="learning-thread"><div><span>PREVIOUSLY</span><b>Your finance intuition</b></div><i>→</i><div className="today"><span>TODAY</span><b>See the complete deal flow</b></div><i>→</i><div><span>LATER</span><b>Build an actual waterfall</b></div></div>}
+function LearningThread(){return <div className="learning-thread" data-tour="context"><div><span>PREVIOUSLY</span><b>Your finance intuition</b></div><i>→</i><div className="today"><span>TODAY</span><b>See the complete deal flow</b></div><i>→</i><div><span>LATER</span><b>Build an actual waterfall</b></div></div>}
 function WhySection(){return <section className="deep-section"><span className="section-label">WHY IT EXISTS</span><p className="comic-kicker">POWER-UP: funding today from payments tomorrow.</p><h1>Why would a lender securitize?</h1><p className="lead">The transaction is a funding and risk-management tool—not financial magic. It changes how loans are financed and who bears different slices of risk.</p><div className="learning-grid"><InfoCard icon="↻" title="Recycle capital" text="Convert a pool of loans into cash that can fund new lending."/><InfoCard icon="$" title="Lower funding cost" text="Highly protected senior bonds may price more cheaply than unsecured borrowing."/><InfoCard icon="⇄" title="Transfer risk" text="Junior notes, overcollateralization, and the residual absorb losses before seniors."/><InfoCard icon="≋" title="Match cash flows" text="Finance long-lived assets with liabilities designed around their expected collections."/></div><div className="challenge"><b>Quick thought experiment</b><p>If a lender must wait five years for every borrower to repay, how many new loans can it make today? Securitization helps turn that future cash into current funding.</p></div></section>}
 function PlayersSection(){const players=[['Originator / Sponsor','Makes the loans, selects the pool, and sells it to the SPV.'],['SPV / Issuer','Holds the loans and issues the securities.'],['Servicer','Collects borrower payments and manages delinquent accounts.'],['Trustee / Paying Agent','Applies the documents, runs the waterfall, and pays investors.'],['Investors','Choose tranches based on risk, return, and maturity.'],['Rating Agencies','Analyze credit protection under stress assumptions.']];return <section className="deep-section"><span className="section-label">MEET THE DEAL TEAM</span><p className="comic-kicker">MULTIPLAYER MODE: everyone has a different job.</p><h1>Who makes the machine run?</h1><p className="lead">The structure works because responsibilities are separated. Click through these roles mentally from borrower payment to investor receipt.</p><div className="player-list">{players.map(([name,text],i)=><div key={name}><span>{i+1}</span><p><b>{name}</b>{text}</p></div>)}</div><div className="plain-english"><b>🎯 Product Manager lens</b><p>Think of the transaction as a service blueprint: each party owns a step, produces evidence, and creates an operational dependency.</p></div></section>}
 function ProtectionSection(){return <section className="deep-section"><span className="section-label">CREDIT ENHANCEMENT</span><p className="comic-kicker">SHIELD UP: losses need somewhere to land.</p><h1>How are senior investors protected?</h1><p className="lead">Credit enhancement creates cushions between collateral losses and promised payments to the rated notes.</p><div className="shield-stack"><div className="senior"><b>Class A · Senior</b><span>Paid first · losses last</span></div><div className="mezz"><b>Class B · Mezzanine</b><span>More yield · more risk</span></div><div className="equity"><b>Residual / OC</b><span>Paid last · losses first</span></div></div><div className="learning-grid compact"><InfoCard icon="↓" title="Subordination" text="Junior claims absorb losses before senior claims."/><InfoCard icon="+" title="Overcollateralization" text="The asset balance exceeds rated note balances."/><InfoCard icon="%" title="Excess spread" text="Asset yield left after fees and bond interest creates a recurring cushion."/><InfoCard icon="▣" title="Reserve" text="Cash is set aside to cover shortfalls when collections are weak."/></div></section>}
@@ -156,6 +173,8 @@ function InfoCard({icon,title,text}:{icon:string,title:string,text:string}){retu
 function MapTool({selected,setSelected,openFullMap}:{selected:number,setSelected:(n:number)=>void,openFullMap:()=>void}){return <div className="interactive-tool"><div className="tool-head"><span>DAY 1 CONNECTIONS</span><b>You are at the foundation</b></div><div className="vertical-map">{mapNodes.map((node,i)=><button key={node.day} onClick={()=>setSelected(i)} className={`${node.state} ${selected===i?'selected':''}`}><span>{node.day}</span><p><b>{node.name}</b><small>{node.state==='current'?'NOW':node.state==='milestone'?'LAB':'NEXT'}</small></p></button>)}</div><div className="map-detail"><span>DAY {mapNodes[selected].day}</span><b>{mapNodes[selected].name}</b><p>{mapNodes[selected].detail}</p></div><button className="open-full-map" onClick={openFullMap}>Open full Learning Map <span>↗</span></button></div>}
 function CardTool({index,setIndex,flipped,setFlipped,mastered,setMastered}:{index:number,setIndex:(n:number)=>void,flipped:boolean,setFlipped:(b:boolean)=>void,mastered:number[],setMastered:(n:number[])=>void}){const card=cards[index];const known=mastered.includes(index);function move(delta:number){setIndex((index+delta+cards.length)%cards.length);setFlipped(false)}return <div className="interactive-tool"><div className="tool-head"><span>FLASHCARDS · {index+1}/{cards.length}</span><b>{mastered.length} mastered</b></div><button className={`flashcard ${flipped?'flipped':''}`} onClick={()=>setFlipped(!flipped)}><small>{flipped?'ANSWER':'TAP TO FLIP'}</small><strong>{flipped?card.back:card.front}</strong></button><div className="card-actions"><button onClick={()=>move(-1)} aria-label="Previous card">←</button><button className={known?'known':''} onClick={()=>setMastered(known?mastered.filter(n=>n!==index):[...mastered,index])}>{known?'✓ Mastered':'Mark mastered'}</button><button onClick={()=>move(1)} aria-label="Next card">→</button></div></div>}
 function QuizTool({answers,setAnswers,submitted,setSubmitted,score}:{answers:Record<number,number>,setAnswers:(a:Record<number,number>)=>void,submitted:boolean,setSubmitted:(b:boolean)=>void,score:number}){const next=Object.keys(answers).length;return <div className="interactive-tool quiz-tool"><div className="tool-head"><span>QUICK QUIZ</span><b>{submitted?`${score}/5 correct`:`${next}/5 answered`}</b></div>{quiz.map((item,i)=><div className="question" key={item.q}><p><b>{i+1}.</b> {item.q}</p><div>{item.options.map((option,j)=><button disabled={submitted} onClick={()=>setAnswers({...answers,[i]:j})} className={`${answers[i]===j?'chosen':''} ${submitted&&j===item.answer?'correct':''} ${submitted&&answers[i]===j&&j!==item.answer?'wrong':''}`} key={option}>{option}</button>)}</div>{submitted&&<small>{item.explain}</small>}</div>)}{!submitted?<button className="submit-quiz" disabled={Object.keys(answers).length<quiz.length} onClick={()=>setSubmitted(true)}>Submit answers</button>:<div className="result-box"><strong>{score>=4?'🏆 Level cleared!':'↺ Good first run'}</strong><p>{score>=4?'You reached the 80% mastery target.':'Review the explanations, then try again.'}</p>{score<5&&<button onClick={()=>{setAnswers({});setSubmitted(false)}}>Retry quiz</button>}</div>}</div>}
+
+function GuidedTour({step,setStep}:{step:number,setStep:(n:number)=>void}){const [rect,setRect]=useState<{top:number,left:number,width:number,height:number}|null>(null);const item=tourSteps[step];useEffect(()=>{let timer:number;function locate(){const el=document.querySelector(item.target) as HTMLElement|null;if(!el){setRect(null);return;}el.scrollIntoView({behavior:'smooth',block:'center',inline:'center'});timer=window.setTimeout(()=>{const r=el.getBoundingClientRect();setRect({top:r.top-7,left:r.left-7,width:r.width+14,height:r.height+14});},250)}locate();window.addEventListener('resize',locate);return()=>{window.clearTimeout(timer);window.removeEventListener('resize',locate)}},[step,item.target]);const tooltipTop=rect?Math.min(window.innerHeight-250,Math.max(18,rect.top+rect.height+14)):window.innerHeight/2-110;const tooltipLeft=rect?Math.min(window.innerWidth-365,Math.max(18,rect.left)):window.innerWidth/2-175;return <div className="tour-layer" role="dialog" aria-modal="true" aria-label="Product tour"><div className="tour-scrim"/><div className="tour-highlight" style={rect||{top:'50%',left:'50%',width:0,height:0}}/><section className="tour-tip" style={{top:tooltipTop,left:tooltipLeft}}><div className="tour-step"><span>{item.eyebrow}</span><small>{step+1} / {tourSteps.length}</small></div><h2>{item.title}</h2><p>{item.text}</p><div><button className="tour-skip" onClick={()=>setStep(-1)}>Skip tour</button>{step>0&&<button onClick={()=>setStep(step-1)}>Back</button>}<button className="tour-next" onClick={()=>setStep(step===tourSteps.length-1?-1:step+1)}>{step===tourSteps.length-1?'Start Day 1':'Next'} →</button></div></section></div>}
 
 function Presentation({section,setSection,close}:{section:number,setSection:(n:number)=>void,close:()=>void}){return <div className="presentation" role="dialog" aria-modal="true"><header><div className="brand-mark">SA</div><b>DAY 1 · {lessonSections[section].label}</b><button onClick={close}>Exit presentation ×</button></header><main><span>SECURITIZATION ARCADE</span><h1>{lessonSections[section].title}</h1>{section===0&&<div className="presentation-flow"><b>🚗 Borrowers</b><i>→</i><b>🏦 Originator</b><i>→</i><b>📦 SPV</b><i>→</i><b>📊 Investors</b></div>}{section===1&&<p>Recycle capital · Lower funding cost · Transfer risk · Match cash flows</p>}{section===2&&<p>Originator · SPV · Servicer · Trustee · Investors · Rating agencies</p>}{section===3&&<p>Subordination · Overcollateralization · Excess spread · Reserve account</p>}{section===4&&<p>$100mm collateral → $90mm rated notes → $10mm first-loss cushion</p>}</main><footer><button disabled={section===0} onClick={()=>setSection(section-1)}>← Previous</button><span>{section+1} / {lessonSections.length}</span><button disabled={section===lessonSections.length-1} onClick={()=>setSection(section+1)}>Next →</button></footer></div>}
 
