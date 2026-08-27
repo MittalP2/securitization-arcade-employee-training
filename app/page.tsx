@@ -52,11 +52,12 @@ const tourSteps = [
   { target:'[data-tour="journey"]', eyebrow:'THE ROADMAP', title:'Always know where you are', text:'The Journey panel keeps all 32 levels visible, marks your current position, and lets you preview what comes next.' },
   { target:'[data-tour="learning-map"]', eyebrow:'THE MENTAL MODEL', title:'See phases and prerequisites together', text:'The Learning Map is both the course index and the conceptual map. It shows which earlier ideas unlock advanced lessons.' },
   { target:'[data-tour="lesson"]', eyebrow:'DAILY MISSION', title:'Learn in small, connected sections', text:'Every day moves from plain-English intuition into mechanics, examples, and application without losing the bigger picture.' },
-  { target:'[data-tour="context"]', eyebrow:'CONNECTIONS', title:'Previously → Today → Later', text:'This thread explains what today depends on and where you will apply it later, so lessons never feel isolated.' },
+  { target:'[data-tour="context"]', eyebrow:'LEARNING CONTEXT', title:'Understand what today builds on and unlocks', text:'The Previously → Today → Later thread explains what a lesson depends on and where the learner will apply it next.' },
   { target:'[data-tour="practice"]', eyebrow:'ACTIVE RECALL', title:'Practise instead of only reading', text:'The Practice Studio combines concept connections, flashcards, and quizzes with immediate feedback.' },
   { target:'[data-tour="tool-body"]', eyebrow:'FLASHCARDS', title:'Turn concepts into recall', text:'Flip each card, judge whether you know it, and build a review deck around concepts that need more practice.', tool:'cards' as StudioTool },
   { target:'[data-tour="tool-body"]', eyebrow:'KNOWLEDGE CHECK', title:'Prove and improve understanding', text:'The quiz explains every answer and uses an 80% target for mastery—not just completion.', tool:'quiz' as StudioTool },
   { target:'[data-tour="progress"]', eyebrow:'YOUR PROGRESS', title:'Pick up where you left off', text:'Sections, mastered cards, quiz results, XP, and progress are saved on this device. You are ready to start Day 1.' },
+  { target:'[data-tour="present"]', eyebrow:'RETAIN THE TRAINING', title:'Return to the slides used in the session', text:'Present Day 1 gives trainers a ready teaching view and remains available to the new employee afterward, preserving the explanations and sequence of the original training.' },
 ];
 
 type StudioTool = 'map'|'cards'|'quiz';
@@ -112,7 +113,7 @@ export default function Home(){
     <header className="topbar">
       <div className="brand-mark" data-tour="brand">SA</div><div className="brand-copy"><strong>Securitization Arcade</strong><span>From Loans to Bonds in 30 Days</span></div>
       <div className="header-progress" data-tour="progress" aria-label={`${progress}% complete`}><span>DAY 1 · {progress}% COMPLETE</span><div><i style={{width:`${Math.max(progress,3)}%`}} /></div></div>
-      <button className="tour-button" onClick={()=>setTourStep(0)}>✦ Take a tour</button><button className="present-secondary" onClick={()=>setPresenting(true)}>▶ Present Day 1</button><button className="icon-button" onClick={resetDay} aria-label="Reset Day 1 progress" title="Reset progress">↺</button><div className="avatar">PM</div>
+      <button className="tour-button" onClick={()=>setTourStep(0)}>✦ Take a tour</button><button className="present-secondary" data-tour="present" onClick={()=>setPresenting(true)}>▶ Present Day 1</button><button className="icon-button" onClick={resetDay} aria-label="Reset Day 1 progress" title="Reset progress">↺</button><div className="avatar">PM</div>
     </header>
 
     {notice&&<button className="toast" onClick={()=>setNotice('')} aria-label="Dismiss message">{notice}<span>×</span></button>}

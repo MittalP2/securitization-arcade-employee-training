@@ -4,6 +4,16 @@
 
 Securitization Arcade is an interactive Auto ABS learning experience that turns a technical securitization syllabus into a connected journey of lessons, concept maps, flashcards, quizzes, and applied simulations.
 
+## Built for organizational onboarding
+
+Securitization Arcade turns colleague-led training into a structured, measurable, and reusable onboarding journey. It gives trainers a clear teaching path, gives new employees a permanent interactive resource after the session, and can give organizations evidence of understanding through lesson progress, quiz accuracy, applied exercises, and XP-based engagement signals.
+
+- **For learners:** prerequisite context, guided lessons, practice, feedback, and a resource that remains available after training.
+- **For trainers:** a consistent scope for what to teach and clear outcomes the learner should be able to demonstrate.
+- **For organizations:** a future path to monitor progress, identify knowledge gaps, and provide targeted coaching without treating XP as a standalone performance score.
+
+> **Teach consistently. Learn visibly. Retain the context.**
+
 ## Product definition
 
 > My agent helps **finance professionals and finance-adjacent learners who are new to securitization** **build a connected understanding of Auto ABS through guided lessons, concept mapping, practice, and knowledge checks** in **the Securitization Arcade web experience**, replacing **the manual process of piecing together presales, legal documents, spreadsheets, videos, and personal notes—which takes hours and leaves major knowledge gaps**. It does **lesson planning, concept explanation, progress-based review, flashcard generation, quiz assessment, and guided deal simulations** on its own using **four tools: the curated course library, knowledge map, assessment engine, and waterfall simulator**, hands off to a human **when a question requires deal-specific judgment, current market interpretation, or legal or investment advice**, and I’ll know it works when **a learner can complete a daily learning mission and accurately explain or apply its main concept** in under **20 minutes** with **at least an 80% quiz and application success rate**.
