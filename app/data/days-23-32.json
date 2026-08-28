@@ -138,7 +138,7 @@
       {"front": "Why can subscription models matter?", "back": "Different contract forms may change asset eligibility and how cash flows fit the waterfall."}
     ],
     "quiz": [
-      {"q": "Which EV feature most directly affects recovery severity?", "options": ["Borrower email address", "Battery depreciation", "Trustee location", "Note denomination"], "answer": 1, "explain": "Battery depreciation can materially reduce resale value and therefore recoveries."},
+      {"q": "Which EV feature most directly affects recovery severity?", "options": ["Borrower mailing address", "Battery depreciation", "Trustee location", "Note denomination"], "answer": 1, "explain": "Battery depreciation can materially reduce resale value and therefore recoveries."},
       {"q": "Which request best improves EV-specific analysis?", "options": ["Only total pool FICO", "EV-versus-ICE recovery data", "Only note coupons", "Only issuer market share"], "answer": 1, "explain": "Segmented recovery data isolates the risk that EV collateral may behave differently."},
       {"q": "Reporting timeliness belongs primarily to which ESG pillar?", "options": ["Environmental", "Social", "Governance", "None"], "answer": 2, "explain": "Timely, accurate reporting is a governance and control issue."},
       {"q": "What does higher OC do for an EV-heavy pool?", "options": ["Guarantees no defaults", "Adds loss-absorbing cushion", "Eliminates servicing", "Raises used-car prices"], "answer": 1, "explain": "OC does not prevent defaults, but it provides additional protection against loss uncertainty."},
@@ -582,7 +582,7 @@
     ],
     "quiz": [
       {"q": "What is the most durable CE component?", "options": ["Projected XS", "Subordination", "Future recoveries", "Optional advances"], "answer": 1, "explain": "Junior claims provide funded first-loss protection beneath the senior class."},
-      {"q": "Which document is definitive for waterfall language?", "options": ["Marketing email", "Presale only", "Indenture or trust documents", "Comp sheet"], "answer": 2, "explain": "The governing transaction documents contain the binding priority-of-payments terms."},
+      {"q": "Which document is definitive for waterfall language?", "options": ["Marketing deck", "Presale only", "Indenture or trust documents", "Comp sheet"], "answer": 2, "explain": "The governing transaction documents contain the binding priority-of-payments terms."},
       {"q": "What usually happens when IC falls below 1.0x?", "options": ["Equity is trapped", "Equity doubles", "Pro-rata expands", "Fees disappear"], "answer": 0, "explain": "The structure diverts cash from equity to protect note payments and rebuild support."},
       {"q": "Why match WAL when comparing Treasury spreads?", "options": ["To normalize time exposure", "To equalize issuer names", "To remove all credit risk", "To set recovery values"], "answer": 0, "explain": "A maturity-matched benchmark makes spread compensation comparable across exposure periods."},
       {"q": "What should you do after identifying three weak exam topics?", "options": ["Reread everything", "Review the relevant day files and re-test", "Ignore them", "Change the answer key"], "answer": 1, "explain": "Targeted retrieval and re-testing address the specific broken links efficiently."}

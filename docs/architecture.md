@@ -24,11 +24,7 @@ flowchart TB
     Debrief --> Web
     Web -->|saves returned debrief| State
 
-    Web --> EmailAPI["Completion-email API route"]
-    EmailAPI -.->|optional when configured| Resend["Resend<br/>completion receipt"]
-
-    Secrets["Protected Sites secrets<br/>Fireworks and Resend API keys"] --> CoachAPI
-    Secrets --> EmailAPI
+    Secrets["Protected Sites secret<br/>Fireworks API key"] --> CoachAPI
 ```
 
 The Coach receives recent review context only when the browser submits it with a debrief request. Fireworks does not persist learner history, and the current demo has no central learner database or trainer dashboard.

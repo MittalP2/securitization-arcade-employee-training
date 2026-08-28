@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import days05to13 from './data/days-05-13.json';
 import days14to22 from './data/days-14-22.json';
 import days23to32 from './data/days-23-32.json';
@@ -80,14 +80,6 @@ const courseDays:Record<number,CourseDay> = {
   ...authoredCourseDays
 };
 
-const mapNodes = [
-  { day:1, name:'Core idea', detail:'See the complete borrower-to-investor flow.', state:'current' },
-  { day:2, name:'The SPV', detail:'Learn why the issuer is legally separate.', state:'next' },
-  { day:3, name:'Tranches', detail:'Split the deal into different risk and return profiles.', state:'future' },
-  { day:4, name:'Waterfall', detail:'Follow each dollar through the priority of payments.', state:'future' },
-  { day:6, name:'Build it', detail:'Apply the foundation in a mini waterfall.', state:'milestone' },
-];
-
 const phases = [
   { name:'Build the foundation', days:'1–7', tone:'foundation', concepts:'Flow · SPV · Tranches · Waterfalls · Credit' },
   { name:'Analyze a deal', days:'8–12', tone:'analyze', concepts:'Pricing · Surveillance · Scenarios' },
@@ -98,7 +90,7 @@ const phases = [
 ];
 const phaseRanges:[[number,number],[number,number],[number,number],[number,number],[number,number],[number,number]]=[[1,7],[8,12],[13,18],[19,25],[26,30],[31,32]];
 
-type StudioTool = 'map'|'cards'|'quiz';
+type StudioTool = 'cards'|'quiz';
 type TourStep = { target:string; eyebrow:string; title:string; text:string; tool?:StudioTool };
 
 const tourSteps:TourStep[] = [
@@ -107,7 +99,7 @@ const tourSteps:TourStep[] = [
   { target:'[data-tour="learning-map"]', eyebrow:'THE MENTAL MODEL', title:'See phases and prerequisites together', text:'The Learning Map is both the course index and the conceptual map. It shows which earlier ideas unlock advanced lessons.' },
   { target:'[data-tour="lesson"]', eyebrow:'DAILY MISSION', title:'Learn in small, connected sections', text:'Every day moves from plain-English intuition into mechanics, examples, and application without losing the bigger picture.' },
   { target:'[data-tour="context"]', eyebrow:'LEARNING CONTEXT', title:'Understand what today builds on and unlocks', text:'The Previously → Today → Later thread explains what a lesson depends on and where the learner will apply it next.' },
-  { target:'[data-tour="practice"]', eyebrow:'ACTIVE RECALL', title:'Practise instead of only reading', text:'The Practice Studio combines concept connections, flashcards, and quizzes with immediate feedback.' },
+  { target:'[data-tour="practice"]', eyebrow:'ACTIVE RECALL', title:'Practise instead of only reading', text:'The Practice Studio combines flashcards and quizzes with immediate feedback.' },
   { target:'[data-tour="tool-body"]', eyebrow:'FLASHCARDS', title:'Turn concepts into recall', text:'Flip each card, judge whether you know it, and build a review deck around concepts that need more practice.', tool:'cards' as StudioTool },
   { target:'[data-tour="tool-body"]', eyebrow:'KNOWLEDGE CHECK', title:'Prove and improve understanding', text:'The quiz explains every answer and uses an 80% target for mastery—not just completion.', tool:'quiz' as StudioTool },
   { target:'[data-tour="progress"]', eyebrow:'YOUR PROGRESS', title:'Pick up where you left off', text:'Sections, mastered cards, quiz results, XP, and progress are saved on this device. You are ready to start Day 1.' },
@@ -122,10 +114,9 @@ export default function Home(){
   const [selectedDay,setSelectedDay]=useState(1);
   const [section,setSection]=useState(0);
   const [completed,setCompleted]=useState<string[]>([]);
-  const [tool,setTool]=useState<StudioTool>('map');
+  const [tool,setTool]=useState<StudioTool>('cards');
   const [expanded,setExpanded]=useState(false);
   const [notice,setNotice]=useState('');
-  const [mapNode,setMapNode]=useState(0);
   const [cardIndex,setCardIndex]=useState(0);
   const [flipped,setFlipped]=useState(false);
   const [mastered,setMastered]=useState<number[]>([]);
@@ -142,10 +133,7 @@ export default function Home(){
   const [feedbackOpen,setFeedbackOpen]=useState(false);
   const [feedbackByDay,setFeedbackByDay]=useState<Record<number,DayFeedback>>({});
   const [coachByDay,setCoachByDay]=useState<Record<number,CoachDebrief>>({});
-  const [emailedDays,setEmailedDays]=useState<number[]>([]);
-  const [emailingDay,setEmailingDay]=useState<number|null>(null);
   const [storageReady,setStorageReady]=useState(false);
-  const previousCompletedDays=useRef<Set<number>|null>(null);
 
   useEffect(()=>{
     const timer=window.setTimeout(()=>{
@@ -153,7 +141,6 @@ export default function Home(){
       try{const saved=localStorage.getItem('sa-course-progress')||localStorage.getItem('sa-demo-progress');if(saved){const data=JSON.parse(saved);setCourseCompleted(data.completed||{});setCourseMastered(data.mastered||{});setCourseAnswers(data.answers||{});setCourseSubmitted(data.submitted||[])}}catch{}
       try{const saved=localStorage.getItem('sa-day-feedback');if(saved)setFeedbackByDay(JSON.parse(saved))}catch{}
       try{const saved=localStorage.getItem('sa-coach-debriefs');if(saved)setCoachByDay(JSON.parse(saved))}catch{}
-      try{const saved=localStorage.getItem('sa-completion-emails');if(saved)setEmailedDays(JSON.parse(saved))}catch{}
       setStorageReady(true);
     },0);
     return()=>window.clearTimeout(timer);
@@ -168,7 +155,6 @@ export default function Home(){
   useEffect(()=>{if(storageReady){localStorage.setItem('sa-course-progress',JSON.stringify({completed:courseCompleted,mastered:courseMastered,answers:courseAnswers,submitted:courseSubmitted}));localStorage.removeItem('sa-demo-progress')}},[storageReady,courseCompleted,courseMastered,courseAnswers,courseSubmitted]);
   useEffect(()=>{if(storageReady)localStorage.setItem('sa-day-feedback',JSON.stringify(feedbackByDay))},[storageReady,feedbackByDay]);
   useEffect(()=>{if(storageReady)localStorage.setItem('sa-coach-debriefs',JSON.stringify(coachByDay))},[storageReady,coachByDay]);
-  useEffect(()=>{if(storageReady)localStorage.setItem('sa-completion-emails',JSON.stringify(emailedDays))},[storageReady,emailedDays]);
   useEffect(()=>{
     const timer=window.setTimeout(()=>{if(tourStep>=0){const requested=tourSteps[tourStep]?.tool;if(requested)setTool(requested)}},0);
     return()=>window.clearTimeout(timer);
@@ -202,24 +188,6 @@ export default function Home(){
     });
     return days;
   },[completed,mastered,answers,submitted,courseCompleted,courseMastered,courseAnswers,courseSubmitted]);
-  useEffect(()=>{
-    if(!storageReady)return;
-    if(previousCompletedDays.current===null){previousCompletedDays.current=new Set(completedDays);return;}
-    const newlyCompleted=[...completedDays].filter(day=>!previousCompletedDays.current?.has(day)&&!emailedDays.includes(day));
-    previousCompletedDays.current=new Set(completedDays);
-    if(!newlyCompleted.length)return;
-    const day=newlyCompleted[0];
-    const dayQuiz=day===1?quiz:courseDays[day].quiz;
-    const dayAnswers=day===1?answers:(courseAnswers[day]||{});
-    const dayScore=dayQuiz.reduce((sum,item,index)=>sum+(dayAnswers[index]===item.answer?1:0),0);
-    const daySections=day===1?lessonSections.length:courseDays[day].sections.length;
-    const dayXp=daySections*20+(day===1?cards.length:courseDays[day].cards.length)*5+dayScore*10;
-    setEmailingDay(day);
-    fetch('/api/completion-email',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({day,score:dayScore,total:dayQuiz.length,xp:dayXp})})
-      .then(async response=>{if(!response.ok)throw new Error((await response.json().catch(()=>null))?.error||'Email delivery failed');setEmailedDays(current=>current.includes(day)?current:[...current,day]);setNotice(`Day ${day} mastered — completion email sent!`);})
-      .catch(()=>setNotice(`Day ${day} mastered — your email receipt could not be sent yet.`))
-      .finally(()=>setEmailingDay(null));
-  },[storageReady,completedDays,emailedDays,answers,courseAnswers]);
   const phaseIndex=phaseRanges.findIndex(([start,end])=>selectedDay>=start&&selectedDay<=end);
   const [phaseStart,phaseEnd]=phaseRanges[phaseIndex];
   const phaseCompleted=Array.from({length:phaseEnd-phaseStart+1},(_,index)=>phaseStart+index).filter(day=>completedDays.has(day)).length;
@@ -237,7 +205,7 @@ export default function Home(){
     if(section<lessonSections.length-1)setSection(section+1);else{setTool('quiz');setNotice('Lesson complete — your final mission is the quiz!');}
   }
   function chooseLevel(index:number){
-    if(index<=31){setSelectedDay(index+1);setSection(0);setCardIndex(0);setFlipped(false);setTool('map');if(index>=8)setExpanded(true);setNotice(`${index<30?`Day ${index+1}`:`Bonus ${index-29}`}: ${levelTitles[index]}`);}
+    if(index<=31){setSelectedDay(index+1);setSection(0);setCardIndex(0);setFlipped(false);setTool('cards');if(index>=8)setExpanded(true);setNotice(`${index<30?`Day ${index+1}`:`Bonus ${index-29}`}: ${levelTitles[index]}`);}
   }
   async function generateCoachDebrief(feedback:DayFeedback){
     const dayData=selectedDay===1?null:courseDays[selectedDay];
@@ -297,22 +265,20 @@ export default function Home(){
         <div className="panel-heading"><div><span className="eyebrow">PRACTICE STUDIO</span><h2>Learn by doing</h2></div><span className="xp">{xp} XP</span></div>
         <div className="studio-callout"><span>✨</span><p><b>Your Day {selectedDay} toolkit</b>Map the idea, practise recall, then prove it.</p></div>
         <div className="studio-tabs" role="tablist">
-          <button onClick={()=>setTool('map')} className={tool==='map'?'active':''}>◇ Map</button>
           <button onClick={()=>setTool('cards')} className={tool==='cards'?'active':''}>▣ Cards</button>
           <button onClick={()=>setTool('quiz')} className={tool==='quiz'?'active':''}>? Quiz</button>
         </div>
-        <div data-tour="tool-body">{tool==='map'&&<MapTool day={selectedDay} selected={mapNode} setSelected={setMapNode} openFullMap={()=>setMapOpen(true)}/>}
-        {tool==='cards'&&<CardTool data={activeCards} index={cardIndex} setIndex={setCardIndex} flipped={flipped} setFlipped={setFlipped} mastered={activeMastered} setMastered={(next)=>selectedDay===1?setMastered(next):setCourseMastered({...courseMastered,[selectedDay]:next})}/>}
+        <div data-tour="tool-body">{tool==='cards'&&<CardTool data={activeCards} index={cardIndex} setIndex={setCardIndex} flipped={flipped} setFlipped={setFlipped} mastered={activeMastered} setMastered={(next)=>selectedDay===1?setMastered(next):setCourseMastered({...courseMastered,[selectedDay]:next})}/>}
         {tool==='quiz'&&<QuizTool data={activeQuiz} answers={activeAnswers} setAnswers={(next)=>selectedDay===1?setAnswers(next):setCourseAnswers({...courseAnswers,[selectedDay]:next})} submitted={activeSubmitted} setSubmitted={(next)=>selectedDay===1?setSubmitted(next):setCourseSubmitted(next?[...new Set([...courseSubmitted,selectedDay])]:courseSubmitted.filter(d=>d!==selectedDay))} score={score} onSubmit={()=>window.setTimeout(()=>setFeedbackOpen(true),500)}/>}</div>
-        <div className="streak"><span>{progress===100?'🏆':'🔥'}</span><p><b>{progress===100?`Day ${selectedDay} mastered`:'Build your streak'}</b>{progress===100?(emailedDays.includes(selectedDay)?'Completion receipt sent to your inbox.':emailingDay===selectedDay?'Sending your completion receipt…':'You cleared this level.'):'Complete the lesson and quiz to light it up.'}</p><strong>{progress===100?`${xp} XP`:`Day ${selectedDay}`}</strong></div>
+        <div className="streak"><span>{progress===100?'🏆':'🔥'}</span><p><b>{progress===100?`Day ${selectedDay} mastered`:'Build your streak'}</b>{progress===100?'You cleared this level.':'Complete the lesson and quiz to light it up.'}</p><strong>{progress===100?`${xp} XP`:`Day ${selectedDay}`}</strong></div>
       </aside>
     </section>
 
-    <div className="mobile-tools" aria-label="Practice tools"><button onClick={()=>{setTool('map');setNotice('Open on desktop to use the full Practice Studio.')}}>◇ Map</button><button onClick={()=>{setTool('cards');setNotice('Open on desktop to use flashcards.')}}>▣ Cards</button><button onClick={()=>{setTool('quiz');setNotice('Open on desktop to take the quiz.')}}>? Quiz</button></div>
+    <div className="mobile-tools" aria-label="Practice tools"><button onClick={()=>{setTool('cards');setNotice('Open on desktop to use flashcards.')}}>▣ Cards</button><button onClick={()=>{setTool('quiz');setNotice('Open on desktop to take the quiz.')}}>? Quiz</button></div>
 
-    {mapOpen&&<LearningMap close={()=>setMapOpen(false)} chooseDay={(day)=>{setMapOpen(false);chooseLevel(day-1)}}/>}
+    {mapOpen&&<LearningMap selectedDay={selectedDay} completedDays={completedDays} close={()=>setMapOpen(false)} chooseDay={(day)=>{setMapOpen(false);chooseLevel(day-1)}}/>}
     {topicOpen&&<TopicLibrary close={()=>setTopicOpen(false)}/>}
-    {feedbackOpen&&<AgentDayDebrief day={selectedDay} score={score} total={activeQuiz.length} mastered={progress===100} initial={feedbackByDay[selectedDay]} coach={coachByDay[selectedDay]} close={()=>setFeedbackOpen(false)} save={(feedback)=>{setFeedbackByDay({...feedbackByDay,[selectedDay]:feedback});setNotice(`Day ${selectedDay} feedback saved — thank you.`)}} generateCoach={generateCoachDebrief} action={(next)=>{setFeedbackOpen(false);if(next==='lesson'){setSection(0);setTool('map')}if(next==='cards')setTool('cards');if(next==='quiz')setTool('quiz');if(next==='next'&&selectedDay<32){const masteredDay=selectedDay;chooseLevel(selectedDay);setNotice(`Day ${masteredDay} mastered — welcome to Day ${masteredDay+1}.`)}}}/>}
+    {feedbackOpen&&<AgentDayDebrief day={selectedDay} score={score} total={activeQuiz.length} mastered={progress===100} initial={feedbackByDay[selectedDay]} coach={coachByDay[selectedDay]} close={()=>setFeedbackOpen(false)} save={(feedback)=>{setFeedbackByDay({...feedbackByDay,[selectedDay]:feedback});setNotice(`Day ${selectedDay} feedback saved — thank you.`)}} generateCoach={generateCoachDebrief} action={(next)=>{setFeedbackOpen(false);if(next==='lesson'){setSection(0);setTool('cards')}if(next==='cards')setTool('cards');if(next==='quiz')setTool('quiz');if(next==='next'&&selectedDay<32){const masteredDay=selectedDay;chooseLevel(selectedDay);setNotice(`Day ${masteredDay} mastered — welcome to Day ${masteredDay+1}.`)}}}/>}
     {tourStep>=0&&<GuidedTour step={tourStep} setStep={setTourStep}/>} 
     {presenting&&<Presentation day={selectedDay} section={section} setSection={setSection} close={()=>setPresenting(false)}/>} 
   </main>;
@@ -328,7 +294,6 @@ function InfoCard({icon,title,text}:{icon:string,title:string,text:string}){retu
 
 function CourseLesson({day,section}:{day:number,section:number}){const lesson=courseDays[day];const item=lesson.sections[section];return <section className="deep-section course-section"><span className="section-label">DAY {day} · {item.label.toUpperCase()}</span><p className="comic-kicker">{item.kicker}</p><h1>{item.title}</h1><p className="lead">{item.lead}</p><div className="course-context"><div><span>BUILDS ON</span><b>{lesson.prerequisite}</b></div><i>→</i><div><span>TODAY</span><b>{lesson.shortTitle}</b></div><i>→</i><div><span>UNLOCKS</span><b>{lesson.later}</b></div></div><div className="course-points">{item.bullets.map((bullet,i)=><article key={bullet.title}><span>{i+1}</span><div><b>{bullet.title}</b><p>{bullet.text}</p></div></article>)}</div><div className="plain-english"><b>💬 Remember this</b><p>{item.callout}</p></div></section>}
 
-function MapTool({day,selected,setSelected,openFullMap}:{day:number,selected:number,setSelected:(n:number)=>void,openFullMap:()=>void}){const nextDay=day===4?6:Math.min(32,day+1);const connections=day===1?mapNodes:[{day:Math.max(1,day-1),name:'Prerequisite',detail:courseDays[day].prerequisite,state:'next'},{day,name:courseDays[day].shortTitle,detail:`Current lesson: ${courseDays[day].title}`,state:'current'},{day:nextDay,name:day===32?'Course mastery':'Unlocks next',detail:courseDays[day].later,state:'milestone'}];const safe=Math.min(selected,connections.length-1);return <div className="interactive-tool"><div className="tool-head"><span>DAY {day} CONNECTIONS</span><b>{day===1?'You are at the foundation':'See what this lesson builds on'}</b></div><div className="vertical-map">{connections.map((node,i)=><button key={`${node.day}-${i}`} onClick={()=>setSelected(i)} className={`${node.state} ${safe===i?'selected':''}`}><span>{node.day}</span><p><b>{node.name}</b><small>{node.state==='current'?'NOW':node.state==='milestone'?'LATER':'BEFORE'}</small></p></button>)}</div><div className="map-detail"><span>{day===32&&safe===2?'MILESTONE':`DAY ${connections[safe].day}`}</span><b>{connections[safe].name}</b><p>{connections[safe].detail}</p></div><button className="open-full-map" onClick={openFullMap}>Open full Learning Map <span>↗</span></button></div>}
 function CardTool({data,index,setIndex,flipped,setFlipped,mastered,setMastered}:{data:{front:string;back:string}[],index:number,setIndex:(n:number)=>void,flipped:boolean,setFlipped:(b:boolean)=>void,mastered:number[],setMastered:(n:number[])=>void}){const safe=index%data.length;const card=data[safe];const known=mastered.includes(safe);function move(delta:number){setIndex((safe+delta+data.length)%data.length);setFlipped(false)}return <div className="interactive-tool"><div className="tool-head"><span>FLASHCARDS · {safe+1}/{data.length}</span><b>{mastered.length} mastered</b></div><button className={`flashcard ${flipped?'flipped':''}`} onClick={()=>setFlipped(!flipped)}><small>{flipped?'ANSWER':'TAP TO FLIP'}</small><strong>{flipped?card.back:card.front}</strong></button><div className="card-actions"><button onClick={()=>move(-1)} aria-label="Previous card">←</button><button className={known?'known':''} onClick={()=>setMastered(known?mastered.filter(n=>n!==safe):[...mastered,safe])}>{known?'✓ Mastered':'Mark mastered'}</button><button onClick={()=>move(1)} aria-label="Next card">→</button></div></div>}
 function QuizTool({data,answers,setAnswers,submitted,setSubmitted,score,onSubmit}:{data:typeof quiz,answers:Record<number,number>,setAnswers:(a:Record<number,number>)=>void,submitted:boolean,setSubmitted:(b:boolean)=>void,score:number,onSubmit:()=>void}){const next=Object.keys(answers).length;return <div className="interactive-tool quiz-tool"><div className="tool-head"><span>QUICK QUIZ</span><b>{submitted?`${score}/${data.length} correct`:`${next}/${data.length} answered`}</b></div>{data.map((item,i)=><div className="question" key={item.q}><p><b>{i+1}.</b> {item.q}</p><div>{item.options.map((option,j)=><button disabled={submitted} onClick={()=>setAnswers({...answers,[i]:j})} className={`${answers[i]===j?'chosen':''} ${submitted&&j===item.answer?'correct':''} ${submitted&&answers[i]===j&&j!==item.answer?'wrong':''}`} key={option}>{option}</button>)}</div>{submitted&&<small>{item.explain}</small>}</div>)}{!submitted?<button className="submit-quiz" disabled={Object.keys(answers).length<data.length} onClick={()=>{setSubmitted(true);onSubmit()}}>Submit answers</button>:<div className="result-box"><strong>{score/data.length>=.8?'🏆 Level cleared!':'↺ Good first run'}</strong><p>{score/data.length>=.8?'You reached the 80% mastery target.':'Review the explanations, then try again.'}</p>{score<data.length&&<button onClick={()=>{setAnswers({});setSubmitted(false)}}>Retry quiz</button>}</div>}</div>}
 
@@ -366,4 +331,4 @@ function TopicLibrary({close}:{close:()=>void}){return <div className="topic-lib
 
 function Presentation({day,section,setSection,close}:{day:number,section:number,setSection:(n:number)=>void,close:()=>void}){const isFirst=day===1;const count=isFirst?lessonSections.length:courseDays[day].sections.length;const title=isFirst?lessonSections[section].title:courseDays[day].sections[section].title;const label=isFirst?lessonSections[section].label:courseDays[day].sections[section].label;const summary=isFirst?[null,'Recycle capital · Lower funding cost · Transfer risk · Match cash flows','Originator · SPV · Servicer · Trustee · Investors · Rating agencies','Subordination · Overcollateralization · Excess spread · Reserve account','$100mm collateral → $90mm rated notes → $10mm first-loss cushion'][section]:courseDays[day].sections[section].bullets.map(b=>b.title).join(' · ');return <div className="presentation" role="dialog" aria-modal="true"><header><div className="brand-mark">SA</div><b>SECURITIZATION FUNDAMENTALS · DAY {day} · {label}</b><button onClick={close}>Exit presentation ×</button></header><main><span>{label.toUpperCase()}</span><h1>{title}</h1>{day===1&&section===0?<div className="presentation-flow"><b>🚗 Borrowers</b><i>→</i><b>🏦 Originator</b><i>→</i><b>📦 SPV</b><i>→</i><b>📊 Investors</b></div>:<p>{summary}</p>}</main><footer><button disabled={section===0} onClick={()=>setSection(section-1)}>← Previous</button><span>{section+1} / {count}</span><button disabled={section===count-1} onClick={()=>setSection(section+1)}>Next →</button></footer></div>}
 
-function LearningMap({close,chooseDay}:{close:()=>void,chooseDay:(day:number)=>void}){return <div className="learning-map-modal" role="dialog" aria-modal="true" aria-label="Course learning map"><header><div><span className="eyebrow">YOUR COURSE INDEX + MENTAL MODEL</span><h2>Learning Map</h2><p>Follow the main path, then use the dotted connections to see which earlier ideas unlock later concepts.</p></div><button onClick={close}>Close ×</button></header><div className="map-legend"><span><i className="legend-current"/> Current</span><span><i className="legend-phase"/> Learning phase</span><span><i className="legend-link"/> Prerequisite connection</span></div><div className="phase-map">{phases.map((phase,index)=><section className={`phase-lane ${phase.tone}`} key={phase.name}><div className="phase-identity"><span>{index<5?`PHASE ${index+1}`:'BONUS'}</span><b>{phase.name}</b><small>Days {phase.days}</small></div><div className="phase-concepts"><p>{phase.concepts}</p><div className="phase-nodes">{phase.days.split('–').length===2?Array.from({length:Number(phase.days.split('–')[1])-Number(phase.days.split('–')[0])+1},(_,i)=>Number(phase.days.split('–')[0])+i).map(day=><button className={day===1?'current':''} onClick={()=>chooseDay(day)} key={day}><span>{day}</span><small>{levelTitles[day-1]}</small></button>):null}</div></div>{index<phases.length-1&&<i className="phase-arrow">↓</i>}</section>)}</div><div className="prerequisite-links"><span>KEY PREREQUISITE LINKS</span><div><p><b>Day 3 Tranches</b> unlocks <strong>Day 14 Advanced Waterfalls</strong></p><p><b>Day 4 Triggers</b> is tested in <strong>Day 12 Scenarios</strong></p><p><b>Day 5 Losses</b> is measured through <strong>Day 16 Vintage Analysis</strong></p><p><b>Day 7 Presales</b> becomes <strong>Day 18 Investor Memo</strong></p><p><b>Day 17 Data Tape</b> feeds <strong>Day 29 Excel Model</strong></p><p><b>Day 27 CE Backsolve</b> is applied in <strong>Day 28 Structuring Lab</strong></p></div></div></div>}
+function LearningMap({selectedDay,completedDays,close,chooseDay}:{selectedDay:number;completedDays:Set<number>;close:()=>void;chooseDay:(day:number)=>void}){return <div className="learning-map-modal" role="dialog" aria-modal="true" aria-label="Course learning map"><header><div><span className="eyebrow">YOUR COURSE INDEX + MENTAL MODEL</span><h2>Learning Map</h2><p>Follow the main path, then use the dotted connections to see which earlier ideas unlock later concepts.</p></div><button onClick={close}>Close ×</button></header><div className="map-legend"><span><i className="legend-current"/> Current</span><span><i className="legend-completed"/> Mastered</span><span><i className="legend-phase"/> Learning phase</span><span><i className="legend-link"/> Prerequisite connection</span></div><div className="phase-map">{phases.map((phase,index)=><section className={`phase-lane ${phase.tone}`} key={phase.name}><div className="phase-identity"><span>{index<5?`PHASE ${index+1}`:'BONUS'}</span><b>{phase.name}</b><small>Days {phase.days}</small></div><div className="phase-concepts"><p>{phase.concepts}</p><div className="phase-nodes">{phase.days.split('–').length===2?Array.from({length:Number(phase.days.split('–')[1])-Number(phase.days.split('–')[0])+1},(_,i)=>Number(phase.days.split('–')[0])+i).map(day=>{const complete=completedDays.has(day);const current=day===selectedDay;return <button className={`${current?'current':''}${complete?' completed':''}`} onClick={()=>chooseDay(day)} aria-current={current?'step':undefined} aria-label={`Day ${day}: ${levelTitles[day-1]}${complete?', mastered':''}${current?', current':''}`} key={day}><span>{complete?'✓':day}</span><small>{levelTitles[day-1]}</small></button>}):null}</div></div>{index<phases.length-1&&<i className="phase-arrow">↓</i>}</section>)}</div><div className="prerequisite-links"><span>KEY PREREQUISITE LINKS</span><div><p><b>Day 3 Tranches</b> unlocks <strong>Day 14 Advanced Waterfalls</strong></p><p><b>Day 4 Triggers</b> is tested in <strong>Day 12 Scenarios</strong></p><p><b>Day 5 Losses</b> is measured through <strong>Day 16 Vintage Analysis</strong></p><p><b>Day 7 Presales</b> becomes <strong>Day 18 Investor Memo</strong></p><p><b>Day 17 Data Tape</b> feeds <strong>Day 29 Excel Model</strong></p><p><b>Day 27 CE Backsolve</b> is applied in <strong>Day 28 Structuring Lab</strong></p></div></div></div>}

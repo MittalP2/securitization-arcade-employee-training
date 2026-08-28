@@ -8,13 +8,12 @@ Auto loans are used as a practical example, but the course teaches securitizatio
 
 ## What is working
 
-- A complete 32-level syllabus with phases, prerequisites, and a Learning Map
+- A complete 32-level syllabus with a Learning Map that shows phases, prerequisites, the current day, and mastered days
 - Daily lessons, five flashcards, five-question quizzes, applied exercises, and answer explanations
 - An 80% mastery target, XP, saved progress, and green completion ticks
 - **Present Day** mode for trainer-led sessions and later learner review
 - Day feedback and a Fireworks-powered **Learning Coach Debrief**
 - A Coach activity trail, review queue, quick challenge, and human-reviewed trainer-handoff draft
-- Optional completion emails through Resend
 - An 11-step guided product tour
 
 Progress, feedback, quiz results, and Coach Debriefs are stored in the learner's browser. Fireworks does not retain learner history, and there is currently no central employee dashboard or cross-device learner account.
@@ -53,7 +52,7 @@ For a live Coach demonstration, prepare Day 1 at 100% without a saved debrief be
 
 🗺️ **[View the Mermaid architecture diagram](docs/architecture.md)**
 
-**Stack:** Next.js, React, TypeScript, custom CSS, version-controlled JSON curriculum, Fireworks AI, browser `localStorage`, optional Resend email, GitHub, and OpenAI Sites.
+**Stack:** Next.js, React, TypeScript, custom CSS, version-controlled JSON curriculum, Fireworks AI, browser `localStorage`, GitHub, and OpenAI Sites.
 
 ## Run locally
 
@@ -62,7 +61,7 @@ npm install
 npm run dev
 ```
 
-Copy `.env.example` to `.env.local` to configure Fireworks and optional completion email. The app uses a safe fallback Coach when Fireworks is not configured.
+Copy `.env.example` to `.env.local` to configure Fireworks. The app uses a safe fallback Coach when Fireworks is not configured.
 
 ## Links
 
