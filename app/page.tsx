@@ -178,9 +178,10 @@ export default function Home(){
     setNotice(`Day ${index+1} is on the roadmap. We’re polishing Day 1 first.`);
   }
   function resetDay(){
-    if(!confirm(`Reset all Day ${selectedDay} progress on this device?`))return;
-    if(selectedDay>1){const nextCompleted={...demoCompleted};delete nextCompleted[selectedDay];const nextMastered={...demoMastered};delete nextMastered[selectedDay];const nextAnswers={...demoAnswers};delete nextAnswers[selectedDay];setDemoCompleted(nextCompleted);setDemoMastered(nextMastered);setDemoAnswers(nextAnswers);setDemoSubmitted(demoSubmitted.filter(d=>d!==selectedDay));setSection(0);setCardIndex(0);setFlipped(false);setNotice(`Day ${selectedDay} progress reset.`);return;}
-    setCompleted([]);setMastered([]);setAnswers({});setSubmitted(false);setSection(0);setCardIndex(0);setFlipped(false);setNotice('Day 1 progress reset.');
+    if(!confirm(`Reset all Day ${selectedDay} progress and feedback on this device?`))return;
+    const nextFeedback={...feedbackByDay};delete nextFeedback[selectedDay];setFeedbackByDay(nextFeedback);
+    if(selectedDay>1){const nextCompleted={...demoCompleted};delete nextCompleted[selectedDay];const nextMastered={...demoMastered};delete nextMastered[selectedDay];const nextAnswers={...demoAnswers};delete nextAnswers[selectedDay];setDemoCompleted(nextCompleted);setDemoMastered(nextMastered);setDemoAnswers(nextAnswers);setDemoSubmitted(demoSubmitted.filter(d=>d!==selectedDay));setSection(0);setCardIndex(0);setFlipped(false);setNotice(`Day ${selectedDay} progress and feedback reset.`);return;}
+    setCompleted([]);setMastered([]);setAnswers({});setSubmitted(false);setSection(0);setCardIndex(0);setFlipped(false);setNotice('Day 1 progress and feedback reset.');
   }
 
   return <main className="app-shell">
