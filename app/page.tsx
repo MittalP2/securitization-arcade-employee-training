@@ -89,8 +89,11 @@ const phases = [
   { name:'Advanced bonus levels', days:'31–32', tone:'bonus', concepts:'Funding · Pool controls · Encumbrance' },
 ];
 
-const tourSteps = [
-  { target:'[data-tour="topics"]', eyebrow:'WELCOME TO STUDY ARCADE', title:'Choose a learning path, then enter its journey', text:'Study Arcade is the learning platform. Securitization Fundamentals is the shared foundation; the Learning Library will also hold role-specific ABS Suite paths.' },
+type StudioTool = 'map'|'cards'|'quiz';
+type TourStep = { target:string; eyebrow:string; title:string; text:string; tool?:StudioTool; modal?:'topics'|'feedback' };
+
+const tourSteps:TourStep[] = [
+  { target:'.topic-library', eyebrow:'LEARNING LIBRARY', title:'Choose a shared foundation or role-specific path', text:'Securitization Fundamentals is available now. ABS Suite Sales and Marketing paths demonstrate how Study Arcade can organize secure, source-backed company learning.', modal:'topics' },
   { target:'[data-tour="brand"]', eyebrow:'CURRENT TOPIC', title:'Securitization Fundamentals', text:'This topic is a 30-day core journey with two advanced bonus levels, using auto loans as the practical case study for understanding securitization.' },
   { target:'[data-tour="journey"]', eyebrow:'THE ROADMAP', title:'Always know where you are', text:'The Journey panel keeps all 32 levels visible, marks your current position, and lets you preview what comes next.' },
   { target:'[data-tour="learning-map"]', eyebrow:'THE MENTAL MODEL', title:'See phases and prerequisites together', text:'The Learning Map is both the course index and the conceptual map. It shows which earlier ideas unlock advanced lessons.' },
@@ -100,11 +103,10 @@ const tourSteps = [
   { target:'[data-tour="tool-body"]', eyebrow:'FLASHCARDS', title:'Turn concepts into recall', text:'Flip each card, judge whether you know it, and build a review deck around concepts that need more practice.', tool:'cards' as StudioTool },
   { target:'[data-tour="tool-body"]', eyebrow:'KNOWLEDGE CHECK', title:'Prove and improve understanding', text:'The quiz explains every answer and uses an 80% target for mastery—not just completion.', tool:'quiz' as StudioTool },
   { target:'[data-tour="progress"]', eyebrow:'YOUR PROGRESS', title:'Pick up where you left off', text:'Sections, mastered cards, quiz results, XP, and progress are saved on this device. You are ready to start Day 1.' },
-  { target:'[data-tour="feedback"]', eyebrow:'DAY DEBRIEF', title:'Tell us what helped—and what needs work', text:'Share clarity, confidence, and improvement signals for the whole day. Study Arcade turns the response into a useful next step.' },
+  { target:'.day-debrief', eyebrow:'DAY DEBRIEF', title:'Tell us what helped—and what needs work', text:'Share clarity, confidence, and improvement signals for the whole day. Study Arcade turns the response into a useful next step.', modal:'feedback' },
   { target:'[data-tour="present"]', eyebrow:'RETAIN THE TRAINING', title:'Return to the slides used in the session', text:'Present Day 1 gives trainers a ready teaching view and remains available to the new employee afterward, preserving the explanations and sequence of the original training.' },
 ];
 
-type StudioTool = 'map'|'cards'|'quiz';
 type DayFeedback = { clarity:string; confidence:string; improvements:string[]; comment:string; submittedAt:string; quizScore:number; quizTotal:number };
 
 export default function Home(){
@@ -227,8 +229,8 @@ export default function Home(){
     <div className="mobile-tools" aria-label="Practice tools"><button onClick={()=>{setTool('map');setNotice('Open on desktop to use the full Practice Studio.')}}>◇ Map</button><button onClick={()=>{setTool('cards');setNotice('Open on desktop to use flashcards.')}}>▣ Cards</button><button onClick={()=>{setTool('quiz');setNotice('Open on desktop to take the quiz.')}}>? Quiz</button></div>
 
     {mapOpen&&<LearningMap close={()=>setMapOpen(false)} chooseDay={(day)=>{setMapOpen(false);chooseLevel(day-1)}}/>}
-    {topicOpen&&<TopicLibrary close={()=>setTopicOpen(false)}/>}
-    {feedbackOpen&&<DayDebrief day={selectedDay} score={score} total={activeQuiz.length} initial={feedbackByDay[selectedDay]} close={()=>setFeedbackOpen(false)} save={(feedback)=>{setFeedbackByDay({...feedbackByDay,[selectedDay]:feedback});setNotice(`Day ${selectedDay} feedback saved — thank you.`)}} action={(next)=>{setFeedbackOpen(false);if(next==='lesson'){setSection(0);setTool('map')}if(next==='cards')setTool('cards');if(next==='quiz')setTool('quiz')}}/>}
+    {(topicOpen||tourSteps[tourStep]?.modal==='topics')&&<TopicLibrary close={()=>setTopicOpen(false)}/>}
+    {(feedbackOpen||tourSteps[tourStep]?.modal==='feedback')&&<DayDebrief day={selectedDay} score={score} total={activeQuiz.length} initial={feedbackByDay[selectedDay]} close={()=>setFeedbackOpen(false)} save={(feedback)=>{setFeedbackByDay({...feedbackByDay,[selectedDay]:feedback});setNotice(`Day ${selectedDay} feedback saved — thank you.`)}} action={(next)=>{setFeedbackOpen(false);if(next==='lesson'){setSection(0);setTool('map')}if(next==='cards')setTool('cards');if(next==='quiz')setTool('quiz')}}/>}
     {tourStep>=0&&<GuidedTour step={tourStep} setStep={setTourStep}/>} 
     {presenting&&<Presentation day={selectedDay} section={section} setSection={setSection} close={()=>setPresenting(false)}/>} 
   </main>;
