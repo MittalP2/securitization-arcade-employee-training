@@ -1,147 +1,138 @@
-> 🎮 **[Take the live Study Arcade tour](https://securitization-arcade.pulak261.chatgpt.site/?tour=1)** — the guided walkthrough starts automatically and introduces the current **Securitization Fundamentals** topic.
+> 🎮 **[Take the live Study Arcade tour](https://securitization-arcade.pulak261.chatgpt.site/?tour=1)** — the guided walkthrough starts automatically and introduces the platform through its current Securitization Fundamentals topic.
 
 # Study Arcade
 
-### Current topic: Securitization Fundamentals
+### Current live topic: Securitization Fundamentals
 
-**From Loans to Bonds in 30 Days**
+**From Loans to Bonds in 30 Core Days + 2 Advanced Bonus Levels**
 
-Study Arcade is a topic-agnostic employee-learning platform for turning complex organizational knowledge into structured, measurable, and reusable learning journeys. Learners select a topic from the Study Arcade library, then enter a connected experience of lessons, visual maps, presentation mode, flashcards, quizzes, examples, and progress signals.
+Study Arcade is a topic-agnostic organizational learning platform that turns complex internal knowledge into structured, measurable, and reusable learning journeys. It combines connected lessons, concept maps, active recall, assessments, applied scenarios, trainer presentations, learner feedback, and visible mastery signals in one experience.
 
-**Securitization Fundamentals is the first topic available in the platform—not the identity or limit of the web app.** The current demo opens directly into this topic; a multi-topic home and topic selector are planned as the next platform layer.
+**Study Arcade is the platform. Securitization Fundamentals is its first complete topic—not the identity or limit of the product.** The Learning Library also demonstrates how shared foundations and role-specific paths such as ABS Suite Sales Enablement and Marketing Enablement can live in the same system.
 
-Within the Securitization Fundamentals topic, auto loans provide a consistent practical case study because they make abstract deal mechanics easier to follow. The curriculum teaches broader securitization foundations that transfer to other asset classes; it is not an Auto ABS-only course.
+Auto loans provide the practical case study for the current curriculum because they make abstract deal mechanics easier to follow. The course teaches broader securitization foundations that transfer to other asset classes; it is not positioned as an Auto ABS-only platform.
 
-## Platform model
+## The organizational problem
 
-Study Arcade separates the reusable learning experience from the subject being taught:
+Employee training is often distributed across colleague-led explanations, slide decks, documents, spreadsheets, Confluence pages, town-hall presentations, and personal notes. The experience varies by trainer, the context behind a session is easily lost, and course completion alone does not show whether the employee can explain or apply the material.
 
-1. **Study Arcade** — the learning platform and shared interaction model.
-2. **Learning Library** — where employees select shared foundations or role-specific organizational learning paths.
-3. **Topic Journey** — the lessons, phases, map, practice, assessments, and presentations for that subject.
+Study Arcade creates one connected workflow:
 
-For this demo, the path is:
-
-**Study Arcade → Learning Library → Securitization Fundamentals → 32-day learning journey**
-
-Future topics can use a different duration, syllabus, examples, and mastery criteria while retaining the same familiar Study Arcade experience.
-
-## Why Study Arcade exists
-
-New employees are often trained through a mixture of colleague-led explanations, slide decks, documents, spreadsheets, and personal notes. The quality and depth of that experience can vary, while the context behind a training session is easily lost afterward.
-
-Study Arcade turns that fragmented workflow into a guided journey:
-
-- **Learners** can see what a concept depends on, learn it in context, practise it, test their understanding, and revisit the original training presentation.
-- **Trainers** get a consistent scope for each session, clear learning outcomes, ready-to-use teaching material, and visibility into what the learner should be able to explain.
-- **Organizations** gain a foundation for repeatable onboarding, knowledge-gap identification, targeted coaching, and responsible learning analytics.
+- **Learners** see prerequisites, learn in context, practise retrieval, test understanding, apply concepts, give feedback, and revisit the original teaching sequence.
+- **Trainers** receive a consistent scope for each session, clear outcomes, ready presentation material, and visibility into what the learner should be able to explain.
+- **Organizations** gain a foundation for repeatable onboarding, governed knowledge sharing, targeted coaching, and responsible learning analytics.
 
 > **Teach consistently. Learn visibly. Retain the context.**
 
-## The experience
+## Platform model
 
-Study Arcade uses a three-panel workspace inspired by the familiarity of a study notebook:
+Study Arcade separates the reusable learning system from the topic being taught:
 
-1. **Journey navigation** — move between days, see the current level, and open the complete course map.
-2. **Daily lesson** — understand the objective, prerequisites, core ideas, worked examples, and what the lesson unlocks next.
-3. **Practice Studio** — reinforce the lesson through concept connections, flashcards, quizzes, progress, and XP.
+1. **Study Arcade** — the platform and shared interaction model.
+2. **Learning Library** — shared foundations and role-specific organizational learning paths.
+3. **Topic Journey** — the syllabus, phases, concept map, lessons, practice, assessments, feedback, and presentations for one subject.
 
-Two guided modes support different moments:
+The current path is:
 
-- **Take a tour** introduces the product and demonstrates its main capabilities.
-- **Present Day** gives trainers a focused teaching view and leaves the same presentation available for employees to revisit after the session.
+**Study Arcade → Learning Library → Securitization Fundamentals → 32-level journey**
 
-## Learning design
+Future topics can have different durations, sources, examples, learning maps, and mastery criteria while retaining the same familiar Study Arcade experience.
 
-The experience follows a simple rhythm for every day:
+## What is live now
 
-**Orient → Learn → Connect → Recall → Apply → Check → Revisit**
+- A complete, selectable **32-level Securitization Fundamentals curriculum**
+- **Days 1–30** as the core journey and **Days 31–32** as advanced bonus levels
+- A full **Learning Map** combining phases, course index, prerequisites, and later applications
+- Connected lesson sections with plain-English explanations, technical mechanics, examples, and applied labs or decision scenarios
+- Five **flashcards** and five-question **knowledge checks** for every day
+- An **80% quiz mastery target**, XP, persistent progress, and a green completion tick for mastered days
+- A **Day Debrief** capturing clarity, confidence, improvement requests, and optional comments, followed by a recommended next action
+- **Present Day** mode for colleague-led training and later employee review
+- An 11-step **Take a tour** walkthrough
+- A visible **Learning Library** with illustrative future organizational paths
+- An illustrative approved-source citation block for ABS Suite Sales Enablement
+- Responsive desktop and mobile behavior
 
-- The **Learning Map** acts as both the course index and the learner's mental model, showing phases, prerequisites, and connections between earlier and later concepts.
-- **Flashcards** build active recall instead of passive recognition.
-- **Quizzes** provide immediate explanations and use an 80% mastery target.
-- **XP and progress** make momentum visible, but are learning signals—not standalone employee-performance scores.
-- **Presentation mode** keeps colleague-led training and self-paced review connected to the same source material.
+Progress and feedback are currently saved on the learner’s device. Resetting a day removes that day’s lesson progress, cards, quiz state, completion tick, and feedback. Central learner accounts, secure cross-device records, and trainer dashboards are not yet implemented.
 
-## Current topic structure
+## Daily learning loop
 
-The approved Securitization Fundamentals syllabus remains fixed at 32 days:
+Every day follows the same learning rhythm:
 
-- **Days 1–30:** the core journey, ending with a final assessment and graduation milestone.
-- **Days 31–32:** advanced bonus levels covering funding, pool management, and encumbrance controls.
+**Orient → Learn → Connect → Recall → Apply → Check → Reflect → Revisit**
 
-The journey moves from the basic loan-to-bond flow through SPVs, tranches, waterfalls, credit enhancement, legal documents, collateral analysis, investor communication, modelling, and applied structuring. Each day identifies the prior knowledge it builds on and the later concepts it unlocks.
+A day reaches 100% mastery when the learner:
 
-## What the current demo includes
+1. Completes every lesson section.
+2. Masters all five flashcards.
+3. Submits the quiz with at least 80% accuracy.
 
-The first demo implements:
+The green tick is a visible mastery reward, while the Day Debrief captures how clear and explainable the material felt. These signals are intended to guide learning and coaching—not act as standalone employee-performance scores.
 
-- Interactive learning experiences for **Days 1–4**
-- A visible **Learning Library** that separates the Study Arcade platform from shared foundations and role-specific paths
-- An illustrative citation block for **ABS Suite: Sales Enablement**, showing how approved internal sources and freshness metadata could appear
-- The complete **32-day Learning Map** with phases and prerequisite connections
-- Daily lessons, contextual examples, flashcards, quizzes, feedback, and an 80% mastery target
-- An intelligent **Day Debrief** that captures clarity, confidence, improvement requests, and optional comments, then recommends a useful next action
-- **Take a tour** product walkthrough
-- **Present Day** trainer mode
-- XP, lesson progress, quiz results, and device-local progress saving
-- A responsive experience for desktop and mobile
+## Content governance and citations
 
-Progress in this demo is stored in the learner's browser. Central learner accounts, trainer dashboards, and organization-wide reporting are part of the product roadmap and are not yet implemented.
+Organizational topics could be grounded in approved sources such as secure Confluence pages, product documentation, town-hall presentations, playbooks, policies, and training decks. The product direction is to display source identity, freshness, and citations so learners and trainers can trace important claims back to governed material.
 
-## Product vision
+The current ABS Suite Sales Enablement citation block is **illustrative**. Live secure-source ingestion, permissions, and retrieval are roadmap capabilities rather than claims about the current release.
 
-Study Arcade is designed as a reusable multi-topic platform rather than a securitization website. An organization should be able to publish additional topics while keeping the same learning system: a governed syllabus, prerequisite map, daily missions, trainer presentations, retrieval practice, applied simulations, assessments, and progress insights.
+## Five-minute demo flow
 
-The intended outcome is not simply course completion. It is evidence that an employee can explain a concept, connect it to the wider system, and apply it in a realistic scenario.
+1. Open the **Current Topic** selector to explain platform versus topic.
+2. Start **Take a tour**, show the guided onboarding, then skip it.
+3. Open the **Learning Map** to show all phases and prerequisite connections.
+4. Enter a daily lesson and show the Builds on → Today → Unlocks thread.
+5. Flip a flashcard and open the quiz to demonstrate active recall and assessment.
+6. Point to progress, XP, and a green completion tick.
+7. Open **Give feedback** to show the Day Debrief and recommended next action.
+8. Finish in **Present Day** mode to explain the trainer and post-training review experience.
 
 ## Learning-agent definition
 
-> My agent helps **new employees and the colleagues who train them** complete **a connected journey from prerequisite discovery through lessons, practice, assessment, and targeted review** in **the Study Arcade web experience**, replacing **a fragmented workflow of presentations, documents, spreadsheets, videos, and personal notes that takes hours to assemble and makes understanding difficult to verify**. It performs **lesson guidance, concept explanation, review planning, flashcard practice, quiz assessment, and next-step recommendations** using **four governed capabilities: the approved course library, Learning Map, assessment engine, and learner-progress record**; it hands off to a human **when a question requires deal-specific judgment, current market interpretation, or legal, accounting, rating, or investment advice**. It works when **a learner can complete a daily mission and accurately explain or apply its main concept in under 20 minutes with at least an 80% assessment success rate**.
+> My agent helps **new employees and the colleagues who train them** complete **a governed journey from prerequisite discovery through lessons, practice, assessment, reflection, and targeted review** in **the Study Arcade web experience**, replacing **a fragmented workflow of presentations, documents, internal pages, spreadsheets, and personal notes that takes hours to assemble and makes understanding difficult to verify**. It performs **lesson guidance, concept explanation, review planning, flashcard practice, quiz assessment, and next-step recommendations** using **four governed capabilities: the approved course library, Learning Map, assessment engine, and learner-progress record**; it hands off to a human **when a question requires source-owner clarification, deal-specific judgment, current-market interpretation, or legal, accounting, rating, or investment advice**. It works when **a learner can complete a daily learning cycle in under 60 minutes and explain or apply the main concept with at least 80% assessment accuracy**.
 
-This describes the planned intelligent learning layer. The current demo uses curated content and rule-based interactions; it does not yet present generated financial guidance as an implemented capability.
+This is the intended intelligent learning layer. The current release uses curated, version-controlled course content and rule-based recommendations; it does not generate deal-specific financial guidance.
 
 ## Agent decision framework
 
 | Field | Decision |
 |---|---|
 | **Agent goal** | Guide an employee through a governed learning journey and help them accurately explain and apply each concept. |
-| **Where do people use it?** | Learners and trainers use it in the Study Arcade web app on desktop or mobile, with presentation mode for colleague-led sessions. |
-| **What steps does it take, in order?** | 1. Establish the learner's current lesson and prerequisite context. 2. Teach the approved material and provide relevant practice. 3. Evaluate the response, explain gaps, and recommend progression or review. |
-| **What can it actually do?** | **Look up:** approved lessons, glossary definitions, prerequisites, and learning progress. **Change:** record progress, score assessments, create a review queue, and adjust recommendations—without changing the approved syllabus. |
-| **What does it need to remember?** | During a session it needs the current lesson, question, and response context; across sessions it should remember completed lessons, attempts, difficult concepts, flashcard status, and course position. |
-| **What should it never do?** | It must never invent financial facts, silently alter the syllabus, expose another learner's information, or frame educational material as deal-specific professional advice. |
-| **Human-in-the-loop** | The learner controls progression and reviews explanations before completing a lesson. A qualified colleague or subject-matter expert handles uncertain content and questions requiring professional judgment. |
-| **What happens when something breaks?** | Retry a failed approved-content lookup once, then fall back to the static lesson and clearly state what is unavailable. If the source material cannot answer reliably, stop and request clarification or human review. |
-| **How do you know it worked?** | The learner completes a daily mission and explains or applies its main concept in under 20 minutes with at least 80% assessment accuracy. |
+| **Where do people use it?** | Learners and trainers use it in the Study Arcade web app, with presentation mode supporting colleague-led sessions and later review. |
+| **What steps does it take, in order?** | 1. Establish the learner’s current level and prerequisite context. 2. Teach and practise the approved material. 3. Evaluate understanding, explain gaps, collect reflection, and recommend progression or review. |
+| **What can it actually do?** | **Look up:** approved lessons, definitions, prerequisites, citations, and learner progress. **Change:** record progress, score assessments, update a review queue, and adjust recommendations without changing the approved syllabus. |
+| **What does it need to remember?** | It needs the current lesson and response context during a session; across sessions it should remember completed sections, attempts, difficult concepts, flashcard status, feedback, and course position. |
+| **What should it never do?** | It must never invent financial facts, silently alter approved content, expose another learner’s information, bypass source permissions, or frame educational material as deal-specific professional advice. |
+| **Human-in-the-loop** | The learner controls progression and reviews explanations. A qualified colleague, source owner, or subject-matter expert handles uncertain content and questions requiring professional judgment. |
+| **What happens when something breaks?** | Retry an approved-content lookup once, then fall back to the static lesson and state what is unavailable. If the governed sources cannot support an answer, stop and request clarification or human review. |
+| **How do you know it worked?** | The learner completes the daily cycle in under 60 minutes and accurately explains or applies the main concept with at least 80% assessment accuracy. |
 
 ## Responsible measurement
 
-Learning analytics should support coaching, not surveillance. Quiz accuracy, attempts, progress, and XP can indicate where an employee may need help, but they should be interpreted with context and never used alone for performance evaluation.
+Learning analytics should support coaching, not surveillance. Quiz accuracy, attempts, progress, feedback, and XP can reveal where help may be useful, but they must be interpreted with context and never used alone for performance evaluation.
 
-Course content should remain approved and version-controlled. Deal-specific, legal, accounting, rating, investment, and current-market questions belong with qualified humans.
+Course content should remain approved, cited where appropriate, and version-controlled. Deal-specific, legal, accounting, rating, investment, and current-market questions belong with qualified humans.
 
 ## Roadmap
 
-- Build the interactive experience for Days 5–32
-- Expand the Learning Library into a full Study Arcade home with shared foundations and ABS Suite role paths
-- Define a reusable topic schema so each subject can have its own duration, phases, outcomes, and mastery criteria
-- Add applied simulations and scenario-based decisions
+- Expand the Learning Library into a complete multi-topic home and authoring experience
+- Add secure approved-source ingestion, permission-aware retrieval, citations, and freshness indicators
 - Add learner accounts and secure cross-device progress
 - Create trainer and organization dashboards with cohort-level knowledge-gap insights
-- Add a course-authoring workflow for additional organizational topics
+- Turn applied scenarios into interactive calculators, decision labs, and simulations
 - Introduce an AI learning coach grounded only in approved course material
-- Add accessibility, content-quality, and learning-effectiveness evaluation
+- Add reusable topic schemas, content review workflows, and publishing approvals
+- Expand accessibility, content-quality, and learning-effectiveness evaluation
 
 ## Technology
 
 - Next.js, React, and TypeScript
 - Responsive custom CSS
-- Browser storage for demo progress
-- GitHub for source control and curriculum versioning
-- OpenAI Sites for the current hosted demo
+- Version-controlled curriculum data
+- Browser storage for device-local progress and feedback
+- GitHub for source control
+- OpenAI Sites for the hosted experience
 
-The first release intentionally avoids unnecessary infrastructure. Vector search, long-term agent memory, and model orchestration should be introduced only when the approved content library, cross-session personalization, or multi-course scale makes them materially useful.
+The current release intentionally avoids unnecessary infrastructure. Vector search, long-term agent memory, and model orchestration should be added only when approved-source retrieval, durable personalization, or multi-topic scale makes them materially useful.
 
 ## Run locally
 
@@ -150,19 +141,27 @@ npm install
 npm run dev
 ```
 
-Then open the local address shown in the terminal.
-
-To create a production build:
+Open the local address shown in the terminal. To create a production build:
 
 ```bash
 npm run build
 ```
 
+## Repository structure
+
+- `app/page.tsx` — platform UI, interactions, Days 1–4 content, mastery, feedback, tour, presentation, and navigation
+- `app/data/` — structured curriculum content for Days 5–32
+- `app/globals.css` — responsive visual system and interaction styling
+- `app/layout.tsx` — page metadata and social-sharing configuration
+- `public/og.png` — Study Arcade social preview
+- `.openai/hosting.json` — hosted Sites project configuration
+
 ## Explore the project
 
 - **Live experience:** [Study Arcade — Securitization Fundamentals](https://securitization-arcade.pulak261.chatgpt.site)
+- **Guided tour:** [Start Take a tour automatically](https://securitization-arcade.pulak261.chatgpt.site/?tour=1)
 - **Source:** [securitization-arcade-employee-training](https://github.com/MittalP2/securitization-arcade-employee-training)
 
 ---
 
-**Study Arcade** is the platform. **Securitization Fundamentals** is its first selectable topic. **Auto loans** are the case study that makes that topic concrete.
+**Study Arcade** is the platform. **Securitization Fundamentals** is its first complete topic. **Auto loans** are the practical case study that makes the topic concrete.

@@ -14,16 +14,16 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'Study Arcade · Securitization Fundamentals',
-  description: 'Learn core securitization concepts through a connected 30-day journey using auto loans as a practical case study.',
+  description: 'Explore a complete 32-level securitization learning journey with connected lessons, applied scenarios, flashcards, quizzes, feedback, and presentations.',
   openGraph: {
     title: 'Study Arcade · Securitization Fundamentals',
-    description: 'Learn core concepts through an auto-loan case study.',
+    description: 'A complete 30-day core journey plus two advanced bonus levels, using auto loans as a practical case study.',
     images: [{ url: '/og.png', width: 1536, height: 864 }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Study Arcade · Securitization Fundamentals',
-    description: 'Learn core concepts through an auto-loan case study.',
+    description: 'A complete 30-day core journey plus two advanced bonus levels, using auto loans as a practical case study.',
     images: ['/og.png'],
   },
 };
