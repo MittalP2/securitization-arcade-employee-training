@@ -47,14 +47,15 @@ Future topics can have different durations, sources, examples, learning maps, an
 - Five **flashcards** and five-question **knowledge checks** for every day
 - An **80% quiz mastery target**, XP, persistent progress, and a green completion tick for mastered days
 - A one-time **email completion receipt** when a learner first masters a day, summarizing quiz score, XP, and the next lesson
-- A **Day Debrief** capturing clarity, confidence, improvement requests, and optional comments, followed by a recommended next action
+- An agentic **End-of-Day Learning Coach** that reads assessment and reflection evidence, retrieves approved context, chooses a next action, creates a challenge, and updates review memory
+- A visible **Agent Activity** trail plus a human-reviewed trainer-handoff draft when approved material is insufficient
 - **Present Day** mode for colleague-led training and later employee review
 - An 11-step **Take a tour** walkthrough
 - A visible **Learning Library** with illustrative future organizational paths
 - An illustrative approved-source citation block for ABS Suite Sales Enablement
 - Responsive desktop and mobile behavior
 
-Progress and feedback are currently saved on the learner’s device. Resetting a day removes that day’s lesson progress, cards, quiz state, completion tick, and feedback. Central learner accounts, secure cross-device records, and trainer dashboards are not yet implemented.
+Progress, feedback, Coach Debriefs, and the review queue are currently saved on the learner’s device. Resetting a day removes that day’s lesson progress, cards, quiz state, completion tick, feedback, and Coach Debrief. Central learner accounts, secure cross-device records, and trainer dashboards are not yet implemented.
 
 Completion emails use a server-side Resend integration, so the API key is never exposed in the browser or committed to GitHub. The quick-demo sender can deliver only to the email address associated with the Resend account; organization-wide delivery will require a verified company sending domain and authenticated learner accounts.
 
@@ -70,7 +71,7 @@ A day reaches 100% mastery when the learner:
 2. Masters all five flashcards.
 3. Submits the quiz with at least 80% accuracy.
 
-The green tick is a visible mastery reward, while the Day Debrief captures how clear and explainable the material felt. These signals are intended to guide learning and coaching—not act as standalone employee-performance scores.
+The green tick is a visible mastery reward. After reflection, the Learning Coach compares confidence with demonstrated understanding, chooses a grounded next action, creates a quick challenge, and remembers fragile concepts for later review. These signals guide learning and coaching—not standalone employee-performance scoring.
 
 ## Content governance and citations
 
@@ -86,14 +87,26 @@ The current ABS Suite Sales Enablement citation block is **illustrative**. Live 
 4. Enter a daily lesson and show the Builds on → Today → Unlocks thread.
 5. Flip a flashcard and open the quiz to demonstrate active recall and assessment.
 6. Point to progress, XP, and a green completion tick.
-7. Open **Give feedback** to show the Day Debrief and recommended next action.
+7. Complete **Give feedback** to show the Learning Coach retrieving context, choosing an action, updating review memory, and producing a personalized Coach Debrief.
 8. Finish in **Present Day** mode to explain the trainer and post-training review experience.
 
 ## Learning-agent definition
 
 > My agent helps **new employees and the colleagues who train them** complete **a governed journey from prerequisite discovery through lessons, practice, assessment, reflection, and targeted review** in **the Study Arcade web experience**, replacing **a fragmented workflow of presentations, documents, internal pages, spreadsheets, and personal notes that takes hours to assemble and makes understanding difficult to verify**. It performs **lesson guidance, concept explanation, review planning, flashcard practice, quiz assessment, and next-step recommendations** using **four governed capabilities: the approved course library, Learning Map, assessment engine, and learner-progress record**; it hands off to a human **when a question requires source-owner clarification, deal-specific judgment, current-market interpretation, or legal, accounting, rating, or investment advice**. It works when **a learner can complete a daily learning cycle in under 60 minutes and explain or apply the main concept with at least 80% assessment accuracy**.
 
-This is the intended intelligent learning layer. The current release uses curated, version-controlled course content and rule-based recommendations; it does not generate deal-specific financial guidance.
+The current implementation runs a bounded tool-using Coach workflow through a server-side Fireworks AI model when configured. It calls approved-context retrieval, learning-action selection, review-memory, and trainer-handoff tools in an explicit state sequence; provider calls retry once and fall back to deterministic approved guidance rather than blocking the learner or inventing facts. It does not generate deal-specific financial guidance.
+
+### Learning Coach control flow
+
+```text
+Day mastered + learner reflection
+              ↓
+Read learning evidence → Retrieve approved context → Choose next action
+                                                      ↓
+                         Update review memory OR prepare trainer handoff
+                                                      ↓
+                         Coach Debrief + challenge + visible activity trail
+```
 
 ## Agent decision framework
 
@@ -122,7 +135,7 @@ Course content should remain approved, cited where appropriate, and version-cont
 - Add learner accounts and secure cross-device progress
 - Create trainer and organization dashboards with cohort-level knowledge-gap insights
 - Turn applied scenarios into interactive calculators, decision labs, and simulations
-- Introduce an AI learning coach grounded only in approved course material
+- Move Learning Coach memory from the device to authenticated, permission-aware learner records
 - Add reusable topic schemas, content review workflows, and publishing approvals
 - Expand accessibility, content-quality, and learning-effectiveness evaluation
 
@@ -131,11 +144,12 @@ Course content should remain approved, cited where appropriate, and version-cont
 - Next.js, React, and TypeScript
 - Responsive custom CSS
 - Version-controlled curriculum data
-- Browser storage for device-local progress and feedback
+- Fireworks AI tool calling for the bounded Learning Coach workflow
+- Browser storage for device-local progress, feedback, Coach Debriefs, and review memory
 - GitHub for source control
 - OpenAI Sites for the hosted experience
 
-The current release intentionally avoids unnecessary infrastructure. Vector search, long-term agent memory, and model orchestration should be added only when approved-source retrieval, durable personalization, or multi-topic scale makes them materially useful.
+The current release intentionally avoids unnecessary infrastructure. The 32-day curriculum is small and structured, so the Coach retrieves from the approved in-app course payload rather than adding a vector database. Long-term server memory and retrieval infrastructure should be added only when authenticated learners, secure company sources, and multi-topic scale make them materially useful.
 
 ## Run locally
 
