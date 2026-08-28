@@ -93,7 +93,7 @@ type StudioTool = 'map'|'cards'|'quiz';
 type TourStep = { target:string; eyebrow:string; title:string; text:string; tool?:StudioTool; modal?:'topics'|'feedback'; placement?:'right' };
 
 const tourSteps:TourStep[] = [
-  { target:'.topic-library', eyebrow:'WELCOME TO STUDY ARCADE', title:'Choose a shared foundation or role-specific path', text:'Study Arcade is the platform. Securitization Fundamentals is the current shared foundation, while ABS Suite Sales and Marketing demonstrate secure, role-specific company learning.', modal:'topics', placement:'right' },
+  { target:'[data-tour="topics"]', eyebrow:'WELCOME TO STUDY ARCADE', title:'Choose a shared foundation or role-specific path', text:'Study Arcade is the platform and Securitization Fundamentals is the current path. Select this Current Topic control to open the Learning Library and explore ABS Suite role paths.', },
   { target:'[data-tour="journey"]', eyebrow:'THE ROADMAP', title:'Always know where you are', text:'The Journey panel keeps all 32 levels visible, marks your current position, and lets you preview what comes next.' },
   { target:'[data-tour="learning-map"]', eyebrow:'THE MENTAL MODEL', title:'See phases and prerequisites together', text:'The Learning Map is both the course index and the conceptual map. It shows which earlier ideas unlock advanced lessons.' },
   { target:'[data-tour="lesson"]', eyebrow:'DAILY MISSION', title:'Learn in small, connected sections', text:'Every day moves from plain-English intuition into mechanics, examples, and application without losing the bigger picture.' },
