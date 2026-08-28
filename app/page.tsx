@@ -166,6 +166,7 @@ export default function Home(){
   const score=useMemo(()=>activeQuiz.reduce((sum,item,i)=>sum+(activeAnswers[i]===item.answer?1:0),0),[activeAnswers,activeQuiz]);
   const xp=activeCompleted*20+activeMastered.length*5+(activeSubmitted?score*10:0);
   const progress=Math.round(((activeCompleted/requiredSections+activeMastered.length/5+(activeSubmitted?1:0))/3)*100);
+  const dayOneComplete=completed.length===lessonSections.length&&mastered.length===cards.length&&submitted;
 
   function finishSection(){
     if(selectedDay>1){const done=demoCompleted[selectedDay]||[];if(!done.includes(section))setDemoCompleted({...demoCompleted,[selectedDay]:[...done,section]});if(section<3)setSection(section+1);else{setTool('quiz');setNotice(`Day ${selectedDay} lesson complete — finish the quiz to clear the level.`)}return;}
@@ -198,7 +199,7 @@ export default function Home(){
         <div className="panel-heading"><div><span className="eyebrow">YOUR JOURNEY</span><h2>32 learning levels</h2></div><span className="journey-score">{progress}%</span></div>
         <button className="learning-map-entry" data-tour="learning-map" onClick={()=>setMapOpen(true)}><span>◇</span><p><b>Learning Map</b>All phases, concepts & prerequisites</p><i>↗</i></button>
         <div className="phase-card"><span>PHASE 1 OF 5 · CURRENT</span><strong>Build the foundation</strong><div className="phase-meter"><i style={{width:`${Math.max(progress/7,2)}%`}} /></div><small>Day {selectedDay} of 7 · Flow, structure, credit and waterfalls</small></div>
-        <nav className="level-list" aria-label="Course levels">{levelTitles.slice(0,expanded?32:8).map((title,index)=><button onClick={()=>chooseLevel(index)} className={index===selectedDay-1?'level active':'level'} key={title}><span className="level-number">{index===selectedDay-1?'▶':index+1}</span><span><b>{index<30?`Day ${index+1}`:`Bonus ${index-29}`}</b>{title}</span>{index===selectedDay-1?<em>NOW</em>:<span className="roadmap-dot">○</span>}</button>)}</nav>
+        <nav className="level-list" aria-label="Course levels">{levelTitles.slice(0,expanded?32:8).map((title,index)=><button onClick={()=>chooseLevel(index)} className={index===selectedDay-1?'level active':'level'} key={title}><span className="level-number">{index===selectedDay-1?'▶':index+1}</span><span><b>{index<30?`Day ${index+1}`:`Bonus ${index-29}`}{index===0&&dayOneComplete&&<i className="level-complete-check" aria-label="Day 1 complete" title="Day 1 complete">✓</i>}</b>{title}</span>{index===selectedDay-1?<em>NOW</em>:<span className="roadmap-dot">○</span>}</button>)}</nav>
         <button className="all-levels" onClick={()=>setExpanded(!expanded)}>{expanded?'Show core levels':'View all 32 levels'} <span>{expanded?'↑':'→'}</span></button>
         <div className="bonus-note"><span>★</span><p><b>2 bonus levels await</b>Advanced funding and controls unlock after graduation.</p></div>
       </aside>
