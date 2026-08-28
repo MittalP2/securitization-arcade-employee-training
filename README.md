@@ -77,6 +77,7 @@ The journey moves from the basic loan-to-bond flow through SPVs, tranches, water
 The first demo implements:
 
 - Interactive learning experiences for **Days 1–4**
+- A visible **Topic Library** that separates the Study Arcade platform from the current subject
 - The complete **32-day Learning Map** with phases and prerequisite connections
 - Daily lessons, contextual examples, flashcards, quizzes, feedback, and an 80% mastery target
 - **Take a tour** product walkthrough
@@ -121,7 +122,7 @@ Course content should remain approved and version-controlled. Deal-specific, leg
 ## Roadmap
 
 - Build the interactive experience for Days 5–32
-- Add the Study Arcade home, Topic Library, and topic-selection experience
+- Expand the Topic Library into a full Study Arcade home and multi-topic selection experience
 - Define a reusable topic schema so each subject can have its own duration, phases, outcomes, and mastery criteria
 - Add applied simulations and scenario-based decisions
 - Add learner accounts and secure cross-device progress
