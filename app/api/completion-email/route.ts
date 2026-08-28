@@ -5,6 +5,8 @@ const dayTitles = [
 export async function POST(request: Request) {
   const apiKey=process.env.RESEND_API_KEY;
   if(!apiKey)return Response.json({error:'Completion email is not configured.'},{status:503});
+  const recipient=process.env.COMPLETION_TO_EMAIL;
+  if(!recipient)return Response.json({error:'Completion email recipient is not configured.'},{status:503});
 
   let body:unknown;
   try{body=await request.json()}catch{return Response.json({error:'Invalid request.'},{status:400})}
@@ -17,12 +19,11 @@ export async function POST(request: Request) {
   const dayNumber=Number(day);
   const title=dayTitles[dayNumber-1];
   const next=dayNumber<32?`Day ${dayNumber+1}: ${dayTitles[dayNumber]}`:'You completed the full 32-level journey.';
-  const recipient=process.env.COMPLETION_TO_EMAIL||'pulak261@gmail.com';
   const sender=process.env.COMPLETION_FROM_EMAIL||'Study Arcade <onboarding@resend.dev>';
   const siteUrl=process.env.NEXT_PUBLIC_SITE_URL||'https://securitization-arcade.pulak261.chatgpt.site';
   const response=await fetch('https://api.resend.com/emails',{
     method:'POST',
-    headers:{'Authorization':`Bearer ${apiKey}`,'Content-Type':'application/json','Idempotency-Key':`study-arcade-day-${dayNumber}-pulak261`},
+    headers:{'Authorization':`Bearer ${apiKey}`,'Content-Type':'application/json','Idempotency-Key':`study-arcade-completion-day-${dayNumber}`},
     body:JSON.stringify({
       from:sender,
       to:[recipient],
