@@ -17,12 +17,12 @@ Within the Securitization Fundamentals topic, auto loans provide a consistent pr
 Study Arcade separates the reusable learning experience from the subject being taught:
 
 1. **Study Arcade** — the learning platform and shared interaction model.
-2. **Topic Library** — where a learner or organization selects an available subject.
+2. **Learning Library** — where employees select shared foundations or role-specific organizational learning paths.
 3. **Topic Journey** — the lessons, phases, map, practice, assessments, and presentations for that subject.
 
 For this demo, the path is:
 
-**Study Arcade → Topic Library → Securitization Fundamentals → 32-day learning journey**
+**Study Arcade → Learning Library → Securitization Fundamentals → 32-day learning journey**
 
 Future topics can use a different duration, syllabus, examples, and mastery criteria while retaining the same familiar Study Arcade experience.
 
@@ -77,7 +77,7 @@ The journey moves from the basic loan-to-bond flow through SPVs, tranches, water
 The first demo implements:
 
 - Interactive learning experiences for **Days 1–4**
-- A visible **Topic Library** that separates the Study Arcade platform from the current subject
+- A visible **Learning Library** that separates the Study Arcade platform from shared foundations and role-specific paths
 - The complete **32-day Learning Map** with phases and prerequisite connections
 - Daily lessons, contextual examples, flashcards, quizzes, feedback, and an 80% mastery target
 - An intelligent **Day Debrief** that captures clarity, confidence, improvement requests, and optional comments, then recommends a useful next action
@@ -123,7 +123,7 @@ Course content should remain approved and version-controlled. Deal-specific, leg
 ## Roadmap
 
 - Build the interactive experience for Days 5–32
-- Expand the Topic Library into a full Study Arcade home and multi-topic selection experience
+- Expand the Learning Library into a full Study Arcade home with shared foundations and ABS Suite role paths
 - Define a reusable topic schema so each subject can have its own duration, phases, outcomes, and mastery criteria
 - Add applied simulations and scenario-based decisions
 - Add learner accounts and secure cross-device progress
