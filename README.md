@@ -105,34 +105,7 @@ The current implementation runs a bounded tool-using Coach workflow through a se
 
 ## Architecture and technology stack
 
-```mermaid
-flowchart TB
-    GitHub["GitHub<br/>source and curriculum versions"] --> Sites["OpenAI Sites<br/>build and hosting"]
-    Sites --> Web["Study Arcade Web App<br/>Next.js · React · TypeScript"]
-
-    Learner["Learner"] --> Web
-    Trainer["Colleague-trainer"] --> Web
-    Curriculum["Approved course library<br/>32-day curriculum JSON"] --> Web
-    State["Browser localStorage<br/>progress · feedback · debrief history · review queues"] -->|loads local history| Web
-
-    Web --> CoachAPI["Coach API route<br/>bounded server-side workflow"]
-    CoachAPI --> Fireworks["Fireworks AI<br/>Kimi K2.6"]
-    CoachAPI --> Retrieve["Tool 1 · Retrieve approved context"]
-    CoachAPI --> Decide["Tool 2 · Select learning action"]
-    CoachAPI --> Memory["Tool 3 · Prepare review queue"]
-    CoachAPI --> Handoff["Tool 4 · Prepare trainer handoff"]
-    Retrieve --> Curriculum
-    Handoff -.->|human reviews; nothing sent automatically| Trainer
-    CoachAPI --> Debrief["Coach Debrief<br/>summary · challenge · next action · activity trail"]
-    Debrief --> Web
-    Web -->|saves returned debrief| State
-
-    Web --> EmailAPI["Completion-email API route"]
-    EmailAPI -.->|optional when configured| Resend["Resend<br/>completion receipt"]
-
-    Secrets["Protected Sites secrets<br/>Fireworks and Resend API keys"] --> CoachAPI
-    Secrets --> EmailAPI
-```
+🗺️ **[View the Mermaid architecture diagram](docs/architecture.md)**
 
 | Layer | Technology | Role |
 |---|---|---|
