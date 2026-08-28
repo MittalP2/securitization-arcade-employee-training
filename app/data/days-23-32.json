@@ -1,0 +1,739 @@
+{
+  "23": {
+    "title": "Relative Value & Comps: Positioning Auto ABS",
+    "shortTitle": "Relative Value",
+    "prerequisite": "Know how WAL, credit enhancement, triggers, pay rules, and issuer quality shape an Auto ABS bond.",
+    "later": "This comparison framework feeds Day 25's trading watchlist and Day 26's capstone price talk.",
+    "sections": [
+      {
+        "label": "Build",
+        "title": "Build a fair comp set",
+        "kicker": "Compare like with like",
+        "lead": "A useful comp set matches the risks that determine both cash-flow timing and investor confidence.",
+        "bullets": [
+          {"title": "Issuer tier", "text": "Repeat issuers with strong operations and clean data often earn better liquidity and tighter spreads."},
+          {"title": "Structure", "text": "Compare subordination, OC, reserve, pro-rata windows, flip conditions, and PDL mechanics."},
+          {"title": "Tenor", "text": "Match base and stressed WAL before comparing spreads so time risk is normalized."},
+          {"title": "Liquidity", "text": "Deal size, benchmark status, and on-the-run presence can move spreads even when credit is similar."}
+        ],
+        "callout": "A spread comparison without a WAL comparison is usually an apples-to-oranges comparison."
+      },
+      {
+        "label": "Frame",
+        "title": "Place Auto ABS beside its peers",
+        "kicker": "Use adjacent markets carefully",
+        "lead": "Prime, subprime, card ABS, and CLOs provide context, but they do not carry identical collateral or structural risks.",
+        "bullets": [
+          {"title": "Prime vs subprime", "text": "Subprime seniors usually trade wider because expected losses and severity are higher and OC may build more slowly."},
+          {"title": "Cards", "text": "Card ABS often has shorter WAL, revolving collateral, and early-amortization events, so its senior spread is not a direct Auto ABS substitute."},
+          {"title": "CLOs", "text": "CLOs hold corporate loans and have a different liability stack; use them mainly as a signal of broader risk appetite."}
+        ],
+        "callout": "Adjacent asset classes are a market-temperature check, not a shortcut around deal-level analysis."
+      },
+      {
+        "label": "Measure",
+        "title": "Use quick relative-value metrics",
+        "kicker": "Turn structure into a view",
+        "lead": "A few simple measures make a pricing opinion transparent enough for a team to challenge.",
+        "bullets": [
+          {"title": "Spread per WAL", "text": "Divide spread in basis points by WAL in years for a rough measure of carry per year of exposure."},
+          {"title": "Margin of safety", "text": "Compare available CE to required stressed CE; a ratio above 1.0 suggests cushion, subject to timing."},
+          {"title": "Extension score", "text": "Add one flag each for long pro-rata, weak flips, thin XS versus fees, and optional advances."},
+          {"title": "OC path", "text": "Faster expected OC build from sequential pay and strict trapping supports tighter pricing."}
+        ],
+        "callout": "An extension score of 2 or more is a practical reason to demand roughly 10–20 bps more spread."
+      },
+      {
+        "label": "Decide",
+        "title": "Lab: Set the talk",
+        "kicker": "Price a live comparison",
+        "lead": "A prime AAA comp prints at T+112 with 2.7-year WAL, strict flips, daily sweeps, and 12% OC; your 2.6-year deal matches those protections and adds 25 bps of reserve.",
+        "bullets": [
+          {"title": "Decision", "text": "Propose T+108–110 because tenor and core structure match while the larger reserve adds protection."},
+          {"title": "Extension check", "text": "Score long pro-rata, weak flips, thin XS, and optional advances from 0–4; at 2 or more, widen talk by 10–20 bps."},
+          {"title": "Challenge", "text": "Write the single secondary-market observation that would move your view by plus or minus 10 bps."}
+        ],
+        "callout": "Your output: talk spread, extension score, and one sentence connecting both to the comp."
+      }
+    ],
+    "flashcards": [
+      {"front": "Why match WAL when comparing spreads?", "back": "It normalizes time and extension exposure, making the spread comparison more meaningful."},
+      {"front": "What is spread/WAL?", "back": "Spread in bps divided by WAL in years—a rough carry-per-year measure."},
+      {"front": "What does a margin-of-safety ratio above 1.0 suggest?", "back": "Available CE exceeds required stressed CE, although timing and pay rules still matter."},
+      {"front": "Name two extension flags.", "back": "A long pro-rata window and optional advances; weak flips and thin XS are two others."},
+      {"front": "Why might a repeat issuer trade tighter?", "back": "Investors may value its operating record, data quality, familiarity, and secondary liquidity."}
+    ],
+    "quiz": [
+      {"q": "Which comparison is most defensible?", "options": ["Same coupon only", "Same rating only", "WAL-matched deals with structural adjustments", "Same issue month only"], "answer": 2, "explain": "WAL matching normalizes time risk, while structural adjustments capture the remaining differences."},
+      {"q": "Which feature should normally tighten senior spreads?", "options": ["Long pro-rata window", "Strict early flip to sequential", "Optional advances", "Thin reserve"], "answer": 1, "explain": "A strict early flip accelerates senior amortization and reduces extension risk."},
+      {"q": "Why do subprime seniors usually trade wider than prime seniors?", "options": ["They always have shorter WAL", "They carry higher expected CNL and severity", "They have no collateral", "They cannot have OC"], "answer": 1, "explain": "Higher expected loss and severity raise risk even when the senior rating is similar."},
+      {"q": "An extension flag score rises from 1 to 3. What is the likely pricing response?", "options": ["Tighten materially", "Ignore it", "Widen the required spread", "Remove the reserve"], "answer": 2, "explain": "More extension flags mean investors should demand more compensation."},
+      {"q": "What is the best role for CLO spreads in an Auto ABS analysis?", "options": ["A direct one-for-one comp", "A broad risk-appetite signal", "A replacement for presale review", "A measure of auto recoveries"], "answer": 1, "explain": "CLO collateral and structures differ, but their spreads can indicate the market's general appetite for risk."}
+    ]
+  },
+  "24": {
+    "title": "ESG, EVs & Future Trends in Auto ABS",
+    "shortTitle": "ESG & EV Risk",
+    "prerequisite": "Understand recoveries, severity, OC, reserves, triggers, and sequential versus pro-rata pay.",
+    "later": "These EV and governance questions become risk-and-mitigant inputs in the Day 26 capstone and future pool monitoring.",
+    "sections": [
+      {
+        "label": "Lens",
+        "title": "Make ESG operational",
+        "kicker": "Move beyond labels",
+        "lead": "In Auto ABS, ESG becomes useful when it changes diligence questions, data quality, or servicing controls.",
+        "bullets": [
+          {"title": "Governance", "text": "Review reporting timeliness, servicing standards, complaint handling, repossession practices, and privacy controls."},
+          {"title": "Social", "text": "Examine hardship, extension, and deferral practices plus fair treatment across origination and servicing channels."},
+          {"title": "Environmental", "text": "Track ICE, hybrid, and EV mix alongside indirect emissions and recycling or disposal considerations."},
+          {"title": "Disclosure", "text": "Consistent static pools and accurate trustee reporting are often the most decision-useful governance evidence."}
+        ],
+        "callout": "The strongest ESG question is often: what data or control would reveal the risk early?"
+      },
+      {
+        "label": "Diagnose",
+        "title": "Trace EV risk into recoveries",
+        "kicker": "Technology can change severity",
+        "lead": "An EV loan can follow the same default path as an ICE loan yet produce a different net loss because resale economics differ.",
+        "bullets": [
+          {"title": "Battery economics", "text": "Battery health, rapid depreciation, and costly repairs can reduce auction proceeds."},
+          {"title": "Obsolescence", "text": "Fast model-year changes and software-locked features can weaken used-vehicle demand."},
+          {"title": "Repair network", "text": "Parts and service availability affect both time to sale and net recovery."},
+          {"title": "Severity", "text": "Lower recoveries at the same defaults produce higher net loss severity."}
+        ],
+        "callout": "EV exposure is primarily a recovery and severity question—not automatically a default-rate conclusion."
+      },
+      {
+        "label": "Protect",
+        "title": "Match mitigants to the risk",
+        "kicker": "Ask for data and structure",
+        "lead": "EV-heavy pools can offset uncertain resale outcomes through stronger protection and better remarketing evidence.",
+        "bullets": [
+          {"title": "More cushion", "text": "Higher OC targets or reserves provide protection when recovery uncertainty is elevated."},
+          {"title": "Faster de-risking", "text": "Strict 60+ and CNL flips plus stronger XS trapping accelerate senior paydown."},
+          {"title": "Better disposal", "text": "Specialized EV remarketing, warranties, and certified programs can support resale proceeds."},
+          {"title": "Better segmentation", "text": "Request EV share, battery-age proxies, and EV-versus-ICE recovery and severity data."}
+        ],
+        "callout": "A mitigant is credible only when its benefit can be measured or contractually enforced."
+      },
+      {
+        "label": "Scan",
+        "title": "Lab: Challenge an EV-heavy pool",
+        "kicker": "Convert evidence into protection",
+        "lead": "Pool A is 35% EV and recent regional auctions show EV recoveries about 10 points below comparable ICE vehicles.",
+        "bullets": [
+          {"title": "Data ask", "text": "Request EV-versus-ICE recoveries plus weighted-average battery age or health by model year."},
+          {"title": "Remarketing ask", "text": "Confirm specialist auction channels, repair networks, and warranty or certified-resale support."},
+          {"title": "Structure decision", "text": "Test an OC target 150 bps above an ICE-heavy deal, a reserve 50 bps larger, and strict 60+/CNL flips."},
+          {"title": "Equity impact", "text": "Explain that higher targets and stronger trapping delay equity cash while seniors de-risk faster."}
+        ],
+        "callout": "Your output: three diligence questions, two structural mitigants, and the equity-timing trade-off."
+      }
+    ],
+    "flashcards": [
+      {"front": "Which ESG pillar covers reporting accuracy?", "back": "Governance, because it concerns controls, transparency, and accountability."},
+      {"front": "How can battery condition affect an ABS deal?", "back": "Weaker battery health can reduce resale proceeds and raise loss severity."},
+      {"front": "What is the fastest structural response to weaker recoveries?", "back": "Flip earlier to sequential pay and trap excess spread to accelerate senior de-risking."},
+      {"front": "Which EV stratification is especially useful?", "back": "EV-versus-ICE recovery and severity data, supported by battery-age or health proxies."},
+      {"front": "Why can subscription models matter?", "back": "Different contract forms may change asset eligibility and how cash flows fit the waterfall."}
+    ],
+    "quiz": [
+      {"q": "Which EV feature most directly affects recovery severity?", "options": ["Borrower email address", "Battery depreciation", "Trustee location", "Note denomination"], "answer": 1, "explain": "Battery depreciation can materially reduce resale value and therefore recoveries."},
+      {"q": "Which request best improves EV-specific analysis?", "options": ["Only total pool FICO", "EV-versus-ICE recovery data", "Only note coupons", "Only issuer market share"], "answer": 1, "explain": "Segmented recovery data isolates the risk that EV collateral may behave differently."},
+      {"q": "Reporting timeliness belongs primarily to which ESG pillar?", "options": ["Environmental", "Social", "Governance", "None"], "answer": 2, "explain": "Timely, accurate reporting is a governance and control issue."},
+      {"q": "What does higher OC do for an EV-heavy pool?", "options": ["Guarantees no defaults", "Adds loss-absorbing cushion", "Eliminates servicing", "Raises used-car prices"], "answer": 1, "explain": "OC does not prevent defaults, but it provides additional protection against loss uncertainty."},
+      {"q": "Which trend could require new eligibility and waterfall analysis?", "options": ["Subscription vehicle contracts", "A larger font", "A new ticker symbol", "A shorter presale"], "answer": 0, "explain": "Subscription structures may produce cash flows and legal forms different from conventional retail loans."}
+    ]
+  },
+  "25": {
+    "title": "Secondary Trading, Watchlists & Downgrades",
+    "shortTitle": "Trading Watchlist",
+    "prerequisite": "Know the core performance KPIs, OC and IC tests, PDL mechanics, reserve behavior, and relative-value framework.",
+    "later": "The watchlist thresholds become the monitoring plan in Day 26's capstone and the controls logic used in later modeling days.",
+    "sections": [
+      {
+        "label": "Read",
+        "title": "Decode the secondary market",
+        "kicker": "Price includes liquidity",
+        "lead": "Secondary levels reflect current credit information plus the market's willingness to make a two-way price.",
+        "bullets": [
+          {"title": "Axes and BWICs", "text": "Dealer buy/sell interests and bids-wanted lists create observable prints and market color."},
+          {"title": "Liquidity tiers", "text": "Large on-the-run AAA bonds usually trade more easily than small mezzanine positions."},
+          {"title": "Bid-offer", "text": "The gap can widen during risk-off periods even when a deal's own KPIs remain stable."},
+          {"title": "Dispersion", "text": "Issuer tier and structural quality can separate spreads for bonds with the same WAL."}
+        ],
+        "callout": "A wider bid-offer can be a market-liquidity signal, not proof that collateral suddenly worsened."
+      },
+      {
+        "label": "Monitor",
+        "title": "Build an actionable watchlist",
+        "kicker": "Thresholds need responses",
+        "lead": "A useful watchlist pairs each performance signal with a defined escalation or trading action.",
+        "bullets": [
+          {"title": "OC slope", "text": "Two months below target—or flat OC while delinquencies rise—deserves attention."},
+          {"title": "IC cushion", "text": "A senior IC ratio below roughly 1.02x warns that equity may shut off and PDL use may approach."},
+          {"title": "Delinquency", "text": "A 60+ rate above its amber threshold and still rising is an early deterioration cue."},
+          {"title": "Liquidity reserve", "text": "Repeated reserve draws without replenishment indicate cash-flow stress."}
+        ],
+        "callout": "Do not write 'watch OC'; write the threshold, observation window, owner, and action."
+      },
+      {
+        "label": "Anticipate",
+        "title": "Spot downgrade pressure early",
+        "kicker": "Ratings react to sustained evidence",
+        "lead": "Rating actions can come from performance, counterparties, methodology, or documentation—not just realized losses.",
+        "bullets": [
+          {"title": "Mezz pressure", "text": "Prolonged equity shut-off, an outstanding PDL, and slow OC build increase downgrade risk."},
+          {"title": "Senior pressure", "text": "Prime seniors are more likely to face concern after structural erosion, documentation changes, or major methodology shifts."},
+          {"title": "Counterparties", "text": "Servicer or account-bank downgrades matter if required remedies are not completed on time."},
+          {"title": "Outlook first", "text": "Multiple amber months may lead to an outlook change before a formal downgrade."}
+        ],
+        "callout": "A rating is an output; the watchlist should surface the inputs before the output changes."
+      },
+      {
+        "label": "Act",
+        "title": "Lab: Call the watchlist status",
+        "kicker": "Direction beats a single snapshot",
+        "lead": "OC moved 1.087x → 1.091x → 1.105x against a 1.10x target, while 60+ fell 2.4% → 2.2% → 2.0%; IC is 1.03x, no PDL is outstanding, and the reserve is full.",
+        "bullets": [
+          {"title": "Status", "text": "Take the deal off watch only if the latest OC pass is confirmed and the improving delinquency trend persists."},
+          {"title": "Equity call", "text": "With OC above target and IC above 1.0x, equity is likely to resume next month if the documents require no extra cure period."},
+          {"title": "Spread call", "text": "The positive OC slope and falling 60+ rate support tighter spreads versus the last print, subject to market liquidity."}
+        ],
+        "callout": "Your output: on/off watch, equity on/off, spread direction, and the exact threshold that would reverse the call."
+      }
+    ],
+    "flashcards": [
+      {"front": "What is a BWIC?", "back": "A bids-wanted-in-competition process used to solicit secondary bids and establish market color."},
+      {"front": "What does IC below 1.0x usually do to equity?", "back": "It shuts equity distributions off and redirects cash to protect the notes."},
+      {"front": "Name two mezzanine downgrade cues.", "back": "A prolonged equity shut-off and an outstanding PDL; slow OC build is another."},
+      {"front": "What signals a convincing cure?", "back": "Triggers pass for multiple months, OC trends upward, and delinquencies trend down."},
+      {"front": "Why can a stable bond still have a wider bid-offer?", "back": "Sector risk-off conditions, dealer balance-sheet limits, or a BWIC overhang can reduce liquidity."}
+    ],
+    "quiz": [
+      {"q": "Which combination most strongly supports buying on cure?", "options": ["OC falling and 60+ rising", "OC rising and 60+ falling for several months", "Reserve draws increasing", "PDL growing"], "answer": 1, "explain": "A sustained improving OC path and declining delinquencies indicate that the structure is curing."},
+      {"q": "What should happen when IC falls below 1.0x?", "options": ["Equity increases", "Equity is trapped", "The reserve is paid to equity", "Pro-rata must expand"], "answer": 1, "explain": "Cash is diverted away from equity to protect senior obligations."},
+      {"q": "Which can widen bid-offer despite stable deal performance?", "options": ["A market-wide risk-off move", "A rising OC ratio", "A replenished reserve", "A cured trigger"], "answer": 0, "explain": "Liquidity withdrawal can affect pricing independently of the deal's underlying KPIs."},
+      {"q": "Which issue is most relevant to a senior outlook change?", "options": ["A cosmetic title change", "An amendment reducing structural protection", "A new logo", "One small equity payment"], "answer": 1, "explain": "Reduced structural protection can weaken senior resilience and alter rating-agency conclusions."},
+      {"q": "What makes a watchlist threshold useful?", "options": ["It is vague", "It has a metric, observation window, and action", "It never changes", "It contains only a color"], "answer": 1, "explain": "A defined threshold and response turns monitoring into a repeatable decision process."}
+    ]
+  },
+  "26": {
+    "title": "Grand Capstone: End-to-End Auto ABS Case",
+    "shortTitle": "Grand Capstone",
+    "prerequisite": "Bring together presale reading, collateral stratification, waterfall modeling, stress testing, pricing comps, and surveillance KPIs.",
+    "later": "The capstone becomes the baseline case you refine with ratings backsolves, structuring choices, Excel controls, and funding operations in Days 27–32.",
+    "sections": [
+      {
+        "label": "Assemble",
+        "title": "Collect decision-grade inputs",
+        "kicker": "One case, multiple evidence streams",
+        "lead": "The capstone starts by reconciling the legal structure, collateral profile, and economic environment.",
+        "bullets": [
+          {"title": "Presale", "text": "Capture classes, CE, OC and IC tests, delinquency and CNL triggers, pay rules, and PDL language."},
+          {"title": "Collateral", "text": "Summarize FICO, LTV, term, new/used mix, and dealer or geographic concentrations."},
+          {"title": "Macro", "text": "Use unemployment, rates, and used-car values to shape severity, prepay, and roll-rate assumptions."},
+          {"title": "Consistency", "text": "Make sure every model assumption has a source or is clearly labeled as judgment."}
+        ],
+        "callout": "A polished output cannot rescue inputs that contradict the presale or collateral tape."
+      },
+      {
+        "label": "Model",
+        "title": "Run six periods, twice",
+        "kicker": "Base explains; stress reveals",
+        "lead": "The base case demonstrates normal mechanics, while the stress case tests trapping, flips, cures, and extension.",
+        "bullets": [
+          {"title": "Base", "text": "Keep triggers passing after reserve top-up and allow equity while targets remain satisfied."},
+          {"title": "Stress", "text": "Raise roll rates, severity, and fees; lower prepays; force an early OC fail and test whether it cures by Period 4."},
+          {"title": "Track", "text": "Record XS, reserve change, equity, A and B principal, OC end and ratio proxy, plus PDL if implemented."},
+          {"title": "Compare", "text": "Explain the equity-off timeline, cure month, and change in senior WAL proxy."}
+        ],
+        "callout": "A credible stress tells a cash-flow story period by period—not just a larger loss number."
+      },
+      {
+        "label": "Recommend",
+        "title": "Write the investor one-pager",
+        "kicker": "Compress without hiding",
+        "lead": "The memo should let a decision-maker understand the deal, downside, and price view in minutes.",
+        "bullets": [
+          {"title": "Snapshot", "text": "Name the issuer and series, closing date, collateral mix, class stack, and starting protection."},
+          {"title": "Mechanics", "text": "Show pay rules, key triggers, base-versus-stress OC paths, and equity on/off periods."},
+          {"title": "Risks", "text": "Pair three to five material risks with specific structural or operational mitigants."},
+          {"title": "Pricing", "text": "Give WAL-matched talk for A and B and show the comp-based rationale."}
+        ],
+        "callout": "If a risk does not change your model, monitoring plan, or price, explain why it still belongs."
+      },
+      {
+        "label": "Defend",
+        "title": "Lab: Defend the investment case",
+        "kicker": "One page, six periods, one decision",
+        "lead": "Build base and stress cases in which equity is off in P1–P2, OC cures by P3–P4 if plausible, and the Class A WAL proxy extends under stress.",
+        "bullets": [
+          {"title": "Model output", "text": "Report equity on/off by period, OC cure month, and the change in A's WAL proxy from base to stress."},
+          {"title": "Price output", "text": "Propose talk for A and B; T+110/T+270 is an illustrative starting point when strict flips and daily sweeps support the structure."},
+          {"title": "Monitor", "text": "Escalate immediately if 60+ breaches amber while OC remains flat or declining for two periods."},
+          {"title": "Sensitivity", "text": "Estimate a 40 bps market move with ΔPrice ≈ −WAL × ΔYield × Price."}
+        ],
+        "callout": "Your output: a reproducible one-pager whose model, price talk, and monitoring actions tell the same story."
+      }
+    ],
+    "flashcards": [
+      {"front": "What are the three capstone evidence streams?", "back": "Deal documents, collateral/tape data, and macro assumptions."},
+      {"front": "What should an early OC fail do?", "back": "Turn equity off, trap excess spread, and direct principal sequentially to accelerate cure."},
+      {"front": "Which outputs compare base and stress?", "back": "OC path, equity timeline, senior paydown or WAL proxy, reserve use, and any PDL path."},
+      {"front": "What is the rough price-change formula?", "back": "ΔPrice ≈ −WAL × ΔYield × Price."},
+      {"front": "What makes a monitoring plan actionable?", "back": "Each KPI has green/amber/red thresholds and a defined action on breach."}
+    ],
+    "quiz": [
+      {"q": "Which stress combination most plausibly extends Class A?", "options": ["Faster prepays and early sequential pay", "Lower prepays and delayed flip", "Higher recoveries and lower fees", "Immediate OC cure"], "answer": 1, "explain": "Slower prepays and a delayed sequential flip keep senior principal outstanding longer."},
+      {"q": "What should a capstone model show after an OC fail?", "options": ["Equity remains on", "XS is trapped and equity turns off", "All cash goes pro-rata", "The reserve is ignored"], "answer": 1, "explain": "The structure redirects cash away from equity to rebuild protection."},
+      {"q": "Which comp features deserve the greatest weight in price talk?", "options": ["Logo and page count", "WAL plus flip and OC terms", "Closing weekday", "Number of dealers only"], "answer": 1, "explain": "WAL and structural protection are central to exposure and downside behavior."},
+      {"q": "Which threshold should trigger an immediate pricing review?", "options": ["60+ above amber while OC is flat or falling", "One new data field", "A stable reserve", "A shorter memo"], "answer": 0, "explain": "Deteriorating delinquencies plus weak OC build directly challenge the original risk and extension view."},
+      {"q": "What is the purpose of the one-pager?", "options": ["Replace all legal documents", "Present a traceable investment decision concisely", "Hide assumptions", "Avoid monitoring"], "answer": 1, "explain": "It summarizes the evidence and recommendation without pretending to replace source documents."}
+    ]
+  },
+  "27": {
+    "title": "Ratings Methodology & CE Backsolve",
+    "shortTitle": "CE Backsolve",
+    "prerequisite": "Understand expected CNL, severity, subordination, OC, XS, reserves, triggers, and loss timing.",
+    "later": "The CE backsolve provides the constraints for Day 28's structuring lab and the checks embedded in Day 29's model.",
+    "sections": [
+      {
+        "label": "Translate",
+        "title": "Follow the agency logic",
+        "kicker": "From collateral to survival test",
+        "lead": "A ratings analysis converts expected performance into stressed loss paths, then tests the actual waterfall against them.",
+        "bullets": [
+          {"title": "Baseline", "text": "Begin with expected CNL and severity informed by static pools and vintages."},
+          {"title": "Stress", "text": "Apply rating-level multiples or curves to create AAA, A, and BBB loss paths and timing."},
+          {"title": "Overlay", "text": "Run those paths through pay rules, triggers, reserves, OC behavior, and PDL mechanics."},
+          {"title": "Test", "text": "Ask whether interest is timely and principal is fully paid by legal maturity under the relevant stress."}
+        ],
+        "callout": "A rating is a stressed cash-flow survival conclusion, not simply a multiple applied to expected loss."
+      },
+      {
+        "label": "Count",
+        "title": "Separate durable CE from conditional CE",
+        "kicker": "Not every dollar counts equally",
+        "lead": "Available protection combines funded, structural, and future cash-flow sources with different reliability.",
+        "bullets": [
+          {"title": "Subordination", "text": "Junior notes and equity absorb losses first and generally provide the most durable protection."},
+          {"title": "OC", "text": "Assets in excess of notes provide funded cushion and can grow through sequential pay and trapping."},
+          {"title": "XS", "text": "Projected excess spread may receive a large haircut—or no credit—if it is not trapped or disappears under stress."},
+          {"title": "Reserve", "text": "A funded reserve covers shortfalls and is usually replenished before equity receives cash."}
+        ],
+        "callout": "Headline CE overstates comfort when it treats uncertain future XS like funded subordination."
+      },
+      {
+        "label": "Backsolve",
+        "title": "Compare required and available CE",
+        "kicker": "Calculate, then challenge timing",
+        "lead": "A quick backsolve establishes whether the structure has enough nominal cushion before a full cash-flow test.",
+        "bullets": [
+          {"title": "Required", "text": "Approximate stressed CNL by applying the relevant rating multiple to base CNL, then add timing cushion."},
+          {"title": "Available", "text": "Sum subordination to the class, OC, reserve, and only the haircutted XS expected to be trapped."},
+          {"title": "Margin", "text": "Compare available CE with required CE to identify surplus, deficit, or a thin borderline case."},
+          {"title": "Example", "text": "A 4% base CNL at 3× implies about 12% stressed CNL before timing considerations."}
+        ],
+        "callout": "A 39% headline CE stack may look ample, but its quality still depends on pay rules and when losses arrive."
+      },
+      {
+        "label": "Challenge",
+        "title": "Lab: Backsolve two rating levels",
+        "kicker": "Calculate first, challenge second",
+        "lead": "Base CNL is 3.5%. Use a 3× AAA stress and a 1.8× A stress, then compare them with the stated protection.",
+        "bullets": [
+          {"title": "AAA result", "text": "3.5% × 3 = 10.5% stressed CNL; 20% sub to A + 4% OC + 1% reserve gives 25% headline CE before timing."},
+          {"title": "AAA judgment", "text": "Headline CE is ample, but a long pro-rata window or front-loaded losses could still jeopardize timely senior payment."},
+          {"title": "A result", "text": "3.5% × 1.8 = 6.3%; 8% equity plus 2% OC gives Class B 10% headline protection."},
+          {"title": "A judgment", "text": "The 10% headline amount exceeds 6.3%, but XS haircuts, severity timing, and the actual waterfall still require testing."}
+        ],
+        "callout": "Your output: both calculations, an adequacy call, and two timing features that could overturn the headline result."
+      }
+    ],
+    "flashcards": [
+      {"front": "What is the most durable CE component?", "back": "Subordination, because junior claims absorb losses before the senior class."},
+      {"front": "Why might an agency give XS zero credit?", "back": "It may disappear under stress or may not be contractually trapped for noteholder protection."},
+      {"front": "How do you estimate stressed CNL quickly?", "back": "Multiply base CNL by the rating-level stress multiple, then consider timing cushion."},
+      {"front": "Why can pro-rata pay raise required CE?", "back": "It slows senior amortization and OC build, leaving the class exposed longer."},
+      {"front": "What is available CE to a class?", "back": "Subordination beneath it plus OC, reserve, and eligible haircutted trapped XS."}
+    ],
+    "quiz": [
+      {"q": "Base CNL is 3.5% and the AAA multiple is 3×. What is the quick stressed CNL?", "options": ["1.17%", "3.5%", "10.5%", "35%"], "answer": 2, "explain": "3.5% multiplied by 3 equals 10.5%, before adding timing considerations."},
+      {"q": "Which CE source is most likely to receive a haircut?", "options": ["Projected excess spread", "Funded reserve", "Existing subordination", "Current OC"], "answer": 0, "explain": "XS is a future cash flow that can shrink or vanish under stress."},
+      {"q": "What is the main weakness of headline CE sums?", "options": ["They always undercount classes", "They can ignore loss timing and pay rules", "They cannot include OC", "They measure only liquidity"], "answer": 1, "explain": "A sufficient lifetime total may still be unavailable when an early shortfall occurs."},
+      {"q": "Which change most increases senior timing risk?", "options": ["Earlier sequential pay", "Longer pro-rata window", "Faster OC build", "Larger funded reserve"], "answer": 1, "explain": "A longer pro-rata period keeps senior balances outstanding and slows protection build."},
+      {"q": "What does the agency ultimately test?", "options": ["Whether the logo is familiar", "Timely interest and ultimate principal under stress", "Whether equity gets paid monthly", "Whether spreads tighten"], "answer": 1, "explain": "The rating addresses contractual payment performance under the applicable stressed scenario."}
+    ]
+  },
+  "28": {
+    "title": "Structuring Lab: Tune CE, Triggers, and Pay Rules",
+    "shortTitle": "Structuring Lab",
+    "prerequisite": "Know how required CE is backsolved and how OC, reserves, XS, flips, PDL, and cash control protect the notes.",
+    "later": "The chosen blueprint becomes a formula-driven waterfall in Day 29 and a practical funding constraint in Days 31–32.",
+    "sections": [
+      {
+        "label": "Survey",
+        "title": "Know the lever board",
+        "kicker": "Every protection has a cost",
+        "lead": "Structuring is the job of combining loss protection, liquidity, timing controls, and issuer economics.",
+        "bullets": [
+          {"title": "Subordination", "text": "Strong funded protection, but it raises weighted funding cost and reduces equity economics."},
+          {"title": "OC and reserve", "text": "OC builds loss cushion; the reserve stabilizes near-term interest and fee liquidity."},
+          {"title": "Pay rules", "text": "Short pro-rata windows, strict flips, and step-ups reduce extension by accelerating seniors."},
+          {"title": "PDL and controls", "text": "PDL permission protects senior interest, while lockboxes and frequent sweeps reduce commingling risk."}
+        ],
+        "callout": "The 'best' structure depends on whose objective you are optimizing: rating, investor, or issuer."
+      },
+      {
+        "label": "Optimize",
+        "title": "Use smart timing to reduce headline CE",
+        "kicker": "Mechanics can multiply protection",
+        "lead": "Strict triggers and early sequential pay can make the same nominal CE more effective under stress.",
+        "bullets": [
+          {"title": "Tight flips", "text": "OC, IC, delinquency, and CNL breaches trap cash before deterioration becomes severe."},
+          {"title": "Sequential bias", "text": "Earlier senior paydown builds OC faster and shifts timing risk toward equity."},
+          {"title": "Reserve over XS", "text": "A modestly larger funded reserve can reduce reliance on uncertain projected XS."},
+          {"title": "Trade-off", "text": "Less headline CE may be plausible only if the timing protections are enforceable and robust."}
+        ],
+        "callout": "Smart timing does not eliminate credit risk; it reallocates when cash and protection become available."
+      },
+      {
+        "label": "Compare",
+        "title": "Choose between two blueprints",
+        "kicker": "Investor-friendly or par-efficient",
+        "lead": "Two structures can target the same rating while offering different spread and equity-timing outcomes.",
+        "bullets": [
+          {"title": "Conservative", "text": "Use roughly 28–32% sub to A, 12% OC, a 1.5% reserve, tight pro-rata tests, a 24-month step-up, PDL, and daily sweeps."},
+          {"title": "Par-efficient", "text": "Use roughly 20–24% sub to A, 8–9% OC, a 0.75–1.0% reserve, milder pro-rata conditions, limited PDL, and weekly sweeps."},
+          {"title": "Investor outcome", "text": "The conservative design should de-risk seniors faster and support tighter AAA levels."},
+          {"title": "Issuer outcome", "text": "The par-efficient design preserves economics but may need a spread concession for extension risk."}
+        ],
+        "callout": "Equal ratings do not mean equal cash-flow timing or equal relative value."
+      },
+      {
+        "label": "Tune",
+        "title": "Lab: Design two structures",
+        "kicker": "Same pool, different economics",
+        "lead": "For Prime Auto 2025-A, build a conservative and a par-efficient structure, then force a three-period pro-rata-to-sequential flip.",
+        "bullets": [
+          {"title": "Conservative case", "text": "Specify sub to A, 12% OC, 1.5% reserve, tight pro-rata tests, 24-month step-up, PDL, and daily sweeps."},
+          {"title": "Efficient case", "text": "Specify 8–9% OC, a 0.75–1.0% reserve, milder pro-rata tests, limited PDL, and weekly sweeps."},
+          {"title": "Model result", "text": "Compare each case's three-period OC path and equity on/off sequence after the flip."},
+          {"title": "10 bps challenge", "text": "To tighten AAA talk without more subordination, shorten the pro-rata window or strengthen the flip—and accept later equity cash."}
+        ],
+        "callout": "Your output: two complete term sheets, their modeled timing differences, and one deliberate 10 bps lever change."
+      }
+    ],
+    "flashcards": [
+      {"front": "Which lever most directly reduces senior extension risk?", "back": "An early flip to sequential pay with turboed senior principal."},
+      {"front": "How does a higher OC target affect equity?", "back": "It delays equity distributions until the larger target is built or restored."},
+      {"front": "Why use a step-up when triggers are strict?", "back": "It provides an independent carry incentive and can force sequential pay even without a breach."},
+      {"front": "What do daily sweeps improve?", "back": "Cash control by reducing the amount and duration of servicer commingling exposure."},
+      {"front": "Why might a reserve be cheaper than more subordination?", "back": "It is a targeted liquidity buffer, while extra subordination raises weighted funding cost more broadly."}
+    ],
+    "quiz": [
+      {"q": "Which change most directly delays equity?", "options": ["Lower OC target", "Higher OC target", "Longer remittance period", "Milder trigger"], "answer": 1, "explain": "More cash must be retained to reach or restore the higher OC target before equity can be paid."},
+      {"q": "Which blueprint is usually more investor-friendly?", "options": ["Long pro-rata and thin reserve", "Tight flips, higher OC, and daily sweeps", "Optional controls", "No PDL and weak triggers"], "answer": 1, "explain": "It builds protection faster and reduces both extension and cash-control risks."},
+      {"q": "What does PDL permission primarily protect?", "options": ["Senior interest continuity", "Issuer branding", "Used-car prices", "Equity timing"], "answer": 0, "explain": "Principal may temporarily cover interest, with the resulting debit cured before junior principal resumes."},
+      {"q": "Why can a par-efficient structure price wider?", "options": ["It always has more reserve", "It leaves more extension and timing risk with seniors", "It guarantees more losses", "It bans pro-rata pay"], "answer": 1, "explain": "Lower CE and milder timing protections can require additional spread compensation."},
+      {"q": "What is the correct way to test a lever change?", "options": ["Change everything at once", "Predict its effect and compare modeled outputs", "Look only at rating", "Ignore equity timing"], "answer": 1, "explain": "A controlled change connects structure, modeled mechanics, and economic trade-off."}
+    ]
+  },
+  "29": {
+    "title": "From CSV to Excel Model: Formulas, Checks, Charts",
+    "shortTitle": "Excel Waterfall",
+    "prerequisite": "Know the waterfall order, class interest and principal, XS, reserve top-ups, OC tests, sequential/pro-rata rules, and step-ups.",
+    "later": "This controlled model supports the Day 30 exam review and can be adapted for warehouse and pool-management decisions in Days 31–32.",
+    "sections": [
+      {
+        "label": "Design",
+        "title": "Separate inputs, logic, and outputs",
+        "kicker": "Make the workbook auditable",
+        "lead": "A clear tab structure helps reviewers distinguish assumptions from calculations and management views.",
+        "bullets": [
+          {"title": "Inputs", "text": "Store fee methods, dates, toggles, OC targets, and reserve targets in one place."},
+          {"title": "Tape", "text": "Optionally hold beginning balances, coupons, and period performance assumptions separately."},
+          {"title": "Waterfall", "text": "Calculate fees, interest, XS, reserve and OC movements, principal, and equity by period."},
+          {"title": "Dashboard", "text": "Show OC path, equity on/off, class balances, and pass/fail flags without duplicating logic."}
+        ],
+        "callout": "A dashboard should reveal the model; it should never become a second model."
+      },
+      {
+        "label": "Calculate",
+        "title": "Implement the core formulas",
+        "kicker": "Cash has one destination",
+        "lead": "Each formula should map to an explicit waterfall priority or structural test.",
+        "bullets": [
+          {"title": "Fees and interest", "text": "Calculate monthly servicing fees and A/B interest from proxy asset or beginning note balances."},
+          {"title": "XS", "text": "Asset interest plus recoveries minus fees, swap cost, and A/B interest equals excess spread."},
+          {"title": "Reserve and equity", "text": "Top the reserve from positive XS; distribute the remainder only when required tests pass."},
+          {"title": "Principal", "text": "Sequential pay fills A first; pro-rata pay allocates by beginning class balances when permitted."}
+        ],
+        "callout": "When OC fails, equity must be zero and non-negative residual XS should build protection."
+      },
+      {
+        "label": "Control",
+        "title": "Add toggles and integrity checks",
+        "kicker": "Make errors visible",
+        "lead": "Model controls should prevent an impossible cash-flow result from looking plausible.",
+        "bullets": [
+          {"title": "OC flag", "text": "Use OC ratio proxy = 1 + OC end divided by ending rated notes, then compare it with the target."},
+          {"title": "Mode toggle", "text": "Allow pro-rata only before step-up and while required tests pass; otherwise use sequential pay."},
+          {"title": "Cash balance", "text": "Require total sources minus total uses to equal zero in every period."},
+          {"title": "Bounds", "text": "Prevent negative class, reserve, OC, or PDL balances and enforce trigger consistency."}
+        ],
+        "callout": "A red integrity check is a model failure, not an interesting scenario result."
+      },
+      {
+        "label": "Explain",
+        "title": "Lab: Prove fail-and-cure logic",
+        "kicker": "Two periods, no hidden cash",
+        "lead": "Using the stub's first-period intuition—A interest about 29,167, B interest 13,333, servicing 8,333, trustee fees 3,000, and XS about 51,167—run one OC fail and one cure.",
+        "bullets": [
+          {"title": "Period 1 fail", "text": "Set equity to zero, apply positive XS to OC, and allocate 300,000 of sequential principal to Class A."},
+          {"title": "Period 2 cure", "text": "Once OC passes and the reserve is at target, allow residual XS to resume flowing to equity."},
+          {"title": "Reconcile", "text": "Require sources minus uses to equal zero and confirm that no class, reserve, OC, or PDL balance is negative."},
+          {"title": "Visualize", "text": "Chart the OC threshold and A/B balances, then add a traffic light for the pass-and-cure transition."}
+        ],
+        "callout": "Your output: both OC ratios, both equity distributions, a zero cash check, and one extra traffic-light control."
+      }
+    ],
+    "flashcards": [
+      {"front": "What is the XS formula used here?", "back": "Asset interest + recoveries − servicing, trustee, swap, A interest, and B interest."},
+      {"front": "When must equity equal zero?", "back": "When OC or IC fails, or another post-breach rule requires cash trapping."},
+      {"front": "How does pro-rata allocate principal?", "back": "It splits available principal by the classes' beginning balance shares."},
+      {"front": "What is the key cash integrity check?", "back": "Sources minus uses must equal exactly zero in every period."},
+      {"front": "What does the step-up flag do?", "back": "It can end pro-rata pay and force sequential amortization after the specified date."}
+    ],
+    "quiz": [
+      {"q": "Which tab should contain fee and trigger assumptions?", "options": ["Dashboard", "Inputs", "Charts only", "Trustee report"], "answer": 1, "explain": "Centralizing assumptions in Inputs improves traceability and scenario control."},
+      {"q": "OC fails while XS is positive. What should the model do?", "options": ["Pay all XS to equity", "Trap XS toward OC and set equity to zero", "Delete XS", "Turn pro-rata on"], "answer": 1, "explain": "The failed test redirects cash to rebuild protection."},
+      {"q": "What proves cash conservation?", "options": ["A green font", "Sources minus uses equals zero", "Equity is positive", "A balance declines"], "answer": 1, "explain": "Every dollar entering the waterfall must reconcile to a permitted use."},
+      {"q": "When is pro-rata principal permitted in the simplified model?", "options": ["Always", "Only when the toggle, tests, and step-up conditions allow it", "Only after OC fails", "Only when PDL grows"], "answer": 1, "explain": "The mode is conditional on both time and performance rules."},
+      {"q": "Which chart best reveals extension behavior?", "options": ["A/B balances by period", "Font-size chart", "Issuer logo chart", "Fee labels only"], "answer": 0, "explain": "Class-balance paths show how quickly each note is amortizing under the selected pay mode."}
+    ]
+  },
+  "30": {
+    "title": "Final Exam, Answers & Quick Reference",
+    "shortTitle": "Final Exam",
+    "prerequisite": "Complete the preceding legal, collateral, performance, modeling, structuring, and pricing lessons before attempting the exam without notes.",
+    "later": "Use the results to identify weak spots before applying the course to live pool funding and encumbrance operations in Days 31–32.",
+    "sections": [
+      {
+        "label": "Test",
+        "title": "Prove the end-to-end mental model",
+        "kicker": "Recall before review",
+        "lead": "The final exam checks whether you can connect legal isolation, waterfall mechanics, performance, modeling, and pricing without prompts.",
+        "bullets": [
+          {"title": "Legal", "text": "Explain bankruptcy remoteness, true sale, definitive documents, and the clean-up call."},
+          {"title": "Structure", "text": "Order waterfall items and explain CE, OC, IC, PDL, triggers, and sequential pay."},
+          {"title": "Performance", "text": "Interpret delinquencies, severity, recoveries, extension risk, and EV diligence."},
+          {"title": "Markets", "text": "Estimate yield and price sensitivity, match comps by WAL, and explain prime versus subprime spreads."}
+        ],
+        "callout": "Answer from memory first; the gap between recall and recognition is the real learning signal."
+      },
+      {
+        "label": "Diagnose",
+        "title": "Self-grade for weak links",
+        "kicker": "Wrong answers are routing signals",
+        "lead": "The answer key is most useful when each miss sends you back to a specific concept rather than merely changing a score.",
+        "bullets": [
+          {"title": "Mechanics miss", "text": "Revisit waterfall order, OC/IC tests, XS trapping, PDL cure, and principal allocation."},
+          {"title": "Risk miss", "text": "Review delinquency roll, severity, recoveries, EV risks, and structural extension mitigants."},
+          {"title": "Pricing miss", "text": "Practice yield approximation, spread-to-Treasury, WAL matching, and comp adjustments."},
+          {"title": "Document miss", "text": "Return to the indenture or trust documents for definitive waterfall language."}
+        ],
+        "callout": "Three weak topics create a focused review plan; twenty reread topics create avoidance."
+      },
+      {
+        "label": "Keep",
+        "title": "Save the operating reference set",
+        "kicker": "Turn study into routine",
+        "lead": "A compact toolkit makes the course reusable when a live deal or team question appears.",
+        "bullets": [
+          {"title": "Core files", "text": "Keep the cheat sheet, deal-summary template, waterfall stub, quiz, and news tracker together."},
+          {"title": "Weekly update", "text": "Add two ratings or news items and one market-data point to the tracker."},
+          {"title": "Pricing snippets", "text": "Retain the rough yield and price-change formulas for quick reasonableness checks."},
+          {"title": "Trigger reminders", "text": "Document that OC and IC failure turns equity off and that specified triggers or step-up force sequential pay."}
+        ],
+        "callout": "A reference is valuable when it shortens a real decision—not when it merely archives the course."
+      },
+      {
+        "label": "Advance",
+        "title": "Lab: Run the closed-note final",
+        "kicker": "Twenty questions, three repairs",
+        "lead": "Answer all 20 source-note questions without notes, self-grade, and route the three weakest concepts back to their course days.",
+        "bullets": [
+          {"title": "Round 1", "text": "Complete the legal, waterfall, performance, pricing, counterparty, EV, and clean-up-call questions from memory."},
+          {"title": "Diagnose", "text": "Tag each miss to its source day and select exactly three weak topics for targeted review."},
+          {"title": "Repair", "text": "Review the relevant lesson and explain each missed answer aloud in one plain-English sentence."},
+          {"title": "Retest", "text": "Answer the three questions again without notes and save the quick-reference links you actually needed."}
+        ],
+        "callout": "Your output: a score, three named weak links, and three corrected explanations you can teach to a colleague."
+      }
+    ],
+    "flashcards": [
+      {"front": "What happens on an OC fail?", "back": "Equity turns off, XS is trapped, and principal usually turboes sequentially toward seniors."},
+      {"front": "Which delinquency bucket best signals near-term charge-offs?", "back": "90+ delinquency, because it is closest to charge-off and has the highest roll-to-loss probability."},
+      {"front": "What is a clean-up call?", "back": "An optional trust redemption once collateral falls below a stated threshold, often 10% of original balance."},
+      {"front": "Where is definitive waterfall language found?", "back": "In the indenture and trust documents, not merely the presale summary."},
+      {"front": "What most quickly reduces senior extension risk?", "back": "An early flip to sequential pay that turboes senior principal."}
+    ],
+    "quiz": [
+      {"q": "What is the most durable CE component?", "options": ["Projected XS", "Subordination", "Future recoveries", "Optional advances"], "answer": 1, "explain": "Junior claims provide funded first-loss protection beneath the senior class."},
+      {"q": "Which document is definitive for waterfall language?", "options": ["Marketing email", "Presale only", "Indenture or trust documents", "Comp sheet"], "answer": 2, "explain": "The governing transaction documents contain the binding priority-of-payments terms."},
+      {"q": "What usually happens when IC falls below 1.0x?", "options": ["Equity is trapped", "Equity doubles", "Pro-rata expands", "Fees disappear"], "answer": 0, "explain": "The structure diverts cash from equity to protect note payments and rebuild support."},
+      {"q": "Why match WAL when comparing Treasury spreads?", "options": ["To normalize time exposure", "To equalize issuer names", "To remove all credit risk", "To set recovery values"], "answer": 0, "explain": "A maturity-matched benchmark makes spread compensation comparable across exposure periods."},
+      {"q": "What should you do after identifying three weak exam topics?", "options": ["Reread everything", "Review the relevant day files and re-test", "Ignore them", "Change the answer key"], "answer": 1, "explain": "Targeted retrieval and re-testing address the specific broken links efficiently."}
+    ]
+  },
+  "31": {
+    "title": "Funding & Pool Management: Buybox, Ramp, Covenants",
+    "shortTitle": "Pool Management",
+    "prerequisite": "Understand collateral stratifications, eligibility, performance triggers, term ABS structure, and the difference between origination and securitization decisions.",
+    "later": "The pool's funding path leads directly to Day 32's asset-level encumbrance states and transition controls.",
+    "sections": [
+      {
+        "label": "Filter",
+        "title": "Distinguish the three gates",
+        "kicker": "Originated does not mean financeable",
+        "lead": "Buybox, warehouse eligibility, and term ABS eligibility answer different questions at different points in an asset's journey.",
+        "bullets": [
+          {"title": "Buybox", "text": "Front-end origination limits cover score, LTV, affordability, term, vehicle, geography, and dealer tier."},
+          {"title": "Warehouse", "text": "The lender's eligibility adds document completion, title and perfection steps, concentration caps, and performance limits."},
+          {"title": "Term ABS", "text": "The transaction documents define the final securitized pool, potentially with tighter delinquency or seasoning rules."},
+          {"title": "Alignment", "text": "Term eligibility should be at least as strict as warehouse eligibility to avoid stranded assets."}
+        ],
+        "callout": "One loan can be a valid origination and still be ineligible for a particular funding facility or term deal."
+      },
+      {
+        "label": "Ramp",
+        "title": "Build the target pool deliberately",
+        "kicker": "Manage mix, not just volume",
+        "lead": "A ramp plan converts pipeline assets into a clean pool while controlling data quality and concentration drift.",
+        "bullets": [
+          {"title": "Plan", "text": "Set the target size and date, then add eligible pipeline assets on a regular cadence."},
+          {"title": "QA", "text": "Deduplicate records, require core fields, test reasonable ranges, and log approved exceptions."},
+          {"title": "Guardrails", "text": "Monitor low FICO, high LTV, long terms, used share, and dealer or state concentrations."},
+          {"title": "Headroom", "text": "Track how the selected assets affect warehouse availability and the term take-out path."}
+        ],
+        "callout": "A pool can hit its target balance and still fail if its mix breaches a disclosed concentration guardrail."
+      },
+      {
+        "label": "Transition",
+        "title": "Control prefunding and substitution",
+        "kicker": "Post-close does not mean unconstrained",
+        "lead": "Assets added or replaced after closing must preserve the eligibility and profile promised to investors.",
+        "bullets": [
+          {"title": "Prefunding", "text": "Post-close additions occur within a defined period and remain subject to eligibility, size caps, and stratification drift limits."},
+          {"title": "Substitution", "text": "An ineligible asset may be repurchased or replaced within the allowed window, usually on a like-for-like basis."},
+          {"title": "Queue", "text": "Maintain pre-cleared prefunding candidates and suitable replacement assets before they are needed."},
+          {"title": "Evidence", "text": "Notify the trustee and preserve the approval and collateral-schedule trail for each movement."}
+        ],
+        "callout": "Drift limits protect investors from receiving a materially different pool after they price the deal."
+      },
+      {
+        "label": "Operate",
+        "title": "Lab: Build a 100 million pool",
+        "kicker": "Balance size and guardrails",
+        "lead": "The target is 100.0 million: 140.0 million enters the pipeline, 110.0 million survives QA, and the plan selects 95.0 million at close plus 5.0 million of prefunding.",
+        "bullets": [
+          {"title": "Guardrails", "text": "Keep Used at or below 65%, LTV above 120% at or below 12%, FICO below 620 at or below 20%, and terms of 73+ months at or below 18%."},
+          {"title": "Concentration", "text": "Keep the largest state at or below 20% and document how every prefunding add changes that measure."},
+          {"title": "Decision", "text": "If prefunding raises Used to 68%, rebalance the queue or tighten add eligibility rather than breach the disclosed limit."},
+          {"title": "Protocol", "text": "Write a 12-line checklist plus a like-for-like substitution rule and maximum permitted drift by bucket."}
+        ],
+        "callout": "Your output: a compliant 95+5 selection, quantified drift policy, and a documented response to the 68% Used breach."
+      }
+    ],
+    "flashcards": [
+      {"front": "What is a buybox?", "back": "The originator's front-end credit and product filters for loans it is willing to make."},
+      {"front": "How is warehouse eligibility different?", "back": "It is the lender's funding filter, adding documentation, perfection, concentration, and performance requirements."},
+      {"front": "What is a prefunding drift limit?", "back": "A cap on how much post-close additions may change disclosed pool stratifications."},
+      {"front": "What is a borrowing-base test?", "back": "A calculation of financeable collateral after eligibility haircuts, concentration caps, and other covenants."},
+      {"front": "Why use like-for-like substitution?", "back": "It replaces an ineligible asset without materially changing the pool profile investors accepted."}
+    ],
+    "quiz": [
+      {"q": "Which gate is applied at origination?", "options": ["Buybox", "Trustee schedule", "Clean-up call", "PDL"], "answer": 0, "explain": "The buybox defines which borrower and asset profiles the originator is willing to originate."},
+      {"q": "Why should term eligibility be at least as strict as warehouse eligibility?", "options": ["To raise fonts", "To avoid assets that cannot move into the term deal", "To eliminate all defaults", "To pay equity sooner"], "answer": 1, "explain": "Misaligned filters can leave funded loans stranded outside the intended term take-out."},
+      {"q": "What protects against post-close pool mix changes?", "options": ["Prefunding drift limits", "A longer title", "A lower trustee fee", "A new ticker"], "answer": 0, "explain": "Drift limits cap changes to disclosed stratifications as new assets are added."},
+      {"q": "What can happen after a warehouse stop-funding event?", "options": ["New advances accelerate", "Collections sweep to amortize the facility", "All assets become unencumbered", "The buybox disappears"], "answer": 1, "explain": "Stop-funding provisions typically halt draws and redirect collections toward repayment."},
+      {"q": "Which is part of tape QA?", "options": ["Dedupe and required-field checks", "Ignoring exceptions", "Removing asset IDs", "Changing ratings"], "answer": 0, "explain": "Clean identifiers, complete core fields, and logged exceptions are essential to pool selection."}
+    ]
+  },
+  "32": {
+    "title": "Multi-Multi Encumbrance: Tracking, Controls, Transitions",
+    "shortTitle": "Encumbrance Control",
+    "prerequisite": "Understand warehouse and term funding, collateral schedules, prefunding, substitution, title transfer, and perfection evidence.",
+    "later": "This final operating model turns the full course into a controlled asset journey from origination through warehouse funding and term securitization.",
+    "sections": [
+      {
+        "label": "Define",
+        "title": "Give every asset one state",
+        "kicker": "One asset, one active claim",
+        "lead": "Multi-multi encumbrance arises when many facilities and trusts can fund the same population of receivables over time.",
+        "bullets": [
+          {"title": "Risk", "text": "A receivable can be double-pledged or sit in transit without clear title and perfection."},
+          {"title": "Unencumbered", "text": "U means the asset is owned free and clear and may be pledged or sold."},
+          {"title": "Pledged", "text": "W:X identifies a warehouse claim; T:YYYY-N identifies ownership by a specific term trust."},
+          {"title": "Exceptions", "text": "R holds a repurchase or substitution in transit, while E freezes a disputed or unreconciled asset."}
+        ],
+        "callout": "At any instant, an asset must have exactly one authoritative encumbrance state."
+      },
+      {
+        "label": "Control",
+        "title": "Create the evidence-backed ledger",
+        "kicker": "Status without proof is not control",
+        "lead": "A single source of truth needs immutable identity, transition history, evidence links, and blocking rules.",
+        "bullets": [
+          {"title": "Unique ID", "text": "Use one immutable loan or contract identifier across originator, warehouse, custodian, and trustee systems."},
+          {"title": "Ledger", "text": "Record asset ID, current state, from and to states, effective date, evidence link, and user or process."},
+          {"title": "Evidence", "text": "Link borrowing-base and trust schedules, UCC records, assignments, releases, and trustee confirmations."},
+          {"title": "Blocking", "text": "Reject transitions with an invalid source state, missing evidence, or an overlapping W or T claim."}
+        ],
+        "callout": "The ledger should prevent a bad movement, not merely report it the next day."
+      },
+      {
+        "label": "Move",
+        "title": "Enforce allowed transitions",
+        "kicker": "Release before re-pledge",
+        "lead": "Asset movements require a state-machine path that preserves chain of title with no overlapping effective dates.",
+        "bullets": [
+          {"title": "U to W", "text": "Add the asset to a borrowing base and record the required perfection evidence."},
+          {"title": "W to T", "text": "Obtain the warehouse release, add the trust schedule and assignment, and align the dates without overlap."},
+          {"title": "T through R", "text": "Repurchases and substitutions move from T to a time-boxed R state before any new W or T destination."},
+          {"title": "No direct hops", "text": "Trust-to-trust and warehouse-to-warehouse moves require release and an intermediate controlled state rather than overlapping claims."}
+        ],
+        "callout": "The safe sequence is release, intermediate control, then new pledge or sale—with evidence at each step."
+      },
+      {
+        "label": "Reconcile",
+        "title": "Lab: Audit two asset journeys",
+        "kicker": "Prove title at every handoff",
+        "lead": "Asset A123 moves U on 05/01 → W:WF1 on 05/03 → released 06/10 → T:2025-A on 06/11; Asset B456 moves T:2024-B → R on 04/15 → W:WF2 on 04/18.",
+        "bullets": [
+          {"title": "A123 evidence", "text": "Link borrowing-base add #447, UCC evidence, warehouse release, assignment, and the trust schedule page; verify no date overlap."},
+          {"title": "B456 aging", "text": "The three-day R period is within a five-day policy, but it still needs trustee notice and new warehouse evidence."},
+          {"title": "Blocking rules", "text": "Reject a new W/T state when another is active and reject any transition without valid source state plus evidence."},
+          {"title": "Escalation", "text": "Flag any W-and-T overlap immediately, escalate R beyond five days, and freeze every E-state movement."}
+        ],
+        "callout": "Your output: a populated ledger, two preventive blocking rules, and a five-day R-state escalation policy."
+      }
+    ],
+    "flashcards": [
+      {"front": "What is the one-and-only-one rule?", "back": "Each asset may have only one active encumbrance state at a time."},
+      {"front": "What does R mean?", "back": "Repurchase or substitution pending—a temporary, time-boxed state before the next valid destination."},
+      {"front": "Why can trust-to-trust not be a direct hop?", "back": "The first trust's title must be released before reassignment, so the asset moves through R with no overlapping claims."},
+      {"front": "What report finds double-pledges fastest?", "back": "A daily diff of the internal ledger against warehouse and trustee collateral schedules."},
+      {"front": "Which field anchors identity across systems?", "back": "A unique, immutable Asset_ID or Contract_ID."}
+    ],
+    "quiz": [
+      {"q": "An asset appears in W:X and T:2026-A on the same effective date. What is this?", "options": ["A valid prefund", "A potential double-encumbrance breach", "A clean-up call", "A normal reserve draw"], "answer": 1, "explain": "Simultaneous warehouse and trust claims violate the one-active-state rule."},
+      {"q": "What is required for a W-to-T transition?", "options": ["Only a new label", "Warehouse release plus trust schedule and assignment evidence", "A higher FICO", "An equity payment"], "answer": 1, "explain": "The evidence must prove both release from the old claim and valid transfer to the new trust."},
+      {"q": "Why is R time-boxed?", "options": ["To minimize untracked transitional exposure", "To improve coupon", "To change severity", "To avoid asset IDs"], "answer": 0, "explain": "Aging in transit creates uncertainty about ownership, funding, and control."},
+      {"q": "What should happen to an E-state asset?", "options": ["Move it freely", "Freeze movements until reconciliation is complete", "Pledge it twice", "Delete its history"], "answer": 1, "explain": "The exception state prevents further movement while root cause and evidence are resolved."},
+      {"q": "Which control is preventive rather than detective?", "options": ["Monthly report review", "A blocking rule rejecting overlapping active states", "An aging summary", "A post-close memo"], "answer": 1, "explain": "The system stops an invalid transition before it creates a double pledge."}
+    ]
+  }
+}

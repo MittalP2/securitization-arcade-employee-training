@@ -1,6 +1,9 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import days05to13 from './data/days-05-13.json';
+import days14to22 from './data/days-14-22.json';
+import days23to32 from './data/days-23-32.json';
 
 const levelTitles = [
   'What is Securitization?','SPV Mechanics & True Sale','Tranches, Ratings & Pay Rules','Waterfalls & Triggers','Collateral Performance','Build a Mini Waterfall','Read a Presale','Pricing, Spreads, WAL & Yield','Surveillance & KPIs','Presale-to-Price Capstone','Prime vs Subprime','Scenario & Sensitivity Lab','Legal Documents','Advanced Waterfalls','Counterparties & Hedging','Static Pools & Roll Rates','Data Tape & Stratification','Investor Memo & Credit Pitch','Regulation & Risk Retention','Macro Drivers','Servicing & Recoveries','Deal Lifecycle','Relative Value & Comps','ESG, EVs & Future Trends','Secondary Trading & Downgrades','Grand Capstone','Ratings & CE Backsolve','Structuring Lab','Excel Model','Final Exam','Funding & Pool Management','Multi-Multi Encumbrance'
@@ -32,6 +35,10 @@ const quiz = [
 
 type DemoSection = { label:string; title:string; kicker:string; lead:string; bullets:Array<{title:string;text:string}>; callout:string };
 type DemoDay = { title:string; shortTitle:string; prerequisite:string; later:string; sections:DemoSection[]; cards:{front:string;back:string}[]; quiz:typeof quiz };
+type AuthoredDay = Omit<DemoDay,'cards'> & { flashcards:{front:string;back:string}[] };
+
+const authoredDays={...days05to13,...days14to22,...days23to32} as unknown as Record<string,AuthoredDay>;
+const extendedDemoDays=Object.fromEntries(Object.entries(authoredDays).map(([day,item])=>[Number(day),{...item,cards:item.flashcards}])) as Record<number,DemoDay>;
 
 const demoDays:Record<number,DemoDay> = {
   2:{title:'SPV Mechanics, True Sale & Bankruptcy Remoteness',shortTitle:'Why the deal needs a legal home',prerequisite:'Day 1 · Complete deal flow',later:'Day 13 · Legal documents',sections:[
@@ -69,7 +76,8 @@ const demoDays:Record<number,DemoDay> = {
     {q:'What can force pro-rata pay to become sequential?',options:['A trigger breach','A new vehicle sale','A higher residual payment','A borrower address change'],answer:0,explain:'OC, IC, delinquency, or CNL breaches commonly cause the flip.'},
     {q:'What is excess spread in the example?',options:['$120k','$170k','$510k','$2.1mm'],answer:1,explain:'$650k interest + $30k recoveries - $510k costs and note interest = $170k.'},
     {q:'Why does a PDL matter?',options:['It tracks principal used for interest','It sets borrower APR','It selects vehicles','It replaces the trustee'],answer:0,explain:'The ledger preserves the claim of principal and is generally cured before junior distributions.'}
-  ]}
+  ]},
+  ...extendedDemoDays
 };
 
 const mapNodes = [
@@ -88,6 +96,7 @@ const phases = [
   { name:'Demonstrate mastery', days:'26–30', tone:'mastery', concepts:'Capstone · Ratings · Model · Exam' },
   { name:'Advanced bonus levels', days:'31–32', tone:'bonus', concepts:'Funding · Pool controls · Encumbrance' },
 ];
+const phaseRanges:[[number,number],[number,number],[number,number],[number,number],[number,number],[number,number]]=[[1,7],[8,12],[13,18],[19,25],[26,30],[31,32]];
 
 type StudioTool = 'map'|'cards'|'quiz';
 type TourStep = { target:string; eyebrow:string; title:string; text:string; tool?:StudioTool };
@@ -131,52 +140,72 @@ export default function Home(){
   const [topicOpen,setTopicOpen]=useState(false);
   const [feedbackOpen,setFeedbackOpen]=useState(false);
   const [feedbackByDay,setFeedbackByDay]=useState<Record<number,DayFeedback>>({});
+  const [storageReady,setStorageReady]=useState(false);
 
   useEffect(()=>{
-    try {
-      const saved=localStorage.getItem('sa-day1-progress');
-      if(saved){const data=JSON.parse(saved);setCompleted(data.completed||[]);setMastered(data.mastered||[]);setAnswers(data.answers||{});setSubmitted(!!data.submitted);}
-    } catch {}
+    const timer=window.setTimeout(()=>{
+      try{const saved=localStorage.getItem('sa-day1-progress');if(saved){const data=JSON.parse(saved);setCompleted(data.completed||[]);setMastered(data.mastered||[]);setAnswers(data.answers||{});setSubmitted(!!data.submitted)}}catch{}
+      try{const saved=localStorage.getItem('sa-demo-progress');if(saved){const data=JSON.parse(saved);setDemoCompleted(data.completed||{});setDemoMastered(data.mastered||{});setDemoAnswers(data.answers||{});setDemoSubmitted(data.submitted||[])}}catch{}
+      try{const saved=localStorage.getItem('sa-day-feedback');if(saved)setFeedbackByDay(JSON.parse(saved))}catch{}
+      setStorageReady(true);
+    },0);
+    return()=>window.clearTimeout(timer);
   },[]);
   useEffect(()=>{
-    const params=new URLSearchParams(window.location.search);
-    if(params.get('tour')==='1'){
-      setTourStep(0);
-      window.history.replaceState({},'',`${window.location.pathname}${window.location.hash}`);
-    }
+    const timer=window.setTimeout(()=>{const params=new URLSearchParams(window.location.search);if(params.get('tour')==='1'){setTourStep(0);window.history.replaceState({},'',`${window.location.pathname}${window.location.hash}`)}},0);
+    return()=>window.clearTimeout(timer);
   },[]);
   useEffect(()=>{
-    localStorage.setItem('sa-day1-progress',JSON.stringify({completed,mastered,answers,submitted}));
-  },[completed,mastered,answers,submitted]);
-  useEffect(()=>{try{const saved=localStorage.getItem('sa-demo-progress');if(saved){const d=JSON.parse(saved);setDemoCompleted(d.completed||{});setDemoMastered(d.mastered||{});setDemoAnswers(d.answers||{});setDemoSubmitted(d.submitted||[])}}catch{}},[]);
-  useEffect(()=>{localStorage.setItem('sa-demo-progress',JSON.stringify({completed:demoCompleted,mastered:demoMastered,answers:demoAnswers,submitted:demoSubmitted}))},[demoCompleted,demoMastered,demoAnswers,demoSubmitted]);
-  useEffect(()=>{try{const saved=localStorage.getItem('sa-day-feedback');if(saved)setFeedbackByDay(JSON.parse(saved))}catch{}},[]);
-  useEffect(()=>{localStorage.setItem('sa-day-feedback',JSON.stringify(feedbackByDay))},[feedbackByDay]);
+    if(storageReady)localStorage.setItem('sa-day1-progress',JSON.stringify({completed,mastered,answers,submitted}));
+  },[storageReady,completed,mastered,answers,submitted]);
+  useEffect(()=>{if(storageReady)localStorage.setItem('sa-demo-progress',JSON.stringify({completed:demoCompleted,mastered:demoMastered,answers:demoAnswers,submitted:demoSubmitted}))},[storageReady,demoCompleted,demoMastered,demoAnswers,demoSubmitted]);
+  useEffect(()=>{if(storageReady)localStorage.setItem('sa-day-feedback',JSON.stringify(feedbackByDay))},[storageReady,feedbackByDay]);
   useEffect(()=>{
-    if(tourStep>=0){const requested=tourSteps[tourStep]?.tool;if(requested)setTool(requested);}
+    const timer=window.setTimeout(()=>{if(tourStep>=0){const requested=tourSteps[tourStep]?.tool;if(requested)setTool(requested)}},0);
+    return()=>window.clearTimeout(timer);
   },[tourStep]);
 
   const activeQuiz=selectedDay===1?quiz:demoDays[selectedDay].quiz;
   const activeCards=selectedDay===1?cards:demoDays[selectedDay].cards;
-  const activeAnswers=selectedDay===1?answers:(demoAnswers[selectedDay]||{});
+  const activeAnswers=useMemo(()=>selectedDay===1?answers:(demoAnswers[selectedDay]||{}),[selectedDay,answers,demoAnswers]);
   const activeMastered=selectedDay===1?mastered:(demoMastered[selectedDay]||[]);
   const activeSubmitted=selectedDay===1?submitted:demoSubmitted.includes(selectedDay);
-  const activeCompleted=selectedDay===1?completed.length:(demoCompleted[selectedDay]||[]).length;
   const requiredSections=selectedDay===1?5:4;
+  const activeCompleted=selectedDay===1?new Set(completed.filter(id=>lessonSections.some(item=>item.id===id))).size:new Set((demoCompleted[selectedDay]||[]).filter(index=>index>=0&&index<requiredSections)).size;
   const score=useMemo(()=>activeQuiz.reduce((sum,item,i)=>sum+(activeAnswers[i]===item.answer?1:0),0),[activeAnswers,activeQuiz]);
-  const xp=activeCompleted*20+activeMastered.length*5+(activeSubmitted?score*10:0);
-  const progress=Math.round(((activeCompleted/requiredSections+activeMastered.length/5+(activeSubmitted?1:0))/3)*100);
-  const dayOneComplete=completed.length===lessonSections.length&&mastered.length===cards.length&&submitted;
+  const activeMasteredCount=new Set(activeMastered.filter(index=>index>=0&&index<activeCards.length)).size;
+  const xp=activeCompleted*20+activeMasteredCount*5+(activeSubmitted?score*10:0);
+  const quizCleared=activeSubmitted&&score/activeQuiz.length>=.8;
+  const progress=Math.round(((activeCompleted/requiredSections+activeMasteredCount/activeCards.length+(quizCleared?1:0))/3)*100);
+  const completedDays=useMemo(()=>{
+    const days=new Set<number>();
+    const dayOneSections=new Set(completed.filter(id=>lessonSections.some(item=>item.id===id))).size;
+    const dayOneCards=new Set(mastered.filter(index=>index>=0&&index<cards.length)).size;
+    const dayOneScore=quiz.reduce((sum,item,index)=>sum+(answers[index]===item.answer?1:0),0);
+    if(dayOneSections===lessonSections.length&&dayOneCards===cards.length&&submitted&&dayOneScore/quiz.length>=.8)days.add(1);
+    Object.entries(demoDays).forEach(([key,day])=>{
+      const dayNumber=Number(key);
+      const sectionCount=new Set((demoCompleted[dayNumber]||[]).filter(index=>index>=0&&index<day.sections.length)).size;
+      const cardCount=new Set((demoMastered[dayNumber]||[]).filter(index=>index>=0&&index<day.cards.length)).size;
+      const dayAnswers=demoAnswers[dayNumber]||{};
+      const dayScore=day.quiz.reduce((sum,item,index)=>sum+(dayAnswers[index]===item.answer?1:0),0);
+      if(sectionCount===day.sections.length&&cardCount===day.cards.length&&demoSubmitted.includes(dayNumber)&&dayScore/day.quiz.length>=.8)days.add(dayNumber);
+    });
+    return days;
+  },[completed,mastered,answers,submitted,demoCompleted,demoMastered,demoAnswers,demoSubmitted]);
+  const phaseIndex=phaseRanges.findIndex(([start,end])=>selectedDay>=start&&selectedDay<=end);
+  const [phaseStart,phaseEnd]=phaseRanges[phaseIndex];
+  const phaseCompleted=Array.from({length:phaseEnd-phaseStart+1},(_,index)=>phaseStart+index).filter(day=>completedDays.has(day)).length;
+  const sectionTabs:Array<{id?:string;label:string}>=selectedDay===1?lessonSections:demoDays[selectedDay].sections;
 
   function finishSection(){
-    if(selectedDay>1){const done=demoCompleted[selectedDay]||[];if(!done.includes(section))setDemoCompleted({...demoCompleted,[selectedDay]:[...done,section]});if(section<3)setSection(section+1);else{setTool('quiz');setNotice(`Day ${selectedDay} lesson complete — finish the quiz to clear the level.`)}return;}
+    if(selectedDay>1){const done=demoCompleted[selectedDay]||[];if(!done.includes(section))setDemoCompleted({...demoCompleted,[selectedDay]:[...done,section]});if(section<requiredSections-1)setSection(section+1);else{setTool('quiz');setNotice(`Day ${selectedDay} lesson complete — score at least 80% to clear the level.`)}return;}
     const id=lessonSections[section].id;
     if(!completed.includes(id))setCompleted([...completed,id]);
     if(section<lessonSections.length-1)setSection(section+1);else{setTool('quiz');setNotice('Lesson complete — your final mission is the quiz!');}
   }
   function chooseLevel(index:number){
-    if(index<=3){setSelectedDay(index+1);setSection(0);setCardIndex(0);setFlipped(false);setTool('map');setNotice(`Day ${index+1}: ${levelTitles[index]}`);return;}
-    setNotice(`Day ${index+1} is on the roadmap. We’re polishing Day 1 first.`);
+    if(index<=31){setSelectedDay(index+1);setSection(0);setCardIndex(0);setFlipped(false);setTool('map');if(index>=8)setExpanded(true);setNotice(`${index<30?`Day ${index+1}`:`Bonus ${index-29}`}: ${levelTitles[index]}`);}
   }
   function resetDay(){
     if(!confirm(`Reset all Day ${selectedDay} progress and feedback on this device?`))return;
@@ -189,7 +218,7 @@ export default function Home(){
     <header className="topbar">
       <div className="brand-mark" data-tour="brand">SA</div><div className="brand-copy"><strong>Study Arcade</strong><button className="topic-switcher" data-tour="topics" onClick={()=>setTopicOpen(true)}><small>CURRENT TOPIC</small><b>Securitization Fundamentals</b><span>⌄</span></button></div>
       <div className="header-progress" data-tour="progress" aria-label={`${progress}% complete`}><span>DAY {selectedDay} · {progress}% COMPLETE</span><div><i style={{width:`${Math.max(progress,3)}%`}} /></div></div>
-      <button className="tour-button" onClick={()=>setTourStep(0)}>✦ Take a tour</button><button className="present-secondary" data-tour="present" onClick={()=>setPresenting(true)}>▶ Present Day {selectedDay}</button><button className="icon-button" onClick={resetDay} aria-label="Reset Day 1 progress" title="Reset progress">↺</button><div className="avatar">PM</div>
+      <button className="tour-button" onClick={()=>setTourStep(0)}>✦ Take a tour</button><button className="present-secondary" data-tour="present" onClick={()=>setPresenting(true)}>▶ Present Day {selectedDay}</button><button className="icon-button" onClick={resetDay} aria-label={`Reset Day ${selectedDay} progress and feedback`} title={`Reset Day ${selectedDay}`}>↺</button><div className="avatar">PM</div>
     </header>
 
     {notice&&<button className="toast" onClick={()=>setNotice('')} aria-label="Dismiss message">{notice}<span>×</span></button>}
@@ -198,15 +227,15 @@ export default function Home(){
       <aside className="panel journey-panel" data-tour="journey">
         <div className="panel-heading"><div><span className="eyebrow">YOUR JOURNEY</span><h2>32 learning levels</h2></div><span className="journey-score">{progress}%</span></div>
         <button className="learning-map-entry" data-tour="learning-map" onClick={()=>setMapOpen(true)}><span>◇</span><p><b>Learning Map</b>All phases, concepts & prerequisites</p><i>↗</i></button>
-        <div className="phase-card"><span>PHASE 1 OF 5 · CURRENT</span><strong>Build the foundation</strong><div className="phase-meter"><i style={{width:`${Math.max(progress/7,2)}%`}} /></div><small>Day {selectedDay} of 7 · Flow, structure, credit and waterfalls</small></div>
-        <nav className="level-list" aria-label="Course levels">{levelTitles.slice(0,expanded?32:8).map((title,index)=><button onClick={()=>chooseLevel(index)} className={index===selectedDay-1?'level active':'level'} key={title}><span className="level-number">{index===selectedDay-1?'▶':index+1}</span><span><b>{index<30?`Day ${index+1}`:`Bonus ${index-29}`}{index===0&&dayOneComplete&&<i className="level-complete-check" aria-label="Day 1 complete" title="Day 1 complete">✓</i>}</b>{title}</span>{index===selectedDay-1?<em>NOW</em>:<span className="roadmap-dot">○</span>}</button>)}</nav>
+        <div className="phase-card"><span>{phaseIndex<5?`PHASE ${phaseIndex+1} OF 5`:'BONUS PHASE'} · CURRENT</span><strong>{phases[phaseIndex].name}</strong><div className="phase-meter"><i style={{width:`${Math.max(phaseCompleted/(phaseEnd-phaseStart+1)*100,2)}%`}} /></div><small>{phaseCompleted} of {phaseEnd-phaseStart+1} levels mastered · {phases[phaseIndex].concepts}</small></div>
+        <nav className="level-list" aria-label="Course levels">{levelTitles.slice(0,expanded?32:8).map((title,index)=>{const dayNumber=index+1;const isComplete=completedDays.has(dayNumber);const isCurrent=index===selectedDay-1;const dayLabel=index<30?`Day ${dayNumber}`:`Bonus ${index-29}`;return <button onClick={()=>chooseLevel(index)} className={`${isCurrent?'level active':'level'}${isComplete?' complete':''}`} aria-current={isCurrent?'step':undefined} aria-label={`${dayLabel}: ${title}${isComplete?', 100% complete':''}${isCurrent?', current level':''}`} key={title}><span className="level-number" aria-hidden="true">{isCurrent?'▶':index+1}</span><span><b>{dayLabel}{isComplete&&<i className="level-complete-check" aria-hidden="true" title="100% complete">✓</i>}</b>{title}</span>{isCurrent?<em>NOW</em>:<span className="roadmap-dot" aria-hidden="true">○</span>}</button>})}</nav>
         <button className="all-levels" onClick={()=>setExpanded(!expanded)}>{expanded?'Show core levels':'View all 32 levels'} <span>{expanded?'↑':'→'}</span></button>
         <div className="bonus-note"><span>★</span><p><b>2 bonus levels await</b>Advanced funding and controls unlock after graduation.</p></div>
       </aside>
 
       <article className="panel lesson-panel" data-tour="lesson">
-        <div className="lesson-toolbar"><span className="level-pill">LEVEL {String(selectedDay).padStart(2,'0')} · FOUNDATION</span><div className="section-tabs" role="tablist">{(selectedDay===1?lessonSections:demoDays[selectedDay].sections).map((item:any,i:number)=><button key={item.id||item.label} className={i===section?'current':(selectedDay===1?completed.includes(item.id):(demoCompleted[selectedDay]||[]).includes(i))?'done':''} onClick={()=>setSection(i)} aria-label={`Open ${item.label}`}>{(selectedDay===1?completed.includes(item.id):(demoCompleted[selectedDay]||[]).includes(i))?'✓ ':''}{i+1}</button>)}</div><span>⏱ 45–60 min</span></div>
-        <div className="lesson-scroll" key={lessonSections[section].id}>
+        <div className="lesson-toolbar"><span className="level-pill">LEVEL {String(selectedDay).padStart(2,'0')} · {phases[phaseIndex].name.toUpperCase()}</span><div className="section-tabs" role="tablist">{sectionTabs.map((item,i)=>{const done=selectedDay===1?!!item.id&&completed.includes(item.id):(demoCompleted[selectedDay]||[]).includes(i);return <button key={item.id||item.label} className={i===section?'current':done?'done':''} onClick={()=>setSection(i)} aria-label={`Open ${item.label}`}>{done?'✓ ':''}{i+1}</button>})}</div><span>⏱ 45–60 min</span></div>
+        <div className="lesson-scroll" key={`${selectedDay}-${section}`}>
           {selectedDay===1?<>{section===0&&<MissionSection/>}{section===1&&<WhySection/>}{section===2&&<PlayersSection/>}{section===3&&<ProtectionSection/>}{section===4&&<ExampleSection/>}</>:<DemoLesson day={selectedDay} section={section}/>} 
         </div>
         <footer className="lesson-footer"><div><span>DAY {selectedDay} PROGRESS · {activeCompleted}/{requiredSections} SECTIONS</span><div className="footer-meter"><i style={{width:`${activeCompleted/requiredSections*100}%`}} /></div></div><button className="feedback-button" data-tour="feedback" onClick={()=>setFeedbackOpen(true)}>{feedbackByDay[selectedDay]?'✓ Feedback saved':'♡ Give feedback'}</button><button onClick={finishSection}>{section===requiredSections-1?'Finish lesson':'Complete & continue'} <span>→</span></button></footer>
@@ -247,7 +276,7 @@ function InfoCard({icon,title,text}:{icon:string,title:string,text:string}){retu
 
 function DemoLesson({day,section}:{day:number,section:number}){const lesson=demoDays[day];const item=lesson.sections[section];return <section className="deep-section demo-section"><span className="section-label">DAY {day} · {item.label.toUpperCase()}</span><p className="comic-kicker">{item.kicker}</p><h1>{item.title}</h1><p className="lead">{item.lead}</p><div className="demo-context"><div><span>BUILDS ON</span><b>{lesson.prerequisite}</b></div><i>→</i><div><span>TODAY</span><b>{lesson.shortTitle}</b></div><i>→</i><div><span>UNLOCKS</span><b>{lesson.later}</b></div></div><div className="demo-points">{item.bullets.map((bullet,i)=><article key={bullet.title}><span>{i+1}</span><div><b>{bullet.title}</b><p>{bullet.text}</p></div></article>)}</div><div className="plain-english"><b>💬 Remember this</b><p>{item.callout}</p></div></section>}
 
-function MapTool({day,selected,setSelected,openFullMap}:{day:number,selected:number,setSelected:(n:number)=>void,openFullMap:()=>void}){const connections=day===1?mapNodes:[{day:Math.max(1,day-1),name:'Prerequisite',detail:demoDays[day].prerequisite,state:'next'},{day,name:demoDays[day].shortTitle,detail:`Current lesson: ${demoDays[day].title}`,state:'current'},{day:day===4?6:day+1,name:'Unlocks next',detail:demoDays[day].later,state:'milestone'}];const safe=Math.min(selected,connections.length-1);return <div className="interactive-tool"><div className="tool-head"><span>DAY {day} CONNECTIONS</span><b>{day===1?'You are at the foundation':'See what this lesson builds on'}</b></div><div className="vertical-map">{connections.map((node:any,i)=><button key={`${node.day}-${i}`} onClick={()=>setSelected(i)} className={`${node.state} ${safe===i?'selected':''}`}><span>{node.day}</span><p><b>{node.name}</b><small>{node.state==='current'?'NOW':node.state==='milestone'?'LATER':'BEFORE'}</small></p></button>)}</div><div className="map-detail"><span>DAY {connections[safe].day}</span><b>{connections[safe].name}</b><p>{connections[safe].detail}</p></div><button className="open-full-map" onClick={openFullMap}>Open full Learning Map <span>↗</span></button></div>}
+function MapTool({day,selected,setSelected,openFullMap}:{day:number,selected:number,setSelected:(n:number)=>void,openFullMap:()=>void}){const nextDay=day===4?6:Math.min(32,day+1);const connections=day===1?mapNodes:[{day:Math.max(1,day-1),name:'Prerequisite',detail:demoDays[day].prerequisite,state:'next'},{day,name:demoDays[day].shortTitle,detail:`Current lesson: ${demoDays[day].title}`,state:'current'},{day:nextDay,name:day===32?'Course mastery':'Unlocks next',detail:demoDays[day].later,state:'milestone'}];const safe=Math.min(selected,connections.length-1);return <div className="interactive-tool"><div className="tool-head"><span>DAY {day} CONNECTIONS</span><b>{day===1?'You are at the foundation':'See what this lesson builds on'}</b></div><div className="vertical-map">{connections.map((node,i)=><button key={`${node.day}-${i}`} onClick={()=>setSelected(i)} className={`${node.state} ${safe===i?'selected':''}`}><span>{node.day}</span><p><b>{node.name}</b><small>{node.state==='current'?'NOW':node.state==='milestone'?'LATER':'BEFORE'}</small></p></button>)}</div><div className="map-detail"><span>{day===32&&safe===2?'MILESTONE':`DAY ${connections[safe].day}`}</span><b>{connections[safe].name}</b><p>{connections[safe].detail}</p></div><button className="open-full-map" onClick={openFullMap}>Open full Learning Map <span>↗</span></button></div>}
 function CardTool({data,index,setIndex,flipped,setFlipped,mastered,setMastered}:{data:{front:string;back:string}[],index:number,setIndex:(n:number)=>void,flipped:boolean,setFlipped:(b:boolean)=>void,mastered:number[],setMastered:(n:number[])=>void}){const safe=index%data.length;const card=data[safe];const known=mastered.includes(safe);function move(delta:number){setIndex((safe+delta+data.length)%data.length);setFlipped(false)}return <div className="interactive-tool"><div className="tool-head"><span>FLASHCARDS · {safe+1}/{data.length}</span><b>{mastered.length} mastered</b></div><button className={`flashcard ${flipped?'flipped':''}`} onClick={()=>setFlipped(!flipped)}><small>{flipped?'ANSWER':'TAP TO FLIP'}</small><strong>{flipped?card.back:card.front}</strong></button><div className="card-actions"><button onClick={()=>move(-1)} aria-label="Previous card">←</button><button className={known?'known':''} onClick={()=>setMastered(known?mastered.filter(n=>n!==safe):[...mastered,safe])}>{known?'✓ Mastered':'Mark mastered'}</button><button onClick={()=>move(1)} aria-label="Next card">→</button></div></div>}
 function QuizTool({data,answers,setAnswers,submitted,setSubmitted,score,onSubmit}:{data:typeof quiz,answers:Record<number,number>,setAnswers:(a:Record<number,number>)=>void,submitted:boolean,setSubmitted:(b:boolean)=>void,score:number,onSubmit:()=>void}){const next=Object.keys(answers).length;return <div className="interactive-tool quiz-tool"><div className="tool-head"><span>QUICK QUIZ</span><b>{submitted?`${score}/${data.length} correct`:`${next}/${data.length} answered`}</b></div>{data.map((item,i)=><div className="question" key={item.q}><p><b>{i+1}.</b> {item.q}</p><div>{item.options.map((option,j)=><button disabled={submitted} onClick={()=>setAnswers({...answers,[i]:j})} className={`${answers[i]===j?'chosen':''} ${submitted&&j===item.answer?'correct':''} ${submitted&&answers[i]===j&&j!==item.answer?'wrong':''}`} key={option}>{option}</button>)}</div>{submitted&&<small>{item.explain}</small>}</div>)}{!submitted?<button className="submit-quiz" disabled={Object.keys(answers).length<data.length} onClick={()=>{setSubmitted(true);onSubmit()}}>Submit answers</button>:<div className="result-box"><strong>{score/data.length>=.8?'🏆 Level cleared!':'↺ Good first run'}</strong><p>{score/data.length>=.8?'You reached the 80% mastery target.':'Review the explanations, then try again.'}</p>{score<data.length&&<button onClick={()=>{setAnswers({});setSubmitted(false)}}>Retry quiz</button>}</div>}</div>}
 
