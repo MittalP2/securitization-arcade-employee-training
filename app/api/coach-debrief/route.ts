@@ -57,13 +57,14 @@ export async function POST(request:Request){
     messages.push(retrievalMessage,{role:'tool',content:JSON.stringify({requestedFocus:cleanStrings(retrieval.args.focus_concepts),approvedContext:input.approvedContext}),tool_calls:undefined,...({tool_call_id:retrieval.call.id} as unknown as object)} as ChatMessage);
 
     stage='choose_learning_action';
-    const decisionMessage=await modelCallWithRetry(apiKey,messages,toolChoice('choose_learning_action'));
-    const decision=firstTool(decisionMessage,'choose_learning_action');
+    messages.push({role:'user',content:'Choose the next learning action. Return JSON only with action (advance, advance_with_review, review_prerequisite, retry_practice, or trainer_handoff), focus_concepts (up to 3), and reason. Base it only on the learner evidence and retrieved approved context.'});
+    const decisionMessage=await modelCallWithRetry(apiKey,messages,'none',false);
+    const decision={args:JSON.parse(decisionMessage.content||'{}') as Record<string,unknown>};
     const allowedActions=['advance','advance_with_review','review_prerequisite','retry_practice','trainer_handoff'];
     const action=allowedActions.includes(String(decision.args.action))?String(decision.args.action):'advance_with_review';
     const focusConcepts=cleanStrings(decision.args.focus_concepts);
     const actionReason=safeText(decision.args.reason,'Continue with a short review of the least secure concept.');
-    messages.push(decisionMessage,{role:'tool',content:JSON.stringify({accepted:true,action,focusConcepts,reason:actionReason}),...({tool_call_id:decision.call.id} as unknown as object)} as ChatMessage);
+    messages.push(decisionMessage);
 
     const finalToolName=action==='trainer_handoff'?'prepare_trainer_handoff':'update_review_queue';
     stage=finalToolName;
