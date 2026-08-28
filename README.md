@@ -96,17 +96,48 @@ The current ABS Suite Sales Enablement citation block is **illustrative**. Live 
 
 The current implementation runs a bounded tool-using Coach workflow through a server-side Fireworks AI model when configured. It calls approved-context retrieval, learning-action selection, review-memory, and trainer-handoff tools in an explicit state sequence; provider calls retry once and fall back to deterministic approved guidance rather than blocking the learner or inventing facts. It does not generate deal-specific financial guidance.
 
-### Learning Coach control flow
+## Architecture and technology stack
 
-```text
-Day mastered + learner reflection
-              ↓
-Read learning evidence → Retrieve approved context → Choose next action
-                                                      ↓
-                         Update review memory OR prepare trainer handoff
-                                                      ↓
-                         Coach Debrief + challenge + visible activity trail
+```mermaid
+flowchart TB
+    GitHub["GitHub<br/>source and curriculum versions"] --> Sites["OpenAI Sites<br/>build and hosting"]
+    Sites --> Web["Study Arcade Web App<br/>Next.js · React · TypeScript"]
+
+    Learner["Learner"] --> Web
+    Trainer["Colleague-trainer"] --> Web
+    Curriculum["Approved course library<br/>32-day curriculum JSON"] --> Web
+    Web <--> State["Device-local learning state<br/>progress · feedback · Coach memory"]
+
+    Web --> CoachAPI["Coach API route<br/>bounded server-side workflow"]
+    CoachAPI --> Fireworks["Fireworks AI<br/>Kimi K2.6"]
+    CoachAPI --> Retrieve["Tool 1 · Retrieve approved context"]
+    CoachAPI --> Decide["Tool 2 · Select learning action"]
+    CoachAPI --> Memory["Tool 3 · Update review queue"]
+    CoachAPI --> Handoff["Tool 4 · Prepare trainer handoff"]
+    Retrieve --> Curriculum
+    Handoff -.->|human reviews; nothing sent automatically| Trainer
+    CoachAPI --> Debrief["Coach Debrief<br/>summary · challenge · next action · activity trail"]
+    Debrief --> Web
+
+    Web --> EmailAPI["Completion-email API route"]
+    EmailAPI -.->|optional when configured| Resend["Resend<br/>completion receipt"]
+
+    Secrets["Protected Sites secrets<br/>Fireworks and Resend API keys"] --> CoachAPI
+    Secrets --> EmailAPI
 ```
+
+| Layer | Technology | Role |
+|---|---|---|
+| Experience | Next.js, React, TypeScript, custom responsive CSS | Lessons, maps, flashcards, quizzes, presentations, feedback, and Coach Debriefs |
+| Hosting | OpenAI Sites | Builds and serves the private web experience and server routes |
+| Approved content | Version-controlled JSON | Stores the 32-day curriculum, definitions, quizzes, prerequisites, and examples |
+| Agent model | Fireworks AI using Kimi K2.6 | Interprets learning evidence, selects the next action, and composes the personalized debrief |
+| Agent control flow | Typed server-side workflow | Runs retrieval → decision → memory or handoff → debrief, with one retry and a safe fallback |
+| Learning state | Browser `localStorage` | Remembers progress, feedback, completed Coach Debriefs, and the review queue on the learner’s device |
+| Email | Resend, optional | Sends a one-time completion receipt when configured; it is not part of the Coach’s reasoning |
+| Source control | GitHub | Stores the application, documentation, and curriculum history |
+
+The current architecture deliberately does not use a vector database, Mem0, Lyzr, or LangGraph. The curriculum is small and structured enough for governed direct retrieval, while the bounded TypeScript workflow makes every decision, write action, retry, and human handoff explicit.
 
 ## Agent decision framework
 
