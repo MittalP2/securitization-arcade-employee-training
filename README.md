@@ -1,12 +1,14 @@
-# Securitization Arcade
+# Study Arcade
+
+## Securitization Fundamentals
 
 **From Loans to Bonds in 30 Days**
 
-Securitization Arcade is an interactive Auto ABS learning experience that turns a technical securitization syllabus into a connected journey of lessons, concept maps, flashcards, quizzes, and applied simulations.
+Study Arcade is an organizational learning platform that turns complex topics into connected onboarding journeys. Its first course, **Securitization Fundamentals**, teaches core securitization concepts through an auto-loan case study using lessons, concept maps, presentations, flashcards, quizzes, and interactive examples.
 
 ## Built for organizational onboarding
 
-Securitization Arcade turns colleague-led training into a structured, measurable, and reusable onboarding journey. It gives trainers a clear teaching path, gives new employees a permanent interactive resource after the session, and can give organizations evidence of understanding through lesson progress, quiz accuracy, applied exercises, and XP-based engagement signals.
+Study Arcade turns colleague-led training into a structured, measurable, and reusable onboarding journey. It gives trainers a clear teaching path, gives new employees a permanent interactive resource after the session, and can give organizations evidence of understanding through lesson progress, quiz accuracy, applied exercises, and XP-based engagement signals.
 
 - **For learners:** prerequisite context, guided lessons, practice, feedback, and a resource that remains available after training.
 - **For trainers:** a consistent scope for what to teach and clear outcomes the learner should be able to demonstrate.
@@ -16,14 +18,14 @@ Securitization Arcade turns colleague-led training into a structured, measurable
 
 ## Product definition
 
-> My agent helps **finance professionals and finance-adjacent learners who are new to securitization** **build a connected understanding of Auto ABS through guided lessons, concept mapping, practice, and knowledge checks** in **the Securitization Arcade web experience**, replacing **the manual process of piecing together presales, legal documents, spreadsheets, videos, and personal notes—which takes hours and leaves major knowledge gaps**. It does **lesson planning, concept explanation, progress-based review, flashcard generation, quiz assessment, and guided deal simulations** on its own using **four tools: the curated course library, knowledge map, assessment engine, and waterfall simulator**, hands off to a human **when a question requires deal-specific judgment, current market interpretation, or legal or investment advice**, and I’ll know it works when **a learner can complete a daily learning mission and accurately explain or apply its main concept** in under **20 minutes** with **at least an 80% quiz and application success rate**.
+> My agent helps **finance professionals and finance-adjacent learners who are new to securitization** **build a connected understanding of securitization fundamentals through guided lessons, concept mapping, practice, and knowledge checks** in **the Study Arcade web experience**, replacing **the manual process of piecing together presentations, documents, spreadsheets, videos, and personal notes—which takes hours and leaves major knowledge gaps**. It does **lesson planning, concept explanation, progress-based review, flashcard practice, quiz assessment, and guided examples** using **the curated course library, Learning Map, assessment engine, and interactive learning tools**, hands off to a human **when a question requires deal-specific judgment, current market interpretation, or legal or investment advice**, and succeeds when **a learner can complete a daily learning mission and accurately explain or apply its main concept** in under **20 minutes** with **at least an 80% quiz and application success rate**.
 
 ## Agent framework
 
 | Field | Definition |
 |---|---|
-| **Agent goal** | Guides finance professionals through a personalized Auto ABS learning journey and helps them accurately explain and apply each concept. |
-| **Where do people use it?** | Learners use it inside the **Securitization Arcade web application** on desktop or mobile, with a presentation mode for team learning sessions. |
+| **Agent goal** | Guides finance professionals through a personalized securitization-fundamentals journey and helps them accurately explain and apply each concept. |
+| **Where do people use it?** | Learners and trainers use it inside the **Study Arcade web application** on desktop or mobile, with a presentation mode for team learning sessions. |
 | **What steps does it take, in order?** | 1. Identifies the learner’s current level and knowledge gaps. 2. Selects and explains the relevant course material. 3. Provides practice, evaluates the response, and recommends the next lesson or review activity. |
 | **What can it actually do?** | **Look up:** retrieve approved lessons and glossary definitions, and inspect prerequisites and learning progress. **Change:** update local progress, generate a review queue, score quizzes, and adjust the recommended learning path—while never altering the approved syllabus. |
 | **What does it need to remember?** | Within a session, it remembers the current question and lesson context; across sessions, it remembers completed lessons, quiz attempts, difficult concepts, flashcard status, and the learner’s current position. |
@@ -44,4 +46,4 @@ The first product draft establishes the three-pane learning workspace, Day 1 exp
 
 ## Live preview
 
-[Open Securitization Arcade](https://securitization-arcade.pulak261.chatgpt.site)
+[Open Study Arcade: Securitization Fundamentals](https://securitization-arcade.pulak261.chatgpt.site)

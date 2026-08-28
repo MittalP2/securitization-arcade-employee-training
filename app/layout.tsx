@@ -13,17 +13,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Securitization Arcade',
-  description: 'From loans to bonds in 30 days — an interactive Auto ABS learning journey.',
+  title: 'Study Arcade · Securitization Fundamentals',
+  description: 'Learn core securitization concepts through a connected 30-day journey using auto loans as a practical case study.',
   openGraph: {
-    title: 'Securitization Arcade',
-    description: 'From Loans to Bonds in 30 Days',
+    title: 'Study Arcade · Securitization Fundamentals',
+    description: 'Learn core concepts through an auto-loan case study.',
     images: [{ url: '/og.png', width: 1536, height: 864 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Securitization Arcade',
-    description: 'From Loans to Bonds in 30 Days',
+    title: 'Study Arcade · Securitization Fundamentals',
+    description: 'Learn core concepts through an auto-loan case study.',
     images: ['/og.png'],
   },
 };
