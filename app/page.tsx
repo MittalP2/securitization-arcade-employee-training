@@ -132,6 +132,13 @@ export default function Home(){
     } catch {}
   },[]);
   useEffect(()=>{
+    const params=new URLSearchParams(window.location.search);
+    if(params.get('tour')==='1'){
+      setTourStep(0);
+      window.history.replaceState({},'',`${window.location.pathname}${window.location.hash}`);
+    }
+  },[]);
+  useEffect(()=>{
     localStorage.setItem('sa-day1-progress',JSON.stringify({completed,mastered,answers,submitted}));
   },[completed,mastered,answers,submitted]);
   useEffect(()=>{try{const saved=localStorage.getItem('sa-demo-progress');if(saved){const d=JSON.parse(saved);setDemoCompleted(d.completed||{});setDemoMastered(d.mastered||{});setDemoAnswers(d.answers||{});setDemoSubmitted(d.submitted||[])}}catch{}},[]);

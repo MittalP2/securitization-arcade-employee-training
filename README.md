@@ -1,4 +1,4 @@
-> 🎮 **[Take the live Study Arcade tour](https://securitization-arcade.pulak261.chatgpt.site)** — explore the current **Securitization Fundamentals** topic and select **Take a tour** to see how the platform works.
+> 🎮 **[Take the live Study Arcade tour](https://securitization-arcade.pulak261.chatgpt.site/?tour=1)** — the guided walkthrough starts automatically and introduces the current **Securitization Fundamentals** topic.
 
 # Study Arcade
 
