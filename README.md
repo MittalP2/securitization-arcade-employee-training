@@ -78,6 +78,7 @@ The first demo implements:
 
 - Interactive learning experiences for **Days 1–4**
 - A visible **Learning Library** that separates the Study Arcade platform from shared foundations and role-specific paths
+- An illustrative citation block for **ABS Suite: Sales Enablement**, showing how approved internal sources and freshness metadata could appear
 - The complete **32-day Learning Map** with phases and prerequisite connections
 - Daily lessons, contextual examples, flashcards, quizzes, feedback, and an 80% mastery target
 - An intelligent **Day Debrief** that captures clarity, confidence, improvement requests, and optional comments, then recommends a useful next action
