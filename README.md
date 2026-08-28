@@ -46,6 +46,7 @@ Future topics can have different durations, sources, examples, learning maps, an
 - Connected lesson sections with plain-English explanations, technical mechanics, examples, and applied labs or decision scenarios
 - Five **flashcards** and five-question **knowledge checks** for every day
 - An **80% quiz mastery target**, XP, persistent progress, and a green completion tick for mastered days
+- A one-time **email completion receipt** when a learner first masters a day, summarizing quiz score, XP, and the next lesson
 - A **Day Debrief** capturing clarity, confidence, improvement requests, and optional comments, followed by a recommended next action
 - **Present Day** mode for colleague-led training and later employee review
 - An 11-step **Take a tour** walkthrough
@@ -54,6 +55,8 @@ Future topics can have different durations, sources, examples, learning maps, an
 - Responsive desktop and mobile behavior
 
 Progress and feedback are currently saved on the learner’s device. Resetting a day removes that day’s lesson progress, cards, quiz state, completion tick, and feedback. Central learner accounts, secure cross-device records, and trainer dashboards are not yet implemented.
+
+Completion emails use a server-side Resend integration, so the API key is never exposed in the browser or committed to GitHub. The quick-demo sender can deliver only to the email address associated with the Resend account; organization-wide delivery will require a verified company sending domain and authenticated learner accounts.
 
 ## Daily learning loop
 

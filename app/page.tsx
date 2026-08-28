@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import days05to13 from './data/days-05-13.json';
 import days14to22 from './data/days-14-22.json';
 import days23to32 from './data/days-23-32.json';
@@ -140,13 +140,17 @@ export default function Home(){
   const [topicOpen,setTopicOpen]=useState(false);
   const [feedbackOpen,setFeedbackOpen]=useState(false);
   const [feedbackByDay,setFeedbackByDay]=useState<Record<number,DayFeedback>>({});
+  const [emailedDays,setEmailedDays]=useState<number[]>([]);
+  const [emailingDay,setEmailingDay]=useState<number|null>(null);
   const [storageReady,setStorageReady]=useState(false);
+  const previousCompletedDays=useRef<Set<number>|null>(null);
 
   useEffect(()=>{
     const timer=window.setTimeout(()=>{
       try{const saved=localStorage.getItem('sa-day1-progress');if(saved){const data=JSON.parse(saved);setCompleted(data.completed||[]);setMastered(data.mastered||[]);setAnswers(data.answers||{});setSubmitted(!!data.submitted)}}catch{}
       try{const saved=localStorage.getItem('sa-course-progress')||localStorage.getItem('sa-demo-progress');if(saved){const data=JSON.parse(saved);setCourseCompleted(data.completed||{});setCourseMastered(data.mastered||{});setCourseAnswers(data.answers||{});setCourseSubmitted(data.submitted||[])}}catch{}
       try{const saved=localStorage.getItem('sa-day-feedback');if(saved)setFeedbackByDay(JSON.parse(saved))}catch{}
+      try{const saved=localStorage.getItem('sa-completion-emails');if(saved)setEmailedDays(JSON.parse(saved))}catch{}
       setStorageReady(true);
     },0);
     return()=>window.clearTimeout(timer);
@@ -160,6 +164,7 @@ export default function Home(){
   },[storageReady,completed,mastered,answers,submitted]);
   useEffect(()=>{if(storageReady){localStorage.setItem('sa-course-progress',JSON.stringify({completed:courseCompleted,mastered:courseMastered,answers:courseAnswers,submitted:courseSubmitted}));localStorage.removeItem('sa-demo-progress')}},[storageReady,courseCompleted,courseMastered,courseAnswers,courseSubmitted]);
   useEffect(()=>{if(storageReady)localStorage.setItem('sa-day-feedback',JSON.stringify(feedbackByDay))},[storageReady,feedbackByDay]);
+  useEffect(()=>{if(storageReady)localStorage.setItem('sa-completion-emails',JSON.stringify(emailedDays))},[storageReady,emailedDays]);
   useEffect(()=>{
     const timer=window.setTimeout(()=>{if(tourStep>=0){const requested=tourSteps[tourStep]?.tool;if(requested)setTool(requested)}},0);
     return()=>window.clearTimeout(timer);
@@ -193,6 +198,24 @@ export default function Home(){
     });
     return days;
   },[completed,mastered,answers,submitted,courseCompleted,courseMastered,courseAnswers,courseSubmitted]);
+  useEffect(()=>{
+    if(!storageReady)return;
+    if(previousCompletedDays.current===null){previousCompletedDays.current=new Set(completedDays);return;}
+    const newlyCompleted=[...completedDays].filter(day=>!previousCompletedDays.current?.has(day)&&!emailedDays.includes(day));
+    previousCompletedDays.current=new Set(completedDays);
+    if(!newlyCompleted.length)return;
+    const day=newlyCompleted[0];
+    const dayQuiz=day===1?quiz:courseDays[day].quiz;
+    const dayAnswers=day===1?answers:(courseAnswers[day]||{});
+    const dayScore=dayQuiz.reduce((sum,item,index)=>sum+(dayAnswers[index]===item.answer?1:0),0);
+    const daySections=day===1?lessonSections.length:courseDays[day].sections.length;
+    const dayXp=daySections*20+(day===1?cards.length:courseDays[day].cards.length)*5+dayScore*10;
+    setEmailingDay(day);
+    fetch('/api/completion-email',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({day,score:dayScore,total:dayQuiz.length,xp:dayXp})})
+      .then(async response=>{if(!response.ok)throw new Error((await response.json().catch(()=>null))?.error||'Email delivery failed');setEmailedDays(current=>current.includes(day)?current:[...current,day]);setNotice(`Day ${day} mastered — completion email sent!`);})
+      .catch(()=>setNotice(`Day ${day} mastered — your email receipt could not be sent yet.`))
+      .finally(()=>setEmailingDay(null));
+  },[storageReady,completedDays,emailedDays,answers,courseAnswers]);
   const phaseIndex=phaseRanges.findIndex(([start,end])=>selectedDay>=start&&selectedDay<=end);
   const [phaseStart,phaseEnd]=phaseRanges[phaseIndex];
   const phaseCompleted=Array.from({length:phaseEnd-phaseStart+1},(_,index)=>phaseStart+index).filter(day=>completedDays.has(day)).length;
@@ -252,7 +275,7 @@ export default function Home(){
         <div data-tour="tool-body">{tool==='map'&&<MapTool day={selectedDay} selected={mapNode} setSelected={setMapNode} openFullMap={()=>setMapOpen(true)}/>}
         {tool==='cards'&&<CardTool data={activeCards} index={cardIndex} setIndex={setCardIndex} flipped={flipped} setFlipped={setFlipped} mastered={activeMastered} setMastered={(next)=>selectedDay===1?setMastered(next):setCourseMastered({...courseMastered,[selectedDay]:next})}/>}
         {tool==='quiz'&&<QuizTool data={activeQuiz} answers={activeAnswers} setAnswers={(next)=>selectedDay===1?setAnswers(next):setCourseAnswers({...courseAnswers,[selectedDay]:next})} submitted={activeSubmitted} setSubmitted={(next)=>selectedDay===1?setSubmitted(next):setCourseSubmitted(next?[...new Set([...courseSubmitted,selectedDay])]:courseSubmitted.filter(d=>d!==selectedDay))} score={score} onSubmit={()=>window.setTimeout(()=>setFeedbackOpen(true),500)}/>}</div>
-        <div className="streak"><span>{progress===100?'🏆':'🔥'}</span><p><b>{progress===100?`Day ${selectedDay} mastered`:'Build your streak'}</b>{progress===100?'You cleared this level.':'Complete the lesson and quiz to light it up.'}</p><strong>{progress===100?`${xp} XP`:`Day ${selectedDay}`}</strong></div>
+        <div className="streak"><span>{progress===100?'🏆':'🔥'}</span><p><b>{progress===100?`Day ${selectedDay} mastered`:'Build your streak'}</b>{progress===100?(emailedDays.includes(selectedDay)?'Completion receipt sent to your inbox.':emailingDay===selectedDay?'Sending your completion receipt…':'You cleared this level.'):'Complete the lesson and quiz to light it up.'}</p><strong>{progress===100?`${xp} XP`:`Day ${selectedDay}`}</strong></div>
       </aside>
     </section>
 
