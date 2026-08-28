@@ -80,6 +80,7 @@ The first demo implements:
 - A visible **Topic Library** that separates the Study Arcade platform from the current subject
 - The complete **32-day Learning Map** with phases and prerequisite connections
 - Daily lessons, contextual examples, flashcards, quizzes, feedback, and an 80% mastery target
+- An intelligent **Day Debrief** that captures clarity, confidence, improvement requests, and optional comments, then recommends a useful next action
 - **Take a tour** product walkthrough
 - **Present Day** trainer mode
 - XP, lesson progress, quiz results, and device-local progress saving
