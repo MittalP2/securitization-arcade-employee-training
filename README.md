@@ -14,6 +14,7 @@ Auto loans are used as a practical example, but the course teaches securitizatio
 - **Present Day** mode for trainer-led sessions and later learner review
 - Day feedback and a Fireworks-powered **Learning Coach Debrief**
 - A Coach activity trail, review queue, quick challenge, and human-reviewed trainer-handoff draft
+- A **Coach Eval Lab** with five fixed scenarios, 15 checks, and an acceptable pass-rate threshold above 85%
 - An 11-step guided product tour
 
 Progress, feedback, quiz results, and Coach Debriefs are stored in the learner's browser. Fireworks does not retain learner history, and there is currently no central employee dashboard or cross-device learner account.
@@ -35,6 +36,8 @@ The Coach helps a learner turn a completed day's quiz and reflection into a grou
 
 The workflow runs server-side using **Fireworks AI with Kimi K2.6**. A failed model stage retries once and then returns a safe, deterministic debrief based on the approved lesson evidence. The Coach never sends the trainer handoff automatically and does not provide deal-specific financial, legal, accounting, rating, or investment advice.
 
+The **Coach Eval Lab** tests the agent—not the employee—across mastery, confidence mismatch, knowledge gaps, human escalation, and prompt-injection resistance. A pass rate **above 85%** is acceptable; 85% or below needs attention.
+
 ## Five-minute demo
 
 1. Open **Current Topic** to explain that Study Arcade is the platform and Securitization Fundamentals is the current topic.
@@ -44,7 +47,8 @@ The workflow runs server-side using **Fireworks AI with Kimi K2.6**. A failed mo
 5. Flip a flashcard and answer a quiz question.
 6. Point out XP, progress, and the green mastery tick.
 7. Open **Give feedback** and generate the Learning Coach Debrief.
-8. Finish with **Present Day** mode.
+8. Open **Coach Evals**, run the suite, and explain the pass rate and 85% threshold.
+9. Finish with **Present Day** mode.
 
 For a live Coach demonstration, prepare Day 1 at 100% without a saved debrief before presenting. Do not reset it immediately before the demo, because reset removes that day's progress, feedback, and debrief from the browser.
 

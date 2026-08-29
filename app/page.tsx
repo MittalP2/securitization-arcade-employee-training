@@ -109,6 +109,8 @@ const tourSteps:TourStep[] = [
 
 type DayFeedback = { clarity:string; confidence:string; improvements:string[]; comment:string; submittedAt:string; quizScore:number; quizTotal:number };
 type CoachDebrief = { mode:'agent'|'fallback'; summary:string; mastered:string[]; growthAreas:string[]; action:'advance'|'advance_with_review'|'review_prerequisite'|'retry_practice'|'trainer_handoff'; actionLabel:string; actionReason:string; challenge:string; reviewQueue:string[]; handoff:{needed:boolean;reason:string;draft:string}; activity:string[] };
+type CoachEvalCheck = {name:string;passed:boolean;detail:string};
+type CoachEvalReport = {passRate:number;acceptable:boolean;threshold:number;rule:string;passed:number;total:number;scenarioCount:number;durationMs:number;generatedAt:string;results:Array<{id:string;name:string;purpose:string;mode:string;action:string;checks:CoachEvalCheck[];passed:number;total:number;latencyMs:number}>};
 
 export default function Home(){
   const [selectedDay,setSelectedDay]=useState(1);
@@ -131,6 +133,7 @@ export default function Home(){
   const [mapOpen,setMapOpen]=useState(false);
   const [topicOpen,setTopicOpen]=useState(false);
   const [feedbackOpen,setFeedbackOpen]=useState(false);
+  const [evalOpen,setEvalOpen]=useState(false);
   const [feedbackByDay,setFeedbackByDay]=useState<Record<number,DayFeedback>>({});
   const [coachByDay,setCoachByDay]=useState<Record<number,CoachDebrief>>({});
   const [storageReady,setStorageReady]=useState(false);
@@ -238,7 +241,7 @@ export default function Home(){
     <header className="topbar">
       <div className="brand-mark" data-tour="brand">SA</div><div className="brand-copy"><strong>Study Arcade</strong><button className="topic-switcher" data-tour="topics" onClick={()=>setTopicOpen(true)}><small>CURRENT TOPIC</small><b>Securitization Fundamentals</b><span>⌄</span></button></div>
       <div className="header-progress" data-tour="progress" aria-label={`${progress}% complete`}><span>DAY {selectedDay} · {progress}% COMPLETE</span><div><i style={{width:`${Math.max(progress,3)}%`}} /></div></div>
-      <button className="tour-button" onClick={()=>setTourStep(0)}>✦ Take a tour</button><button className="present-secondary" data-tour="present" onClick={()=>setPresenting(true)}>▶ Present Day {selectedDay}</button><button className="icon-button" onClick={resetDay} aria-label={`Reset Day ${selectedDay} progress and feedback`} title={`Reset Day ${selectedDay}`}>↺</button><div className="avatar">PM</div>
+      <button className="eval-button" onClick={()=>setEvalOpen(true)}>✓ Coach Evals</button><button className="tour-button" onClick={()=>setTourStep(0)}>✦ Take a tour</button><button className="present-secondary" data-tour="present" onClick={()=>setPresenting(true)}>▶ Present Day {selectedDay}</button><button className="icon-button" onClick={resetDay} aria-label={`Reset Day ${selectedDay} progress and feedback`} title={`Reset Day ${selectedDay}`}>↺</button><div className="avatar">PM</div>
     </header>
 
     {notice&&<button className="toast" onClick={()=>setNotice('')} aria-label="Dismiss message">{notice}<span>×</span></button>}
@@ -263,7 +266,7 @@ export default function Home(){
 
       <aside className="panel studio-panel" data-tour="practice">
         <div className="panel-heading"><div><span className="eyebrow">PRACTICE STUDIO</span><h2>Learn by doing</h2></div><span className="xp">{xp} XP</span></div>
-        <div className="studio-callout"><span>✨</span><p><b>Your Day {selectedDay} toolkit</b>Map the idea, practise recall, then prove it.</p></div>
+        <div className="studio-callout"><span>✨</span><p><b>Your Day {selectedDay} toolkit</b>Practise recall, then prove it.</p></div>
         <div className="studio-tabs" role="tablist">
           <button onClick={()=>setTool('cards')} className={tool==='cards'?'active':''}>▣ Cards</button>
           <button onClick={()=>setTool('quiz')} className={tool==='quiz'?'active':''}>? Quiz</button>
@@ -278,6 +281,7 @@ export default function Home(){
 
     {mapOpen&&<LearningMap selectedDay={selectedDay} completedDays={completedDays} close={()=>setMapOpen(false)} chooseDay={(day)=>{setMapOpen(false);chooseLevel(day-1)}}/>}
     {topicOpen&&<TopicLibrary close={()=>setTopicOpen(false)}/>}
+    {evalOpen&&<CoachEvalLab close={()=>setEvalOpen(false)}/>}
     {feedbackOpen&&<AgentDayDebrief day={selectedDay} score={score} total={activeQuiz.length} mastered={progress===100} initial={feedbackByDay[selectedDay]} coach={coachByDay[selectedDay]} close={()=>setFeedbackOpen(false)} save={(feedback)=>{setFeedbackByDay({...feedbackByDay,[selectedDay]:feedback});setNotice(`Day ${selectedDay} feedback saved — thank you.`)}} generateCoach={generateCoachDebrief} action={(next)=>{setFeedbackOpen(false);if(next==='lesson'){setSection(0);setTool('cards')}if(next==='cards')setTool('cards');if(next==='quiz')setTool('quiz');if(next==='next'&&selectedDay<32){const masteredDay=selectedDay;chooseLevel(selectedDay);setNotice(`Day ${masteredDay} mastered — welcome to Day ${masteredDay+1}.`)}}}/>}
     {tourStep>=0&&<GuidedTour step={tourStep} setStep={setTourStep}/>} 
     {presenting&&<Presentation day={selectedDay} section={section} setSection={setSection} close={()=>setPresenting(false)}/>} 
@@ -322,6 +326,26 @@ function AgentDayDebrief({day,score,total,mastered,initial,coach,close,save,gene
   {stage==='loading'&&<div className="coach-loading"><span>✦</span><h2>Your Learning Coach is connecting the dots…</h2><div><p>✓ Reading today’s learning signals</p><p>✓ Checking approved course context</p><p>○ Choosing the most useful next action</p></div></div>}
   {stage==='result'&&!result&&<div className="debrief-result"><span>↺</span><small>KEEP BUILDING</small><h2>Close the quiz gaps first</h2><p>Review the explanations for missed questions, then retry the knowledge check. Your coach will generate the full debrief after the day reaches 100% mastery.</p><div className="feedback-snapshot"><div><span>CLARITY</span><b>{clarity==='some-gaps'?'Some gaps':clarity==='clear'?'Clear':'Confusing'}</b></div><div><span>CONFIDENCE</span><b>{confidence==='not-yet'?'Not yet':confidence==='with-help'?'With help':'Yes'}</b></div><div><span>QUIZ</span><b>{score}/{total}</b></div></div><button onClick={()=>action('quiz')}>Return to quiz →</button><button className="edit-feedback" onClick={()=>setStage('form')}>Edit feedback</button></div>}
   {stage==='result'&&result&&<div className="coach-result"><div className="coach-badge"><span>✦</span><p><b>{result.mode==='agent'?'AGENT DEBRIEF COMPLETE':'SAFE FALLBACK DEBRIEF'}</b>{result.mode==='agent'?'Built from today’s evidence and approved course material.':'The model was unavailable, so approved deterministic guidance was used.'}</p></div><h2>{result.actionLabel}</h2><p className="coach-summary">{result.summary}</p><div className="coach-insights"><section><span>WHAT LOOKS STRONG</span>{result.mastered.map(item=><p key={item}>✓ {item}</p>)}</section><section><span>KEEP WARM</span>{result.growthAreas.map(item=><p key={item}>↺ {item}</p>)}</section></div><div className="coach-recommendation"><span>MY RECOMMENDATION</span><b>{result.actionReason}</b><p><strong>Quick challenge:</strong> {result.challenge}</p></div>{result.reviewQueue.length>0&&<div className="coach-memory"><span>REVIEW QUEUE SAVED ON THIS DEVICE</span><p>{result.reviewQueue.join(' · ')}</p></div>}<div className="agent-activity"><span>AGENT ACTIVITY</span>{result.activity.map((item,index)=><p key={`${item}-${index}`}>{index<result.activity.length-1?'✓':'●'} {item}</p>)}</div>{result.handoff.needed&&<div className="coach-handoff"><span>HUMAN HANDOFF</span><b>Your coach recommends trainer input.</b><p>{result.handoff.reason}</p><button onClick={()=>setHandoffOpen(!handoffOpen)}>{handoffOpen?'Hide draft':'Review handoff draft'} →</button>{handoffOpen&&<div className="handoff-draft"><p>{result.handoff.draft}</p><button onClick={async()=>{try{await navigator.clipboard.writeText(result.handoff.draft);setCopied(true)}catch{}}}>{copied?'✓ Copied':'Copy—do not send automatically'}</button></div>}</div>}<div className="coach-actions"><button onClick={()=>action(nextAction)}>{result.action==='advance'||result.action==='advance_with_review'?(day<32?`Continue to Day ${day+1}`:'Finish course'):'Follow recommendation'} →</button><button className="edit-feedback" onClick={()=>setStage('form')}>Edit reflection</button></div></div>}
+  </section></div>
+}
+
+function CoachEvalLab({close}:{close:()=>void}){
+  const [status,setStatus]=useState<'idle'|'running'|'complete'|'error'>('idle');
+  const [report,setReport]=useState<CoachEvalReport|null>(null);
+  async function run(){
+    setStatus('running');
+    try{
+      const response=await fetch('/api/coach-evals',{method:'POST'});
+      if(!response.ok)throw new Error('Eval run failed.');
+      setReport(await response.json() as CoachEvalReport);
+      setStatus('complete');
+    }catch{setStatus('error')}
+  }
+  return <div className="eval-layer" role="dialog" aria-modal="true" aria-label="Learning Coach Eval Lab"><button className="eval-backdrop" onClick={close} aria-label="Close Coach Eval Lab"/><section className="eval-lab"><header><div><span className="eyebrow">AGENT QUALITY · NOT EMPLOYEE SCORING</span><h2>Learning Coach Eval Lab</h2><p>Run fixed scenarios through the real Coach workflow and verify action selection, safety, and response quality.</p></div><button onClick={close}>Close ×</button></header>
+  {status==='idle'&&<div className="eval-intro"><span>✓</span><h3>Five scenarios. Fifteen checks.</h3><p>The suite tests mastery, confidence mismatch, knowledge gaps, human escalation, and prompt-injection resistance.</p><div><b>ACCEPTANCE RULE</b><strong>Pass rate must be above 85%</strong><small>85% or below needs attention.</small></div><button onClick={run}>Run Coach Evals →</button></div>}
+  {status==='running'&&<div className="eval-running"><span>⚙</span><h3>Testing the Learning Coach…</h3><p>Running five controlled learner scenarios against approved course context.</p><div><i/><i/><i/><i/><i/></div></div>}
+  {status==='error'&&<div className="eval-intro"><span>!</span><h3>The eval run could not finish</h3><p>The Coach service may be temporarily unavailable. No learner data was used or changed.</p><button onClick={run}>Try again →</button></div>}
+  {status==='complete'&&report&&<div className="eval-report"><div className={`eval-score ${report.acceptable?'acceptable':'needs-attention'}`}><div><strong>{report.passRate}%</strong><span>PASS RATE</span></div><section><small>{report.acceptable?'✓ ACCEPTABLE':'! NEEDS ATTENTION'}</small><h3>{report.passed} of {report.total} checks passed</h3><p>{report.rule}. This evaluates Coach behavior, never employee performance.</p></section><aside><span>{report.scenarioCount}</span><small>SCENARIOS</small><span>{(report.durationMs/1000).toFixed(1)}s</span><small>RUN TIME</small></aside></div><div className="eval-threshold"><span>0%</span><div><i style={{width:`${Math.min(report.passRate,100)}%`}}/><b style={{left:'85%'}}>85%</b></div><span>100%</span></div><div className="eval-results">{report.results.map(result=><article key={result.id}><header><div><span>{result.passed===result.total?'✓':'!'}</span><p><b>{result.name}</b><small>{result.purpose}</small></p></div><strong>{result.passed}/{result.total}</strong></header><div className="eval-meta"><span>{result.mode.toUpperCase()}</span><span>{result.action.replaceAll('_',' ')}</span><span>{(result.latencyMs/1000).toFixed(1)}s</span></div>{result.checks.map(item=><p className={item.passed?'passed':'failed'} key={item.name}><span>{item.passed?'✓':'×'}</span><b>{item.name}</b><small>{item.detail}</small></p>)}</article>)}</div><footer><p>Results are generated from fixed, version-controlled scenarios. Re-runs may use a five-minute cache to control model cost.</p><button onClick={run}>Run again</button></footer></div>}
   </section></div>
 }
 
