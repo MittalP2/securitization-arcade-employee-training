@@ -10,17 +10,16 @@ flowchart TB
     Learner["Learner"] --> Web
     Trainer["Colleague-trainer"] --> Web
     Curriculum["Approved course library<br/>32-level curriculum JSON"] --> Web
-    State["Browser localStorage<br/>progress · feedback · debrief history · review queues"] -->|loads local history| Web
+    State["Browser localStorage<br/>slide progress · quiz attempts · feedback · debrief history"] -->|loads local history| Web
 
     Web --> CoachAPI["Coach API route<br/>bounded server-side workflow"]
     CoachAPI --> Fireworks["Fireworks AI<br/>Kimi K2.6"]
     CoachAPI --> Retrieve["Tool 1 · Retrieve approved context"]
-    CoachAPI --> Decide["Tool 2 · Select learning action"]
-    CoachAPI --> Review["Tool 3 · Prepare review queue"]
-    CoachAPI --> Handoff["Tool 4 · Prepare trainer handoff"]
+    CoachAPI --> Map["Tool 2 · Map missed questions"]
+    CoachAPI --> Explain["Tool 3 · Explain the concept"]
+    CoachAPI --> Example["Tool 4 · Create a practical example"]
     Retrieve --> Curriculum
-    Handoff -.->|human reviews; nothing sent automatically| Trainer
-    CoachAPI --> Evidence["Deterministic evidence mapping<br/>quiz gaps · reflection · prior review"]
+    CoachAPI --> Evidence["Deterministic evidence mapping<br/>submitted answers · quiz gaps"]
     Evidence --> Debrief["Learner-facing Coach Debrief<br/>quiz stats · concept refresh · practical example"]
     Debrief --> Web
     Web -->|saves returned debrief| State

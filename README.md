@@ -10,9 +10,9 @@ Auto loans are used as a practical example, but the course teaches securitizatio
 
 - A complete 32-level syllabus with a Learning Map that shows phases, prerequisites, the current day, and mastered days
 - Daily lessons, five flashcards, five-question quizzes, applied exercises, and answer explanations
-- An 80% mastery target, XP, saved progress, and green completion ticks
+- Slide-based lesson completion, optional practice XP, saved progress, and green completion ticks
 - **Present Day** mode for trainer-led sessions and later learner review
-- Day feedback and a Fireworks-powered **Learning Coach Debrief**
+- Independent day feedback and a Fireworks-powered **Learning Coach Debrief**
 - A learner-focused Coach Debrief with quiz stats, missed-concept reteaching, one practical example, and on-demand alternative examples
 - An 11-step guided product tour
 
@@ -22,16 +22,16 @@ Progress, feedback, quiz results, and Coach Debriefs are stored in the learner's
 
 **Orient → Learn → Connect → Recall → Apply → Check → Reflect → Revisit**
 
-A day reaches 100% when the learner completes every lesson section, masters all five flashcards, and scores at least 80% on the quiz.
+A day reaches 100% when the learner completes every lesson slide. Flashcards, quiz attempts, feedback, and Coach Debrief are independent reinforcement activities; the quiz has no passing-score requirement.
 
 ## Learning Coach
 
-The Coach helps a learner turn a completed day's quiz and reflection into a grounded next step. It uses four bounded tools:
+After any completed quiz attempt, the Coach turns submitted answers into targeted reteaching. Feedback is a separate action and is never required to generate the debrief.
 
-1. Retrieve approved lesson context.
-2. Choose one learning action.
-3. Prepare a device-local review queue.
-4. Draft a trainer handoff for human review when the approved material is insufficient.
+1. Read the submitted quiz evidence.
+2. Map missed questions to approved lesson concepts.
+3. Explain the correct answer with a practical example.
+4. Generate a different example when the learner asks.
 
 The workflow runs server-side using **Fireworks AI with Kimi K2.6**. It maps missed questions to approved lesson concepts, explains the correct answer, creates a practical example, and can generate a different example when the learner asks. A failed model stage retries once; if it still fails, the learner is told that results could not be produced and the incident is recorded in the app-owner logs.
 
@@ -42,11 +42,11 @@ The workflow runs server-side using **Fireworks AI with Kimi K2.6**. It maps mis
 3. Open the **Learning Map** to show phases and prerequisite connections.
 4. Show a lesson's **Builds on → Today → Unlocks** learning thread.
 5. Flip a flashcard and answer a quiz question.
-6. Point out XP, progress, and the green mastery tick.
-7. Open **Give feedback** and generate the Learning Coach Debrief.
-8. Finish with **Present Day** mode.
+6. Point out XP, slide-based progress, and the green completion tick.
+7. Show **Give feedback** and **Coach Debrief** as separate actions.
+8. Finish the lesson after all slides are complete, then open **Present Day** mode.
 
-For a live Coach demonstration, prepare Day 1 at 100% without a saved debrief before presenting. Do not reset it immediately before the demo, because reset removes that day's progress, feedback, and debrief from the browser.
+For a live Coach demonstration, submit the Day 1 quiz without saving a debrief before presenting. Do not reset immediately before the demo, because reset removes that day's progress, feedback, and debrief from the browser.
 
 ## Architecture and technology
 
