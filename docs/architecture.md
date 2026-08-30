@@ -10,9 +10,10 @@ flowchart TB
     Learner["Learner"] --> Web
     Trainer["Colleague-trainer"] --> Web
     Curriculum["Approved course library<br/>32-level curriculum JSON"] --> Web
-    State["Browser localStorage<br/>slide progress · quiz attempts · feedback · debrief history"] -->|loads local history| Web
+    State["Browser localStorage<br/>slide progress · quiz attempts · debrief history"] -->|loads learner history| Web
+    CurriculumFeedback["Device-local curriculum feedback<br/>clarity · usefulness · improvement ideas"] <-->|separate curriculum-improvement loop| Web
 
-    Web --> CoachAPI["Coach API route<br/>bounded server-side workflow"]
+    Web -->|submitted quiz evidence only| CoachAPI["Coach API route<br/>bounded server-side workflow"]
     CoachAPI --> Fireworks["Fireworks AI<br/>Kimi K2.6"]
     CoachAPI --> Retrieve["Tool 1 · Retrieve approved context"]
     CoachAPI --> Map["Tool 2 · Map missed questions"]

@@ -12,11 +12,11 @@ Auto loans are used as a practical example, but the course teaches securitizatio
 - Daily lessons, five flashcards, five-question quizzes, applied exercises, and answer explanations
 - Slide-based lesson completion, optional practice XP, saved progress, and green completion ticks
 - **Present Day** mode for trainer-led sessions and later learner review
-- Independent day feedback and a Fireworks-powered **Learning Coach Debrief**
+- Independent curriculum feedback and a Fireworks-powered **Learning Coach Debrief**
 - A learner-focused Coach Debrief with quiz stats, missed-concept reteaching, one practical example, and on-demand alternative examples
 - An 11-step guided product tour
 
-Progress, feedback, quiz results, and Coach Debriefs are stored in the learner's browser. Fireworks does not retain learner history, and there is currently no central employee dashboard or cross-device learner account.
+Progress, curriculum feedback, quiz results, and Coach Debriefs are stored in the learner's browser. Curriculum feedback is intended for lesson improvement and is never sent to Fireworks or used by the Coach. There is currently no central employee dashboard or cross-device learner account.
 
 ## Daily learning loop
 
@@ -26,7 +26,7 @@ A day reaches 100% when the learner completes every lesson slide. Flashcards, qu
 
 ## Learning Coach
 
-After any completed quiz attempt, the Coach turns submitted answers into targeted reteaching. Feedback is a separate action and is never required to generate the debrief.
+After any completed quiz attempt, the Coach turns submitted answers into targeted reteaching. Curriculum feedback is a completely separate action: it is for the curriculum developer and is never read by the Coach.
 
 1. Read the submitted quiz evidence.
 2. Map missed questions to approved lesson concepts.
@@ -43,7 +43,7 @@ The workflow runs server-side using **Fireworks AI with Kimi K2.6**. It maps mis
 4. Show a lesson's **Builds on → Today → Unlocks** learning thread.
 5. Flip a flashcard and answer a quiz question.
 6. Point out XP, slide-based progress, and the green completion tick.
-7. Show **Give feedback** and **Coach Debrief** as separate actions.
+7. Show **Lesson Feedback** for the curriculum developer and **Coach Debrief** for learner support as separate actions.
 8. Finish the lesson after all slides are complete, then open **Present Day** mode.
 
 For a live Coach demonstration, submit the Day 1 quiz without saving a debrief before presenting. Do not reset immediately before the demo, because reset removes that day's progress, feedback, and debrief from the browser.
