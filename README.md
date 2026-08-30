@@ -13,7 +13,7 @@ Auto loans are used as a practical example, but the course teaches securitizatio
 - An 80% mastery target, XP, saved progress, and green completion ticks
 - **Present Day** mode for trainer-led sessions and later learner review
 - Day feedback and a Fireworks-powered **Learning Coach Debrief**
-- A Coach activity trail, review queue, quick challenge, and human-reviewed trainer-handoff draft
+- A learner-focused coaching plan with strengths, concepts to revisit, a quick challenge, and trainer support when needed
 - A **Coach Eval Lab** with five fixed scenarios, 15 checks, and an acceptable pass-rate threshold above 85%
 - An 11-step guided product tour
 

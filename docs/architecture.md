@@ -20,7 +20,7 @@ flowchart TB
     CoachAPI --> Handoff["Tool 4 · Prepare trainer handoff"]
     Retrieve --> Curriculum
     Handoff -.->|human reviews; nothing sent automatically| Trainer
-    CoachAPI --> Debrief["Coach Debrief<br/>summary · challenge · next action · activity trail"]
+    CoachAPI --> Debrief["Learner-facing Coach Debrief<br/>strengths · concepts to revisit · challenge · next action"]
     Debrief --> Web
     Web -->|saves returned debrief| State
 
