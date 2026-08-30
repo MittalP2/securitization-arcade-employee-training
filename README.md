@@ -13,7 +13,7 @@ Auto loans are used as a practical example, but the course teaches securitizatio
 - An 80% mastery target, XP, saved progress, and green completion ticks
 - **Present Day** mode for trainer-led sessions and later learner review
 - Day feedback and a Fireworks-powered **Learning Coach Debrief**
-- A learner-focused coaching plan with strengths, concepts to revisit, a quick challenge, and trainer support when needed
+- An explainable coaching report linking quiz and reflection evidence to two concepts for tomorrow’s revision
 - A **Coach Eval Lab** with five fixed scenarios, 15 checks, and an acceptable pass-rate threshold above 85%
 - An 11-step guided product tour
 
@@ -34,7 +34,7 @@ The Coach helps a learner turn a completed day's quiz and reflection into a grou
 3. Prepare a device-local review queue.
 4. Draft a trainer handoff for human review when the approved material is insufficient.
 
-The workflow runs server-side using **Fireworks AI with Kimi K2.6**. A failed model stage retries once and then returns a safe, deterministic debrief based on the approved lesson evidence. The Coach never sends the trainer handoff automatically and does not provide deal-specific financial, legal, accounting, rating, or investment advice.
+The workflow runs server-side using **Fireworks AI with Kimi K2.6**. A failed model stage retries once; if it still fails, the learner is told that results could not be produced and the incident is recorded in the app-owner logs. The Coach never invents a fallback recommendation, sends a trainer handoff automatically, or provides deal-specific financial, legal, accounting, rating, or investment advice.
 
 The **Coach Eval Lab** tests the agent—not the employee—across mastery, confidence mismatch, knowledge gaps, human escalation, and prompt-injection resistance. A pass rate **above 85%** is acceptable; 85% or below needs attention.
 
