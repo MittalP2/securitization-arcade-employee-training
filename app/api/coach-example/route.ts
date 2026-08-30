@@ -8,7 +8,7 @@ function failure(stage:string){
 }
 
 async function generate(apiKey:string,input:ExampleInput){
-  const response=await fetch('https://api.fireworks.ai/inference/v1/chat/completions',{method:'POST',headers:{Authorization:`Bearer ${apiKey}`,'Content-Type':'application/json'},body:JSON.stringify({model:process.env.FIREWORKS_MODEL||'accounts/fireworks/models/kimi-k2p6',temperature:.2,max_tokens:260,response_format:{type:'json_object'},messages:[
+  const response=await fetch('https://api.fireworks.ai/inference/v1/chat/completions',{method:'POST',headers:{Authorization:`Bearer ${apiKey}`,'Content-Type':'application/json'},body:JSON.stringify({model:process.env.FIREWORKS_MODEL||'accounts/fireworks/models/kimi-k2p6',temperature:.2,max_tokens:500,reasoning_effort:'none',response_format:{type:'json_object'},messages:[
     {role:'system',content:'You are Study Arcade’s bounded Learning Coach. Give one short, concrete teaching example for the supplied concept. Use only the supplied definition and approved quiz explanation. Make it different from previous examples. Do not provide deal-specific financial, legal, accounting, rating, or investment advice. Return JSON with one field: example.'},
     {role:'user',content:JSON.stringify(input)}
   ]})});

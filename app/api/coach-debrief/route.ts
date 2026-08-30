@@ -49,7 +49,7 @@ function buildEvidenceReport(input:AgentInput){
   return {quiz:{score:input.score,total:input.total,missed},reflection:{clarity:input.feedback.clarity,confidence:input.feedback.confidence},priorReviewCount:input.previousMemory.reduce((sum,item)=>sum+item.reviewQueue.length,0),reviseTomorrow};
 }
 async function modelCall(apiKey:string,messages:ChatMessage[],toolChoice:unknown,includeTools=true){
-  const response=await fetch('https://api.fireworks.ai/inference/v1/chat/completions',{method:'POST',headers:{'Authorization':`Bearer ${apiKey}`,'Content-Type':'application/json'},body:JSON.stringify({model:process.env.FIREWORKS_MODEL||'accounts/fireworks/models/kimi-k2p6',messages,temperature:.1,max_tokens:900,tools:includeTools?tools:undefined,tool_choice:toolChoice,response_format:includeTools?undefined:{type:'json_object'}})});
+  const response=await fetch('https://api.fireworks.ai/inference/v1/chat/completions',{method:'POST',headers:{'Authorization':`Bearer ${apiKey}`,'Content-Type':'application/json'},body:JSON.stringify({model:process.env.FIREWORKS_MODEL||'accounts/fireworks/models/kimi-k2p6',messages,temperature:.1,max_tokens:900,reasoning_effort:'none',tools:includeTools?tools:undefined,tool_choice:toolChoice,response_format:includeTools?undefined:{type:'json_object'}})});
   if(!response.ok)throw new Error(`Provider error ${response.status}`);
   const data=await response.json() as {choices?:Array<{message?:ChatMessage}>};
   const message=data.choices?.[0]?.message;
