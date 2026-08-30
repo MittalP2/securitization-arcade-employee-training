@@ -37,6 +37,8 @@ The workflow runs server-side using **Fireworks AI with Kimi K2.6**. It maps mis
 
 ## Five-minute demo
 
+🎤 **[Open the complete timed demo script](docs/DEMO_SCRIPT.md)**
+
 1. Open **Current Topic** to explain that Study Arcade is the platform and Securitization Fundamentals is the current topic.
 2. Start **Take a tour** and show the guided onboarding.
 3. Open the **Learning Map** to show phases and prerequisite connections.
