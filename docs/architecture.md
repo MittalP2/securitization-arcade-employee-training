@@ -29,11 +29,6 @@ flowchart TB
     ExampleAPI --> Fireworks
     ExampleAPI --> Web
 
-    Web --> EvalAPI["Coach Eval API<br/>5 fixed scenarios · 15 checks"]
-    EvalAPI --> CoachAPI
-    EvalAPI --> Score["Deterministic scoring<br/>pass rate above 85% = acceptable"]
-    Score --> Web
-
     Secrets["Protected Sites secret<br/>Fireworks API key"] --> CoachAPI
 ```
 

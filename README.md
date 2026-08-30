@@ -14,7 +14,6 @@ Auto loans are used as a practical example, but the course teaches securitizatio
 - **Present Day** mode for trainer-led sessions and later learner review
 - Day feedback and a Fireworks-powered **Learning Coach Debrief**
 - A learner-focused Coach Debrief with quiz stats, missed-concept reteaching, one practical example, and on-demand alternative examples
-- A **Coach Eval Lab** with five fixed scenarios, 15 checks, and an acceptable pass-rate threshold above 85%
 - An 11-step guided product tour
 
 Progress, feedback, quiz results, and Coach Debriefs are stored in the learner's browser. Fireworks does not retain learner history, and there is currently no central employee dashboard or cross-device learner account.
@@ -36,8 +35,6 @@ The Coach helps a learner turn a completed day's quiz and reflection into a grou
 
 The workflow runs server-side using **Fireworks AI with Kimi K2.6**. It maps missed questions to approved lesson concepts, explains the correct answer, creates a practical example, and can generate a different example when the learner asks. A failed model stage retries once; if it still fails, the learner is told that results could not be produced and the incident is recorded in the app-owner logs.
 
-The **Coach Eval Lab** tests the agent—not the employee—across mastery, confidence mismatch, knowledge gaps, human escalation, and prompt-injection resistance. A pass rate **above 85%** is acceptable; 85% or below needs attention.
-
 ## Five-minute demo
 
 1. Open **Current Topic** to explain that Study Arcade is the platform and Securitization Fundamentals is the current topic.
@@ -47,8 +44,7 @@ The **Coach Eval Lab** tests the agent—not the employee—across mastery, conf
 5. Flip a flashcard and answer a quiz question.
 6. Point out XP, progress, and the green mastery tick.
 7. Open **Give feedback** and generate the Learning Coach Debrief.
-8. Open **Coach Evals**, run the suite, and explain the pass rate and 85% threshold.
-9. Finish with **Present Day** mode.
+8. Finish with **Present Day** mode.
 
 For a live Coach demonstration, prepare Day 1 at 100% without a saved debrief before presenting. Do not reset it immediately before the demo, because reset removes that day's progress, feedback, and debrief from the browser.
 
