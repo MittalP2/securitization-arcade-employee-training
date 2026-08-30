@@ -11,17 +11,17 @@ flowchart TB
     Trainer["Colleague-trainer"] --> Web
     Curriculum["Approved course library<br/>32-level curriculum JSON"] --> Web
     State["Browser localStorage<br/>slide progress · quiz attempts · debrief history"] -->|loads learner history| Web
-    CurriculumFeedback["Device-local curriculum feedback<br/>clarity · usefulness · improvement ideas"] <-->|separate curriculum-improvement loop| Web
+    CurriculumFeedback["Device-local curriculum feedback<br/>clarity · usefulness · improvement ideas<br/>not yet centrally delivered"] <-->|separate curriculum-improvement loop| Web
 
     Web -->|submitted quiz evidence only| CoachAPI["Coach API route<br/>bounded server-side workflow"]
-    CoachAPI --> Fireworks["Fireworks AI<br/>Kimi K2.6"]
-    CoachAPI --> Retrieve["Tool 1 · Retrieve approved context"]
-    CoachAPI --> Map["Tool 2 · Map missed questions"]
-    CoachAPI --> Explain["Tool 3 · Explain the concept"]
-    CoachAPI --> Example["Tool 4 · Create a practical example"]
-    Retrieve --> Curriculum
+    CoachAPI <-->|model calls + bounded tool calls| Fireworks["Fireworks AI<br/>Kimi K2.6"]
     CoachAPI --> Evidence["Deterministic evidence mapping<br/>submitted answers · quiz gaps"]
-    Evidence --> Debrief["Learner-facing Coach Debrief<br/>quiz stats · concept refresh · practical example"]
+    Evidence --> Retrieve["Retrieve approved course context"]
+    Retrieve --> Curriculum
+    Retrieve --> Decide["Choose a learning action"]
+    Decide --> Review["Prepare a local review queue<br/>or trainer handoff draft"]
+    Review --> Compose["Compose grounded reteaching<br/>and one practical example"]
+    Compose --> Debrief["Learner-facing Coach Debrief<br/>quiz stats · concept refresh · practical example"]
     Debrief --> Web
     Web -->|saves returned debrief| State
 

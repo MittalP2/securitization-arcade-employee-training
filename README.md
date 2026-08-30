@@ -22,6 +22,15 @@ Progress, curriculum feedback, quiz results, and Coach Debriefs are stored in th
 
 **Orient → Learn → Connect → Recall → Apply → Check → Reflect → Revisit**
 
+- **Orient:** Understand today’s objective and prerequisites.
+- **Learn:** Study the new concept in simple sections.
+- **Connect:** Link it to earlier and future concepts.
+- **Recall:** Reinforce key ideas with flashcards.
+- **Apply:** Use the concept in a practical scenario.
+- **Check:** Attempt the quiz and review its explanations.
+- **Reflect:** Give the curriculum developer feedback about the lesson’s quality.
+- **Revisit:** Use Coach Debrief to review concepts missed in the quiz.
+
 A day reaches 100% when the learner completes every lesson slide. Flashcards, quiz attempts, feedback, and Coach Debrief are independent reinforcement activities; the quiz has no passing-score requirement.
 
 ## Learning Coach
